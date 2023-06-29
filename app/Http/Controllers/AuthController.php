@@ -26,7 +26,7 @@ class AuthController extends Controller
             if($validator->fails()){
                 return response()->json([
                     'status' => false,
-                    'message' => $validator->errors()
+                    'message' => $validator->errors()->first()
                 ], 401);
             }
 
@@ -64,7 +64,7 @@ class AuthController extends Controller
             if($validator->fails()){
                 return response()->json([
                     'status' => false,
-                    'message' => $validator->errors(),
+                    'message' => $validator->errors()->first(),
                 ], 401);
             }
             $user = User::create([

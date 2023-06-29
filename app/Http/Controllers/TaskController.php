@@ -31,7 +31,7 @@ class TaskController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->first(),
             ], 401);
         }
         $user = Auth::user();
@@ -54,7 +54,7 @@ class TaskController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->first(),
             ], 401);
         }
         $user = Auth::user();
@@ -83,7 +83,7 @@ class TaskController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->first(),
             ], 401);
         }
         $user = Auth::user();
