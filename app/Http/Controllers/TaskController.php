@@ -27,20 +27,19 @@ class TaskController extends Controller
             [
                 'title' => [Rule::requiredIf($request->action == 'create'), 'string', 'max:255'],
                 'description' => ['nullable', 'string'],
-                'task_id' => [Rule::requiredIf($request->action == 'update'), 'numeric'],
+                'id' => [Rule::requiredIf($request->action == 'update'), 'numeric'],
                 'status' => ['nullable','boolean'],
                 
             ]);
 
         if($validator->fails()){
             return response()->json([
-                'status' => false,
                 'message' => $validator->errors()->first(),
             ], 401);
         }
         $user = Auth::user();
         if($request->action == "update"){
-            $task = Task::where('id',$request->task_id)->where('user_id',$user->id)->first();
+            $task = Task::where('id',$request->id)->where('user_id',$user->id)->first();
             if(!$task){
                 return response()->json([
                     'status' => false,
@@ -51,12 +50,12 @@ class TaskController extends Controller
             if($request->status) $task->status = $request->status;
             $task->save();
             return response()->json([
-                'status' => true,
+                'id' => $task->id,
                 'message'=> 'Task Updated'],200);
         }else{
             $task = Task::create(['user_id'=> $user->id,'title'=> $request->title,'description'=> $request->description]);
             return response()->json([
-            'status' => true,
+            'id' => $task->id,
             'message'=> 'Task Created'],200);
         }
         
@@ -67,25 +66,22 @@ class TaskController extends Controller
     {
         $validator = Validator::make($request->all(), 
         [
-            'task_id' => ['required', 'numeric'],
+            'id' => ['required', 'numeric'],
         ]);
 
         if($validator->fails()){
             return response()->json([
-                'status' => false,
                 'message' => $validator->errors()->first(),
             ], 401);
         }
         $user = Auth::user();
-        $task = Task::where('id',$request->task_id)->where('user_id',$user->id)->first();
+        $task = Task::where('id',$request->id)->where('user_id',$user->id)->first();
         if(!$task){
             return response()->json([
-                'status' => false,
                 'message'=> 'Task not found'],401);
         }
         $task->delete();
         return response()->json([
-            'status' => true,
             'message'=> 'Task Deleted'],200);
 
     }
