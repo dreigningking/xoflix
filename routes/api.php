@@ -30,7 +30,6 @@ Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware'=> 'auth:api'],function(){
     Route::get('tasks',[TaskController::class,'index']);
     Route::post('task/store',[TaskController::class,'store']);
-    Route::post('task/update',[TaskController::class,'update']);
     Route::post('task/delete',[TaskController::class,'destroy']);
 });
 

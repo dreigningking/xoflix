@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,8 +25,11 @@ class TaskController extends Controller
     {
         $validator = Validator::make($request->all(), 
             [
-                'title' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string'],
+                'title' => [Rule::requiredIf($request->action == 'create'), 'string', 'max:255'],
+                'description' => ['nullable', 'string'],
+                'task_id' => [Rule::requiredIf($request->action == 'update'), 'numeric'],
+                'status' => ['nullable','boolean'],
+                
             ]);
 
         if($validator->fails()){
@@ -35,43 +39,29 @@ class TaskController extends Controller
             ], 401);
         }
         $user = Auth::user();
-        $task = Task::create(['user_id'=> $user->id,'title'=> $request->title,'description'=> $request->description]);
-        return response()->json([
+        if($request->action == "update"){
+            $task = Task::where('id',$request->task_id)->where('user_id',$user->id)->first();
+            if(!$task){
+                return response()->json([
+                    'status' => false,
+                    'message'=> 'Task not found'],401);
+            }
+            if($request->title) $task->title = $request->title;
+            if($request->description) $task->description = $request->description;
+            if($request->status) $task->status = $request->status;
+            $task->save();
+            return response()->json([
+                'status' => true,
+                'message'=> 'Task Updated'],200);
+        }else{
+            $task = Task::create(['user_id'=> $user->id,'title'=> $request->title,'description'=> $request->description]);
+            return response()->json([
             'status' => true,
             'message'=> 'Task Created'],200);
+        }
+        
     }
 
-    public function update(Request $request)
-    {
-        $validator = Validator::make($request->all(), 
-        [
-            'task_id' => ['required', 'numeric'],
-            'title' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'status' => ['boolean'],
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => false,
-                'message' => $validator->errors()->first(),
-            ], 401);
-        }
-        $user = Auth::user();
-        $task = Task::where('id',$request->task_id)->where('user_id',$user->id)->first();
-        if(!$task){
-            return response()->json([
-                'status' => false,
-                'message'=> 'Task not found'],401);
-        }
-        if($request->title) $task->title = $request->title;
-        if($request->description) $task->description = $request->description;
-        if($request->status) $task->status = $request->status;
-        $task->save();
-        return response()->json([
-            'status' => true,
-            'message'=> 'Task Updated'],200);
-    }
 
     public function destroy(Request $request)
     {
