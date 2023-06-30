@@ -28,8 +28,6 @@ class TaskController extends Controller
                 'title' => [Rule::requiredIf($request->action == 'create'), 'string', 'max:255'],
                 'description' => ['nullable', 'string'],
                 'id' => [Rule::requiredIf($request->action == 'update'), 'numeric'],
-                'status' => ['nullable','boolean'],
-                
             ]);
 
         if($validator->fails()){
@@ -47,7 +45,6 @@ class TaskController extends Controller
             }
             if($request->title) $task->title = $request->title;
             if($request->description) $task->description = $request->description;
-            if($request->status) $task->status = $request->status;
             $task->save();
             return response()->json([
                 'id' => $task->id,
