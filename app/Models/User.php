@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Withdrawal;
+use App\Observers\UserObserver;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,7 @@ class User extends Authenticatable
         'password',
         'role',
         'state',
+        'referred_by'
     ];
 
     /**
@@ -51,6 +53,11 @@ class User extends Authenticatable
     ];
 
     protected $appends = ['name'];
+
+    public static function boot(){
+        parent::boot();
+        parent::observe(new UserObserver);
+    }
 
     public function getNameAttribute(){
         return ucwords($this->firstname.' '.$this->lastname);

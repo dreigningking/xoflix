@@ -7,8 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SupportController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\GuestController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -56,7 +55,7 @@ Route::get('referrals', [HomeController::class, 'index'])->name('referrals');
 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 Route::post('profile', [HomeController::class, 'profile_update'])->name('profile');
 Route::post('password', [HomeController::class, 'password_update'])->name('password_update');
-Route::get('referring/{user}', [LoginController::class, 'referrer'])->name('referring');
+Route::get('referredby/{user}', [RegisterController::class, 'referrer'])->name('referrer');
 Route::post('resolve/account', [PaymentController::class, 'resolve_account'])->name('resolve_account');
 Route::post('assign_trial',[SubscriptionController::class, 'assign_trial'])->name('assign_trial');
 Route::get('subscription',[SubscriptionController::class, 'pricing'])->name('subscription');

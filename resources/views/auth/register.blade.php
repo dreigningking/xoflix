@@ -92,7 +92,9 @@
     <!--begin::Form-->
     <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" action="{{route('register')}}" id="kt_sign_up_form"
         method="post">@csrf
-        <!--begin::Heading-->
+        @if(isset($user))
+        <input type="hidden" name="referrer_id" value="{{$user->id}}">
+        @endif
         <div class="mb-10 text-center">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">

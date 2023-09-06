@@ -459,7 +459,7 @@
                             <div class="d-flex">
                                 <input id="kt_referral_link_input" type="text"
                                     class="form-control form-control-solid me-3 flex-grow-1" name="search"
-                                    value="{{route('referring',$user)}}">
+                                    value="{{route('referrer',$user)}}">
         
                                 <button id="kt_referral_program_link_copy_btn"
                                     class="btn btn-light btn-active-light-primary fw-bold flex-shrink-0"

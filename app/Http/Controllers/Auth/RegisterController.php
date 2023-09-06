@@ -55,7 +55,8 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required','string','confirmed',Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
-            'terms' => ['required','accepted']
+            'terms' => ['required','accepted'],
+            'referrer_id' => ['nullable']
         ]);
     }
 
@@ -72,6 +73,12 @@ class RegisterController extends Controller
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'referred_by' => array_key_exists('referrer_id',$data) ? $data['referrer_id'] : null
         ]);
+    }
+
+
+    public function referrer(User $user = null){
+        return view('auth.register',compact('user'));
     }
 }
