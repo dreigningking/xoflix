@@ -873,44 +873,44 @@
                 }
             });
             console.log('sometimes')
-            // clipboard.on('success', function (e) {
-            //     var checkIcon = button.querySelector('.bi.bi-check');
-            //     var svgIcon = button.querySelector('.svg-icon');
+            clipboard.on('success', function (e) {
+                var checkIcon = button.querySelector('.bi.bi-check');
+                var svgIcon = button.querySelector('.svg-icon');
 
-            //     // Exit check icon when already showing
-            //     if (checkIcon) {
-            //         return;
-            //     }
+                // Exit check icon when already showing
+                if (checkIcon) {
+                    return;
+                }
 
-            //     // Create check icon
-            //     checkIcon = document.createElement('i');
-            //     checkIcon.classList.add('bi');
-            //     checkIcon.classList.add('bi-check');
-            //     checkIcon.classList.add('fs-2x');
+                // Create check icon
+                checkIcon = document.createElement('i');
+                checkIcon.classList.add('bi');
+                checkIcon.classList.add('bi-check');
+                checkIcon.classList.add('fs-2x');
 
-            //     // Append check icon
-            //     button.appendChild(checkIcon);
+                // Append check icon
+                button.appendChild(checkIcon);
 
-            //     // Highlight target
-            //     const classes = ['text-success', 'fw-boldest'];
-            //     target.classList.add(...classes);
+                // Highlight target
+                const classes = ['text-success', 'fw-boldest'];
+                target.classList.add(...classes);
 
-            //     // Hide copy icon
-            //     svgIcon.classList.add('d-none');
+                // Hide copy icon
+                svgIcon.classList.add('d-none');
 
-            //     // Revert button label after 3 seconds
-            //     setTimeout(function () {
-            //         // Remove check icon
-            //         svgIcon.classList.remove('d-none');
+                // Revert button label after 3 seconds
+                setTimeout(function () {
+                    // Remove check icon
+                    svgIcon.classList.remove('d-none');
 
-            //         // Revert icon
-            //         button.removeChild(checkIcon);
+                    // Revert icon
+                    button.removeChild(checkIcon);
 
-            //         // Remove target highlight
-            //         target.classList.remove(...classes);
+                    // Remove target highlight
+                    target.classList.remove(...classes);
 
-            //     }, 3000)
-            // });
+                }, 3000)
+            });
         })
 
         

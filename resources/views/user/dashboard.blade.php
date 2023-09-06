@@ -44,12 +44,13 @@
                                 <div class="card-body px-0 px-md-9">
                                     <!--begin::Table-->
                                     <div class="table-responsive">
-                                        <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+                                        <table class="table align-middle table-bordered table-row-dashed gy-5" id="kt_table_widget_1">
                                             <!--begin::Table body-->
                                             <tbody>
                                                 <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-boldest fs-7 text-uppercase">
-                                                    <th class="min-w-150px">Types</th>
+                                                    <th class="min-w-150px">DETAILS</th>
+                                                    
                                                     <th class="min-w-150px">Start</th>
                                                     <th class="min-w-150px">Expiry</th> 
                                                 </tr>
@@ -57,59 +58,81 @@
                                                     <tr>
                                                         <!--begin::Author=-->
                                                         <td class="">
-                                                            <div class="d-flex align-items-center">
-                                                                <!--begin::Logo-->
-                                                                <div class="symbol symbol-50px me-2">
-                                                                    <span class="symbol-label">
-                                                                        <img alt="" class="w-25px" @if($subscription->type == 'xtream') src="{{asset('media/svg/brand-logos/aven.svg')}}" @else src="{{asset('media/svg/brand-logos/atica.svg')}}" @endif />
-                                                                    </span>
-                                                                </div>
-                                                                <!--end::Logo-->
-                                                                <div class="ps-3">
-                                                                    <a href="#" class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">{{$subscription->type}}</a>
-                                                                    <span class="text-gray-400 fw-bold d-inline">Paid</span>
-                                                                </div>
-                                                            </div>
                                                             <div class="d-flex flex-column">
-                                                                @if($subscription->type == 'xtream')
-                                                                <p class="ps-3 mb-0 d-flex flex-nowrap">
-                                                                    <span class="text-primary fw-bold fs-5">Username: 
-                                                                        <span id="subscription_username_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold">{{$subscription->username}}</span>
-                                                                        <button id="_subscription_username_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_username_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                            <span class="svg-icon svg-icon-2">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                    <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                </svg>
-                                                                            </span>     
-                                                                        </button>
-                                                                    </span> 
-                                                                    <span class="text-primary fw-bold fs-5">Password: 
-                                                                        <span id="subscription_password_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline">{{$subscription->password}}</span>
-                                                                        <button id="_subscription_password_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_password_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                            <span class="svg-icon svg-icon-2">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                    <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                </svg>
-                                                                            </span>     
-                                                                        </button>
-                                                                    </span> 
-                                                                </p>
-                                                                @endif
-                                                                <p class="ps-3 mb-0">
-                                                                    <span id="subscription_link_clipboard{{$subscription->id}}" class="text-primary fw-bold fs-5  mb-1">Url: </span> 
-                                                                    <span class="text-gray-400 fw-bold  d-inline">{{$subscription->link}}</span>
-                                                                    <button id="_subscription_link_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_link_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                        <span class="svg-icon svg-icon-2">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                            </svg>
-                                                                        </span>     
-                                                                    </button>
-                                                                </p>
+                                                                <div class="d-flex align-items-top">
+                                                                    <!--begin::Logo-->
+                                                                    <div class="symbol symbol-50px me-2">
+                                                                        <span class="symbol-label">
+                                                                            <img alt="" class="w-25px" src="{{asset('media/svg/brand-logos/aven.svg')}}" />
+                                                                        </span>
+                                                                    </div>
+                                                                    <!--end::Logo-->
+                                                                    <div class="ps-3">
+                                                                        <p class="ps-3 mb-0 d-flex">
+                                                                            <span class="text-primary fw-bold fs-5">Username: 
+                                                                                <span id="subscription_username_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold">{{$subscription->xtream_username}}</span>
+                                                                                <button id="_subscription_username_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_username_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
+                                                                                    <span class="svg-icon svg-icon-2">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
+                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
+                                                                                        </svg>
+                                                                                    </span>     
+                                                                                </button>
+                                                                            </span> 
+                                                                            <span class="text-primary fw-bold fs-5">Password: 
+                                                                                <span id="subscription_password_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline">{{$subscription->xtream_password}}</span>
+                                                                                <button id="_subscription_password_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_password_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
+                                                                                    <span class="svg-icon svg-icon-2">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
+                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
+                                                                                        </svg>
+                                                                                    </span>     
+                                                                                </button>
+                                                                            </span> 
+                                                                            <span class="text-primary fw-bold fs-5">Url:
+                                                                                <span id="subscription_link1_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline">{{$subscription->xtream_link}} </span> 
+                                                                                <button id="_subscription_link1_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_link1_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
+                                                                                    <span class="svg-icon svg-icon-2">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
+                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
+                                                                                        </svg>
+                                                                                    </span>     
+                                                                                </button>
+                                                                            </span>
+                                                                        </p>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center my-5">
+                                                                    <div class="symbol symbol-50px me-2">
+                                                                        <span class="symbol-label">
+                                                                            <img alt="" class="w-25px" src="{{asset('media/svg/brand-logos/atica.svg')}}" />
+                                                                        </span>
+                                                                    </div>
+                                                                    
+                                                                    <div class="ps-3">
+                                                                        <span class="text-primary fw-bold fs-5">Url:
+                                                                            <span id="subscription_link2_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline"> {{$subscription->m3u_link}}</span>
+                                                                            <button id="_subscription_link2_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_link2_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
+                                                                                <span class="svg-icon svg-icon-2">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                                                        <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
+                                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
+                                                                                    </svg>
+                                                                                </span>     
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            <div>
+
+                                                                </div>
                                                             </div>
+                                                            
+                                                            
                                                         </td>
                                                         <!--end::Author=-->
                                                         <!--begin::Progress=-->
@@ -228,10 +251,11 @@
                                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="subscriptionTable">
                                             <thead>
                                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                                    <th class="w-100px">Type</th>
+                                                    <th class="w-100px">Status</th>
                                                     <th class="min-w-125px">Start</th>
                                                     <th class="min-w-125px">Expiry</th>
-                                                    <th class="min-w-125px">Details</th>
+                                                    <th class="min-w-125px">XTREAM</th>
+                                                    <th class="min-w-125px">M3U</th>
                                                     
                                                     </th>
                                                 </tr>
@@ -241,19 +265,7 @@
                                                 <tr>
         
                                                     <td class="d-flex align-items-center">
-                                                        <!--begin:: Avatar -->
-                                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                            <span class="symbol-label">
-                                                                <img alt="" class="w-25px" @if($subscription->type == 'xtream') src="{{asset('media/svg/brand-logos/aven.svg')}}" @else src="{{asset('media/svg/brand-logos/atica.svg')}}" @endif />
-                                                            </span>
-                                                        </div>
-                                                        <!--end::Avatar-->
-                                                        <!--begin::User details-->
-                                                        <div class="d-flex flex-column">
-                                                            <a href="/ceres-html-pro/?page=apps/user-management/users/view"
-                                                                class="text-gray-800 text-hover-primary mb-1">{{$subscription->type}}</a>
-                                                        </div>
-                                                        <!--begin::User details-->
+                                                        @if($subscription->end_at > now()) Ongoing @else Expired @endif
                                                     </td>
                                                     <td>
                                                         {{$subscription->start_at->format('d M Y h:i A')}}
@@ -262,11 +274,10 @@
                                                         {{$subscription->end_at->format('d M Y h:i A')}}
                                                     </td>
                                                     <td>
-                                                        @if($subscription->type == 'xtream')
-                                                            <span>{{$subscription->username}}|{{$subscription->password}}</span>
-                                                            @endif
-                                                            <span class="d-block">{{$subscription->link}} 
+                                                            <span>Username:{{$subscription->xtream_username}} | Password: {{$subscription->xtream_password}}</span>
+                                                            <span class="d-block"> {{$subscription->xtream_link}}</span>
                                                     </td>
+                                                    <td>{{$subscription->m3u_link}}</td>
                                                 </tr>
                                                 @endforeach
                                                
