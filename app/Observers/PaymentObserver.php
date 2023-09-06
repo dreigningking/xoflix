@@ -34,7 +34,7 @@ class PaymentObserver
                 $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
                 $referrer = User::find($user->referred_by);
                 $bonus = $setting * $payment->amount / 100;
-                $referrer->bonus += $bonus;
+                $referrer->balance += $bonus;
                 $referrer->save();
                 Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
             }
