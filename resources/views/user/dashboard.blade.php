@@ -3,6 +3,58 @@
 <link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
 
 @endpush
+@section('breadcrumb')
+<div id="kt_toolbar_container" class=" container-xxl  d-flex flex-stack flex-wrap">
+        @php
+            $urls = ['dashboard'=> route('dashboard'),'transactions' => route('transactions') ,'notifications'=> route('notifications'),'referrals' => route('referrals'),'withdrawals'=> route('withdrawals'),'freetrials' => route('freetrials')];
+            $current = explode('/',url()->full());
+            $page = $current[count($current) -1];
+            // $page = Object.keys(urls).find(k=>urls[k]===current);
+        @endphp
+    <div class="page-title d-flex flex-column">
+        <!--begin::Title-->
+        <h1 class="d-flex text-white fw-bold fs-2qx my-1 me-5">
+            @if($page != 'dashboard')
+                {{ucwords($page)}} 
+                @else
+                Dashboard
+            @endif
+        </h1>
+        
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-white opacity-75">
+                <a href="/ceres-html-pro/?page=index" class="text-white text-hover-primary">
+                    Home 
+                </a>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            
+            <li class="breadcrumb-item">
+                <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-white opacity-75">
+                {{ucwords($page)}} 
+            </li>
+           
+            <!--end::Item-->
+            
+            
+
+        </ul>
+        <!--end::Breadcrumb-->
+    </div>
+    <!--end::Page title-->
+
+    <!--begin::Actions-->
+    
+    <!--end::Actions-->
+</div>
+@endsection
 @section('main')
 <div class="content flex-row-fluid" id="kt_content">
 

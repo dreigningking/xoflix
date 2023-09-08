@@ -87,16 +87,16 @@
                                         id="#kt_header_menu" data-kt-menu="true">
 
                                         <div class="menu-item me-lg-1">
-                                            <a class="menu-link py-3" href="{{route('dashboard')}}">
+                                            <a class="menu-link py-3" href="{{ route('dashboard') }}">
                                                 <span class="menu-title">Dashboards</span>
                                                 <span class="menu-arrow d-lg-none"></span>
                                             </a>
 
                                         </div>
                                         <div class="menu-item  me-lg-1">
-                                            <a class="menu-link py-3" href="{{route('subscription')}}">
+                                            <a class="menu-link py-3" href="{{ route('subscription') }}">
                                                 <span class="menu-title">Buy Subscription</span>
-                                                
+
                                             </a>
 
                                         </div>
@@ -121,10 +121,10 @@
                                     </div>
                                     <div class="d-md-none menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                                         id="#kt_header_menu" data-kt-menu="true">
-                                        @if(auth()->user()->role == 'user')
-                                        @include('layouts.menu.user_mobile')
-                                        @else 
-                                        @include('layouts.menu.admin_mobile')
+                                        @if (auth()->user()->role == 'user')
+                                            @include('layouts.menu.user_mobile')
+                                        @else
+                                            @include('layouts.menu.admin_mobile')
                                         @endif
 
                                     </div>
@@ -244,13 +244,13 @@
                                                             <!--begin::Code-->
                                                             <span class="w-70px badge badge-light-warning me-4">300
                                                                 WRN
-															</span>
+                                                            </span>
                                                             <!--end::Code-->
                                                             <!--begin::Title-->
                                                             <a href="#"
                                                                 class="text-gray-800 text-hover-primary fw-bold">Search
                                                                 query
-															</a>
+                                                            </a>
                                                             <!--end::Title-->
                                                         </div>
                                                         <!--end::Section-->
@@ -421,7 +421,8 @@
                                                     <!--end::Item-->
                                                 </div>
                                                 <div class="py-3 text-center border-top">
-                                                    <a href="#" class="btn btn-color-gray-600 btn-active-color-primary">View
+                                                    <a href="#"
+                                                        class="btn btn-color-gray-600 btn-active-color-primary">View
                                                         All
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                                         <span class="svg-icon svg-icon-5">
@@ -436,7 +437,7 @@
                                                             </svg>
                                                         </span>
                                                         <!--end::Svg Icon-->
-													</a>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -471,7 +472,7 @@
                                         </div>
                                         <!--end::Menu wrapper-->
                                     </div>
-										
+
                                     <div class="d-flex align-items-center ms-1 ms-lg-3">
                                         <!--begin::Menu wrapper-->
                                         <div class="btn btn-icon btn-custom btn-active-light w-30px h-30px w-md-40px h-md-40px"
@@ -501,7 +502,7 @@
                                             data-kt-menu="true">
                                             <!--begin::Heading-->
                                             <div class="d-flex flex-column flex-center bgi-no-repeat rounded-top px-9 py-10"
-                                                style="background-image:url({{asset('media/patterns/dropdown-header-bg.png')}})">
+                                                style="background-image:url({{ asset('media/patterns/dropdown-header-bg.png') }})">
                                                 <!--begin::Title-->
                                                 <h3 class="text-white fw-bold mb-3">Quick Links</h3>
                                                 <!--end::Title-->
@@ -633,7 +634,9 @@
                                         <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
                                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                             data-kt-menu-placement="bottom-end">
-                                            <div class="symbol-label display-6 bg-light-primary text-primary rounded-circle"> {{auth()->user()->name[0]}} </div>
+                                            <div
+                                                class="symbol-label display-6 bg-light-primary text-primary rounded-circle">
+                                                {{ auth()->user()->name[0] }} </div>
                                         </div>
                                         <!--begin::Menu-->
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -643,16 +646,19 @@
                                                 <div class="menu-content d-flex align-items-center px-3">
                                                     <!--begin::Avatar-->
                                                     <div class="symbol symbol-50px me-5">
-                                                        <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle"> {{auth()->user()->name[0]}} </div>
+                                                        <div
+                                                            class="symbol-label display-1 bg-light-primary text-primary rounded-circle">
+                                                            {{ auth()->user()->name[0] }} </div>
                                                     </div>
                                                     <!--end::Avatar-->
                                                     <!--begin::Username-->
                                                     <div class="d-flex flex-column">
-                                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ucwords(auth()->user()->name)}}
-                                                            
+                                                        <div class="fw-bolder d-flex align-items-center fs-5">
+                                                            {{ ucwords(auth()->user()->name) }}
+
                                                         </div>
                                                         <a href="#"
-                                                            class="fw-bold text-muted text-hover-primary fs-7">{{auth()->user()->email}}</a>
+                                                            class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
                                                     </div>
                                                     <!--end::Username-->
                                                 </div>
@@ -663,26 +669,29 @@
                                             <!--end::Menu separator-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5">
-                                                <a href="{{route('profile')}}" class="menu-link px-5">My Profile</a>
+                                                <a href="{{ route('profile') }}" class="menu-link px-5">My
+                                                    Profile</a>
                                             </div>
-                                            
+
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5">
                                                 {{-- <a href="#" class="menu-link px-5">Sign Out</a> --}}
-                                                <a href="{{ route('logout') }}" class="menu-link px-5" 
+                                                <a href="{{ route('logout') }}" class="menu-link px-5"
                                                     onclick="event.preventDefault(); 
-                                                    document.getElementById('logout-form').submit();">Sign Out</a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    document.getElementById('logout-form').submit();">Sign
+                                                    Out</a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="d-none">
                                                     @csrf
                                                 </form>
                                             </div>
-                                            
+
                                             <!--begin::Menu separator-->
                                             <div class="separator my-2"></div>
                                             <!--end::Menu separator-->
                                             <!--begin::Menu item-->
-                                            
+
                                             <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu-->
@@ -702,7 +711,11 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Toolbar-->
-                <div class="toolbar py-5 py-lg-15"></div>
+                <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+                    <!--begin::Container-->
+                    @yield('breadcrumb')
+                    <!--end::Container-->
+                </div>
                 <!--end::Toolbar-->
                 <!--begin::Container-->
                 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
@@ -731,8 +744,8 @@
         <!--end::Page-->
     </div>
 
-    
-    
+
+
     <div class="modal fade" id="addtrial" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -747,14 +760,14 @@
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <i class="ki-duotone ki-cross fs-1">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
                                 <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
                                     rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
                                 <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                     transform="rotate(45 7.41422 6)" fill="black" />
                             </svg>
-						</i>
+                        </i>
                     </div>
                     <!--end::Close-->
                 </div>
@@ -762,8 +775,9 @@
 
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y mx-1 mx-xl-1">
-                    
-                    <form id="kt_modal_new_card_form" method="POST" action="{{route('admin.trials')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+
+                    <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials') }}"
+                        class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
                         <!--begin::Input group-->
                         <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
@@ -776,17 +790,18 @@
                             {{-- <input type="url" class="form-control form-control-solid" placeholder="https://" name="link" required> --}}
 
                             <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <textarea name="trials" id="trials" class="form-control form-control-lg form-control-solid" rows="8" placeholder="Seperate values on a line with a comma, e.g:&#10;&#10;https://google.com/watch,acdefghijk,qwertyuiop&#10;https://yahoo.com/?username=acdefghijk&password=qwertyuiop"></textarea>
+                                <textarea name="trials" id="trials" class="form-control form-control-lg form-control-solid" rows="8"
+                                    placeholder="Seperate values on a line with a comma, e.g:&#10;&#10;https://google.com/watch,acdefghijk,qwertyuiop&#10;https://yahoo.com/?username=acdefghijk&password=qwertyuiop"></textarea>
                                 <div class="form-text">
                                     Format: Link, Username (optional), Password (optional).
                                 </div>
                             </div>
-                            
+
                         </div>
                         <!--end::Input group-->
 
-                        
-                        
+
+
                         <!--begin::Actions-->
                         <div class="text-center pt-15">
                             <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
@@ -816,8 +831,8 @@
         <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2"
-                    rx="1" transform="rotate(90 13 6)" fill="black" />
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                    transform="rotate(90 13 6)" fill="black" />
                 <path
                     d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                     fill="black" />
@@ -841,22 +856,22 @@
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     <script>
-        
         $('.select-remote').select2({
             width: 'resolve',
             ajax: {
-                url: "{{route('admin.users.paid')}}",
-                dataType: 'json', 
-                cache: true, 
-                data: function (params) {
+                url: "{{ route('admin.users.paid') }}",
+                dataType: 'json',
+                cache: true,
+                data: function(params) {
                     var query = {
                         search: params.term,
                     }
                     return query;
                 },
-                processResults: function (data) {
-                    var data = $.map(data.data, function (obj) {
-                        obj.text = obj.reference+':'+obj.user.name; // replace name with the property used for the text
+                processResults: function(data) {
+                    var data = $.map(data.data, function(obj) {
+                        obj.text = obj.reference + ':' + obj.user
+                        .name; // replace name with the property used for the text
                         return obj;
                     });
                     return {
@@ -865,11 +880,11 @@
                 }
             }
         })
-        
-        $('.copybutton').on('click',function(){
-            
+
+        $('.copybutton').on('click', function() {
+
             const attribute = $(this).attr('data-clipboard-target')
-            const button = document.getElementById('_'+attribute.slice(1))
+            const button = document.getElementById('_' + attribute.slice(1))
             const target = document.getElementById(attribute.slice(1));
             const clipboard = new ClipboardJS(button, {
                 target: target,
@@ -878,7 +893,7 @@
                 }
             });
             console.log('sometimes')
-            clipboard.on('success', function (e) {
+            clipboard.on('success', function(e) {
                 var checkIcon = button.querySelector('.bi.bi-check');
                 var svgIcon = button.querySelector('.svg-icon');
 
@@ -904,7 +919,7 @@
                 svgIcon.classList.add('d-none');
 
                 // Revert button label after 3 seconds
-                setTimeout(function () {
+                setTimeout(function() {
                     // Remove check icon
                     svgIcon.classList.remove('d-none');
 
@@ -917,8 +932,6 @@
                 }, 3000)
             });
         })
-
-        
     </script>
 </body>
 <!--end::Body-->
