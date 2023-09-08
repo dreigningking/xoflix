@@ -121,7 +121,12 @@
                                     </div>
                                     <div class="d-md-none menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                                         id="#kt_header_menu" data-kt-menu="true">
+                                        @if(auth()->user()->role == 'user')
                                         @include('layouts.menu.user_mobile')
+                                        @else 
+                                        @include('layouts.menu.admin_mobile')
+                                        @endif
+
                                     </div>
                                     <!--end::Menu-->
                                 </div>

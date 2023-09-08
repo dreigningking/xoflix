@@ -432,16 +432,63 @@
                     <!--begin::Overview-->
                     <div class="row mb-10">
                         <!--begin::Col-->
-                        <div class="col-xl-6 mb-15 mb-xl-0 pe-5">
-                            <h4 class="mb-0">How to use Referral Program</h4>
-        
-                            <p class="fs-6 fw-semibold text-gray-600 py-4 m-0">
-                                Use images to enhance your post, improve its flow, add humor <br> and
-                                explain complex topics
-                            </p>
-        
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="btn btn-light btn-active-light-primary fw-bold">Get Started</a>
+                        <div class="col-xl-6 mb-15 mb-xl-0 pe-5 d-md-none">
+                            <div class="d-flex  flex-wrap flex-stack">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column flex-grow-1 pe-8">
+                                    <!--begin::Stats-->
+                                    <div class="d-flex flex-wrap">
+                                    <div class="d-flex">
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <span class="fs-4 fw-semibold text-info pb-1 px-2">Subscriptions</span>
+                                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                                <span data-kt-countup="true" data-kt-countup-value="{{$user->activeSubscriptions->count()}}">0</span>
+                                            </span>
+                                        </div>
+                    
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <span class="fs-4 fw-semibold text-primary pb-1 px-2">Referral </span>
+                                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                                <span data-kt-countup="true" data-kt-countup-value="{{$user->referrals->count()}}">0</span>
+                                            </span>
+                                            <!--end::Label-->
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <span class="fs-4 fw-semibold text-info pb-1 px-2">Earnings</span>
+                                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                                ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->earnings->sum('amount')}}">0</span>
+                                            </span>
+                                        </div>
+                                        <!--end::Stat-->
+                    
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            
+                                            <span class="fs-4 fw-semibold text-success pb-1 px-2">Balance</span>
+                                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                                ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->balance}}">0</span>
+                                            </span>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+                    
+                                        <!--begin::Stat-->
+                                        
+                                        <!--end::Stat-->
+                                    </div></div>
+                                    <!--end::Stats-->
+                                </div>
+                                <!--end::Wrapper-->
+                    
+                                <!--begin::Progress-->
+                                
+                                <!--end::Progress-->
+                            </div>
                         </div>
                         <!--end::Col-->
         
