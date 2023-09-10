@@ -136,8 +136,15 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-40px me-3">                                                   
-                                                        <div class="symbol-label display-6 bg-light-primary text-primary rounded-circle"> {{$subscription->user->name[0]}} </div>                                                  
+                                                    <div class="symbol symbol-40px me-3"> 
+                                                        @if($subscription->user->image)
+                                                        <img alt="Pic" src="{{$subscription->user->avatar}}">
+                                                        @else
+                                                        <div class="symbol-label display-6 bg-light-primary text-primary rounded-circle">
+                                                            {{ $subscription->user->name[0] }} 
+                                                        </div>
+                                                        @endif                                              
+                                                                                                          
                                                     </div>
                                                     
                                                     <div class="d-flex justify-content-start flex-column">

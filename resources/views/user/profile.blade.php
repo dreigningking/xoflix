@@ -37,23 +37,23 @@
                             <!--begin::Content-->
                             <div id="kt_account_settings_profile_details">
                                 <!--begin::Form-->
-                                <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="{{route('profile')}}" method="POST">@csrf
+                                <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="{{route('profile')}}" method="POST" enctype="multipart/form-data">@csrf
                                     <!--begin::Card body-->
                                     <div class="card-body border-top p-9">
                                         <!--begin::Input group-->
-                                        {{-- <div class="row mb-6">
+                                        <div class="row mb-6">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
+                                            <label class="col-lg-4 col-form-label text-center text-md-left fw-semibold fs-6">Image</label>
                                             <!--end::Label-->
 
                                             <!--begin::Col-->
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-8 text-center text-md-left">
                                                 <!--begin::Image input-->
                                                 <div class="image-input image-input-outline" data-kt-image-input="true"
                                                     style="background-image: url({{asset('media/svg/avatars/blank.svg')}})">
                                                     <!--begin::Preview existing avatar-->
                                                     <div class="image-input-wrapper w-125px h-125px"
-                                                        style="background-image: url({{asset('media/referrals_files/300-1.jpg')}})">
+                                                        style="background-image: url({{$user->avatar}})">
                                                     </div>
                                                     <!--end::Preview existing avatar-->
 
@@ -67,8 +67,8 @@
                                                               </svg>
                                                         </i>
                                                         <!--begin::Inputs-->
-                                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
-                                                        <input type="hidden" name="avatar_remove">
+                                                        <input type="file" name="image" accept=".png, .jpg, .jpeg">
+                                                        {{-- <input type="hidden" name="avatar_remove"> --}}
                                                         <!--end::Inputs-->
                                                     </label>
                                                     <!--end::Label-->
@@ -97,7 +97,7 @@
                                                 <!--end::Hint-->
                                             </div>
                                             <!--end::Col-->
-                                        </div> --}}
+                                        </div>
                                         <!--end::Input group-->
 
                                         <!--begin::Input group-->

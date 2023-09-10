@@ -30,3 +30,8 @@
         <span class="menu-title">Free Trials</span>
     </a>
 </div>
+<div class="menu-item">
+    <a class="menu-link  py-3" href="{{route('subscription')}}">
+        <span class="menu-title">Subscription</span>
+    </a>
+</div>

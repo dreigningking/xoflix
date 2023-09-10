@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -59,6 +60,12 @@ class HomeController extends Controller
         if($request->filled('bank_code')) $user->bank_code = $request->bank_code;
         if($request->filled('account_number')) $user->account_number = $request->account_number;
         if($request->filled('account_name')) $user->account_name = $request->account_name;
+        if($request->hasFile('image')){
+            if($user->image) Storage::delete('public/users',$user->image);
+            $image = time().'.'.$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs('public/users',$image);
+            $user->image = $image;
+        }
         $user->save();
         return redirect()->back();
     }

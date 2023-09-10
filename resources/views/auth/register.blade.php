@@ -116,8 +116,15 @@
 
         
         <!--end::Separator-->
-
+        @if(isset($user))
         <!--begin::Input group-->
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="form-label fw-bold text-dark fs-6">Referrer</label>
+            <input class="form-control form-control-lg " type="text" value="{{ $user->name }}" readonly>
+            
+        </div>
+        @endif
+
         <div class="row fv-row mb-7 fv-plugins-icon-container">
             <!--begin::Col-->
             <div class="col-xl-6">
@@ -156,7 +163,16 @@
             @enderror
         </div>
         <!--end::Input group-->
-
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="form-label fw-bold text-dark fs-6">Whatsapp Number</label>
+            <input class="form-control form-control-lg " type="text" value="{{ old('whatsapp') }}" name="whatsapp" autocomplete="off">
+            @error('whatsapp')
+            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback d-block">
+                <strong>{{ $message }}</strong>
+            </div>  
+            @enderror
+        </div>
+        
         <!--begin::Input group-->
         <div class="mb-10 fv-row fv-plugins-icon-container">
             <!--begin::Wrapper-->

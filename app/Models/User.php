@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Withdrawal;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,8 @@ class User extends Authenticatable
         'password',
         'role',
         'state',
+        'whatsapp',
+        'image',
         'referred_by'
     ];
 
@@ -54,8 +57,13 @@ class User extends Authenticatable
     protected $appends = ['name'];
 
 
+
     public function getNameAttribute(){
         return ucwords($this->firstname.' '.$this->lastname);
+    }
+
+    public function getAvatarAttribute(){
+        return $this->image ? "storage/users/$this->image" : null;  
     }
 
     public function sluggable(): array

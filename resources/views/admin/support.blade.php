@@ -49,7 +49,7 @@
                                 <!--end::Details-->
                                 <div class="d-flex align-items-center">
                                     <div class="ms-5"><span class="badge badge-sm badge-circle badge-light-success">1</span>
-                                        <a class="fw-bold text-dark" href="{{route('admin.support.chat')}}">
+                                        <a class="fw-bold text-dark" href="{{route('admin.support.show')}}">
                                             Writing headlines for blog posts is much science and probably cool audience ok talk michael is coming
                                         </a>
                                     </div>

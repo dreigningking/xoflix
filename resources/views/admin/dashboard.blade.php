@@ -249,7 +249,14 @@
                                         <div class="d-flex align-items-center">
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-40px symbol-circle me-4">
-                                                <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle"> {{$payment->user->name[0]}} </div>
+                                                @if($payment->user->image)
+                                                <img alt="Pic" src="{{$payment->user->avatar}}">
+                                                @else
+                                                <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle">
+                                                    {{ $payment->user->name[0] }} 
+                                                </div>
+                                                @endif
+                                               
                                             </div>
                                             <!--end::Symbol-->
                                             <!--begin::Title-->
@@ -296,7 +303,14 @@
                                         <div class="d-flex align-items-sm-center mb-7">
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-circle symbol-50px me-5">
-                                                <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle"> {{$withdrawal->user->name[0]}} </div>
+                                                @if($withdrawal->user->image)
+                                                <img alt="Pic" src="{{$withdrawal->user->avatar}}">
+                                                @else
+                                                <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle">
+                                                    {{ $withdrawal->user->name[0] }} 
+                                                </div>
+                                                @endif
+                                                
                                             </div>
                                             <!--end::Symbol-->
                                             <!--begin::Section-->

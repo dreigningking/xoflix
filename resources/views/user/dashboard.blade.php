@@ -25,7 +25,7 @@
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
             <!--begin::Item-->
             <li class="breadcrumb-item text-white opacity-75">
-                <a href="/ceres-html-pro/?page=index" class="text-white text-hover-primary">
+                <a href="{{route('dashboard')}}" class="text-white text-hover-primary">
                     Home 
                 </a>
             </li>
@@ -95,7 +95,96 @@
                                 <!--begin::Body-->
                                 <div class="card-body px-0 px-md-9">
                                     <!--begin::Table-->
-                                    <div class="table-responsive">
+                                    <div class=" pe-md-10 mb-10 mb-md-0">
+                                        @forelse ($user->activeSubscriptions as $subscription)
+                                        <div class="m-0">
+                                            <!--begin::Heading-->
+                                            <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_{{$subscription->id}}">
+                                                <!--begin::Icon-->
+                                                <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
+                                                    <span class="svg-icon toggle-on svg-icon-primary svg-icon-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                                            <rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                                    <span class="svg-icon toggle-off svg-icon-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                                            <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                                            <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                                <!--end::Icon-->
+                                                <!--begin::Title-->
+                                                <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Subscription: {{$subscription->xtream_username}}</h4>
+                                                <!--end::Title-->
+                                            </div>
+                                            <!--end::Heading-->
+                                            <!--begin::Body-->
+                                            <div id="kt_job_{{$subscription->id}}" class="collapse fs-6 ms-1">
+                                                <!--begin::Text-->
+                                                <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
+                                                    <p class="fw-bold text-primary text-center mt-3">XTREAM LINK: </p>
+                                                    <p class="text-center">{{$subscription->xtream_link}} </p>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                <span class="fw-bold text-primary">Username: </span> 
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span>{{$subscription->xtream_username}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="fw-bold text-primary">Password: </span> 
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span>{{$subscription->xtream_password}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </table>
+                                                    
+                                                    <p class="fw-bold text-primary text-center mt-3">M3U LINK: </p>
+                                                    <span class="text-wrap"> {{$subscription->m3u_link}}</span> 
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>
+                                                                <span class="fw-bold text-primary">Expiry: </span> 
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="fw-bold text-primary">Remaining: </span> 
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span>{{$subscription->end_at->diffInDays(now())}} days</span>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </table>
+                                                </div>
+                                                <!--end::Text-->
+                                            </div>
+                                            <div class="separator separator-dashed"></div>
+                                        </div>
+                                        @empty
+                                        <p class="text-center">No Current Subscription</p>
+                                        @endforelse
+                                        
+                                    </div>
+
+                                    <div class="table-responsive d-none d-md-block">
                                         <table class="table align-middle table-bordered table-row-dashed gy-5" id="kt_table_widget_1">
                                             <!--begin::Table body-->
                                             <tbody>
@@ -288,7 +377,7 @@
                                     
                                 </div>
                                 <div class="card-body border">
-                                    <h2 class="mb-9 d-flex justify-content-between">
+                                    <h2 class="mb-9 d-flex flex-column flex-md-row justify-content-between">
                                         <span>History</span>
                                         <div class="d-flex align-items-center position-relative my-1">
                                             <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">

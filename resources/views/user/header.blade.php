@@ -1,8 +1,15 @@
 <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
     <!--begin: Pic-->
-    <div class="me-7 mb-4">
+    <div class="me-7 mb-4 w-100 text-center w-md-auto">
         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-            <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle"> {{$user->name[0]}} </div>
+            @if($user->image)
+            <img alt="Pic" src="{{$user->avatar}}">
+            @else
+            <div class="symbol-label display-1 bg-light-primary text-primary rounded-circle">
+                {{ $user->name[0] }} 
+            </div>
+            @endif
+            
             <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
             </div>
         </div>
@@ -12,7 +19,7 @@
     <!--begin::Info-->
     <div class="flex-grow-1">
         <!--begin::Title-->
-        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+        <div class="d-flex justify-content-center justify-content-lg-between align-items-start flex-wrap mb-2">
             <!--begin::User-->
             <div class="d-flex flex-column">
                 <!--begin::Name-->
@@ -20,28 +27,13 @@
                     <a href="" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
                         {{$user->name}}
                     </a>
-                    {{-- <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                        class="btn btn-sm btn-light-success fw-bold ms-2 fs-8 py-1 px-3"
-                        data-bs-toggle="modal"
-                        data-bs-target="#kt_modal_upgrade_plan">Affilate
-                    </a> --}}
+                    
                 </div>
                 <!--end::Name-->
 
                 <!--begin::Info-->
                 <div class="d-flex flex-wrap fw-semibold fs-6 mb-0 pe-2">
-                    {{-- <a href="#"
-                        class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                        <i class="ki-duotone ki-profile-circle fs-4 me-1"><span
-                                class="path1"></span><span class="path2"></span><span
-                                class="path3"></span></i> Developer
-                    </a>
-                    <a href="#"
-                        class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                        <i class="ki-duotone ki-geolocation fs-4 me-1"><span
-                                class="path1"></span><span class="path2"></span></i> SF,
-                        Bay Area
-                    </a> --}}
+                    
                     <a href="#"
                         class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                         <i class="ki-duotone ki-sms fs-4 me-1">
@@ -63,145 +55,7 @@
 
                 <a href="{{route('profile')}}" class="btn btn-primary me-2 d-none d-md-block">Profile</a>
 
-                <!--begin::Menu-->
-                {{-- <div class="me-0">
-                    <button
-                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-                        data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end">
-                        <i class="ki-solid ki-dots-horizontal fs-2x"></i> </button>
-
-                    <!--begin::Menu 3-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
-                        data-kt-menu="true">
-                        <!--begin::Heading-->
-                        <div class="menu-item px-3">
-                            <div
-                                class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                Payments
-                            </div>
-                        </div>
-                        <!--end::Heading-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="menu-link px-3">
-                                Create Invoice
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="menu-link flex-stack px-3">
-                                Create Payment
-
-                                <span class="ms-2" data-bs-toggle="tooltip"
-                                    aria-label="Specify a target name for future usage and reference"
-                                    data-bs-original-title="Specify a target name for future usage and reference"
-                                    data-kt-initialized="1">
-                                    <i class="ki-duotone ki-information fs-6"><span
-                                            class="path1"></span><span
-                                            class="path2"></span><span
-                                            class="path3"></span></i> </span>
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="menu-link px-3">
-                                Generate Bill
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                            data-kt-menu-placement="right-end">
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="menu-link px-3">
-                                <span class="menu-title">Subscription</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-
-                            <!--begin::Menu sub-->
-                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                        class="menu-link px-3">
-                                        Plans
-                                    </a>
-                                </div>
-                                <!--end::Menu item-->
-
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                        class="menu-link px-3">
-                                        Billing
-                                    </a>
-                                </div>
-                                <!--end::Menu item-->
-
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                        class="menu-link px-3">
-                                        Statements
-                                    </a>
-                                </div>
-                                <!--end::Menu item-->
-
-                                <!--begin::Menu separator-->
-                                <div class="separator my-2"></div>
-                                <!--end::Menu separator-->
-
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <div class="menu-content px-3">
-                                        <!--begin::Switch-->
-                                        <label
-                                            class="form-check form-switch form-check-custom form-check-solid">
-                                            <!--begin::Input-->
-                                            <input
-                                                class="form-check-input w-30px h-20px"
-                                                type="checkbox" value="1"
-                                                checked="checked" name="notifications">
-                                            <!--end::Input-->
-
-                                            <!--end::Label-->
-                                            <span
-                                                class="form-check-label text-muted fs-6">
-                                                Recuring
-                                            </span>
-                                            <!--end::Label-->
-                                        </label>
-                                        <!--end::Switch-->
-                                    </div>
-                                </div>
-                                <!--end::Menu item-->
-                            </div>
-                            <!--end::Menu sub-->
-                        </div>
-                        <!--end::Menu item-->
-
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3 my-1">
-                            <a href="https://preview.keenthemes.com/ceres-html-pro/?page=account/referrals#"
-                                class="menu-link px-3">
-                                Settings
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-                    </div>
-                    <!--end::Menu 3-->
-                </div> --}}
-                <!--end::Menu-->
+                
             </div>
             <!--end::Actions-->
         </div>
@@ -215,7 +69,7 @@
                 <div class="d-flex flex-wrap">
                 <div class="d-flex">
                     <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
                         <span class="fs-4 fw-semibold text-info pb-1 px-2">Subscriptions</span>
                         <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
                             <span data-kt-countup="true" data-kt-countup-value="{{$user->activeSubscriptions->count()}}">0</span>
@@ -223,7 +77,7 @@
                     </div>
 
                     <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
                         <span class="fs-4 fw-semibold text-primary pb-1 px-2">Referral </span>
                         <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
                             <span data-kt-countup="true" data-kt-countup-value="{{$user->referrals->count()}}">0</span>
@@ -233,7 +87,7 @@
                     
                 </div>
                 <div class="d-flex">
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
                         <span class="fs-4 fw-semibold text-info pb-1 px-2">Earnings</span>
                         <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
                             ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->earnings->sum('amount')}}">0</span>
@@ -242,8 +96,7 @@
                     <!--end::Stat-->
 
                     <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                        
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
                         <span class="fs-4 fw-semibold text-success pb-1 px-2">Balance</span>
                         <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
                             ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->balance}}">0</span>
