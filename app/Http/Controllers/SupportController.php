@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('admin.support');
@@ -35,6 +35,9 @@ class SupportController extends Controller
 
     public function user()
     {
+        $user = auth()->user();
+        if($user->role != 'user')
+        return redirect()->route('admin.support');
         return view('user.support');
     }
 

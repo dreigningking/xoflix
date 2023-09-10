@@ -453,7 +453,7 @@
                                     <!--begin::Chat-->
                                     <div class="d-flex align-items-center ms-1 ms-lg-3">
                                         <!--begin::Menu wrapper-->
-                                        <a href="#" class="btn btn-icon btn-custom btn-active-light position-relative w-30px h-30px w-md-40px h-md-40px">
+                                        <a href="{{route('support')}}" class="btn btn-icon btn-custom btn-active-light position-relative w-30px h-30px w-md-40px h-md-40px">
                                             
                                             <i class="ki-duotone ki-message-text-2 fs-1">
                                                 <span class="path1"></span>
