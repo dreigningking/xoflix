@@ -408,6 +408,7 @@
         $('#assign_submit').on('click',function(){
             let trial_id = $('#trial_id').val()
             let user_id = $('#user_id').val()
+            
             $.ajax({
                 type:'POST',
                 dataType: 'json',
@@ -421,10 +422,11 @@
                     // $('.selectuser[data-trial='+trial_id+']').replaceWith("<span>Assigned</span>")
                     $('tr[data-trial='+trial_id+']').fadeOut();
                     $('#selectuser').modal('hide')
+                    console.log('here')
                 },
                 error: function (data, textStatus, errorThrown) {
                     //show error on modal
-                    console.log(data);
+                    console.log('not');
                 },
             });
             

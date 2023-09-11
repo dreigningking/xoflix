@@ -117,10 +117,9 @@ class SubscriptionController extends Controller
 
     public function assign_trial(Request $request)
     {
-        // dd($request->all());
-        Trial::where('id',$request->trial_id)->update(['user_id'=> $request->user_id]);
         
-        return $request->expectsJson ? response()->json(200) : redirect()->back();
+        Trial::where('id',$request->trial_id)->update(['user_id'=> $request->user_id]);
+        return $request->expectsJson() ? response()->json(200) : redirect()->back();
     }
 
     public function share_to_affilate(Request $request)
