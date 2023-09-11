@@ -35,7 +35,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
     Route::get('withdrawals',[WithdrawalController::class, 'index'])->name('withdrawals');
     Route::get('support',[SupportController::class, 'index'])->name('support');
-    Route::get('support/chat',[SupportController::class, 'conversation'])->name('support.show');
+    Route::get('support/{user}',[SupportController::class, 'conversation'])->name('support.show');
     Route::post('support/chat',[SupportController::class, 'reply'])->name('support.reply');
     Route::get('subscriptions',[SubscriptionController::class, 'index'])->name('subscriptions');
     Route::post('subscription',[SubscriptionController::class, 'store'])->name('subscription');

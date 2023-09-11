@@ -63,7 +63,7 @@ class User extends Authenticatable
     }
 
     public function getAvatarAttribute(){
-        return $this->image ? "storage/users/$this->image" : null;  
+        return $this->image ? config('app.url')."/storage/users/$this->image" : null;  
     }
 
     public function sluggable(): array

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Support;
 use Illuminate\Http\Request;
 
 class SupportController extends Controller
@@ -13,13 +15,15 @@ class SupportController extends Controller
     }
     public function index()
     {
-        return view('admin.support');
+        $supports = Support::where('type','sending')->whereNull('read_at')->whereBetween('created_at',[now()->subMonth(),now()])->orderBy('created_at','desc')->get();
+        return view('admin.support',compact('supports'));
     }
 
     
-    public function conversation()
+    public function conversation(User $user)
     {
-        return view('admin.support_chat');
+        $supports = Support::where('user_id',$user->id)->whereBetween('created_at',[now()->subMonth(),now()])->orderBy('created_at','asc')->get();
+        return view('admin.support_chat',compact('supports','user'));
     }
 
     /**
@@ -30,7 +34,8 @@ class SupportController extends Controller
      */
     public function reply(Request $request)
     {
-        //
+        Support::create(['user_id'=> $request->user_id,'message'=> $request->message,'type'=> 'replying']);
+        return response()->json(200);
     }
 
     public function user()
@@ -38,13 +43,16 @@ class SupportController extends Controller
         $user = auth()->user();
         if($user->role != 'user')
         return redirect()->route('admin.support');
-        return view('user.support');
+        $supports = Support::where('user_id',$user->id)->whereBetween('created_at',[now()->subMonth(),now()])->orderBy('created_at','asc')->get();
+        return view('user.support',compact('user','supports'));
     }
 
     
     public function send(Request $request)
     {
-        //
+        $user = auth()->user();
+        Support::create(['user_id'=> $user->id,'message'=> $request->message,'type'=> 'sending']);
+        return response()->json(200);
     }
 
     
