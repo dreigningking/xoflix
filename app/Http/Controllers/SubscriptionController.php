@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\FlutterwaveTrait;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
 use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Http\Traits\FlutterwaveTrait;
 
 class SubscriptionController extends Controller
 {

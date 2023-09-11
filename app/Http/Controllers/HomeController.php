@@ -34,7 +34,9 @@ class HomeController extends Controller
         $three = $settings->firstWhere('name','subscription_3month')->value;
         $six = $settings->firstWhere('name','subscription_6month')->value;
         $twelve = $settings->firstWhere('name','subscription_12month')->value;
-        return view('user.dashboard',compact('user','one','three','six','twelve'));
+        $maximum = $settings->firstWhere('name','maximum_withdrawal')->value;
+        $minimum = $settings->firstWhere('name','minimum_withdrawal')->value;
+        return view('user.dashboard',compact('user','one','three','six','twelve','maximum','minimum'));
     }
 
     public function profile(){

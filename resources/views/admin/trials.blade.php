@@ -400,27 +400,7 @@
 @endsection
 @push('scripts')
     <script>
-        const pasteButton = document.querySelector('#paste-button');
-        pasteButton.addEventListener('click', async () => {
-            try {
-                const text = await navigator.clipboard.readText()
-                $(pasteButton).closest('.input-group').find('input').val(text)
-                //http://uiptv.xyz:80/get.php?username=johndoe&password=J2ddj3J2@dj2&type=m3u_plus&output=ts
-                if(text.indexOf('username') != -1){
-                    text.split("?")[1].split("&").forEach(element => {
-                        if(element.indexOf('username') != -1)
-                        $('#username').val(element.split("=")[1])
-                        if(element.indexOf('password') != -1)
-                        $('#password').val(element.split("=")[1])
-                        if(element.indexOf('type') != -1)
-                        $('#type').val(element.split("=")[1])
-                    });
-                }
-                
-            } catch (error) {
-                console.log('Failed to read clipboard');
-            }
-        });
+        
         $('.selectuser').on('click',function(){
             $('#trial_id').val($(this).attr('data-trial'))
             $('#selectuser').modal('show')

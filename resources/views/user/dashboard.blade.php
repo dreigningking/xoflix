@@ -768,6 +768,7 @@
                 </div>
                 <div class="card-body">
                     <!--begin::Notice-->
+                    @if($user->account_name)
                     <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed  m-6 p-6">
                         <!--begin::Icon-->
                         <i class="ki-duotone ki-bank fs-2tx text-primary me-4"><span
@@ -780,7 +781,7 @@
                                 <h4 class="text-gray-900 fw-bold">Withdraw Your Money to a Bank Account</h4>
         
                                 <div class="fs-6 text-gray-700 pe-7">Withdraw money securily to your bank
-                                    account. Minimum withdrawal amount is ₦2,000 per transaction and maximum of ₦100,000 per transaction.</div>
+                                    account. Minimum withdrawal amount is ₦{{$minimum}} per transaction and maximum of ₦{{$maximum}} per transaction.</div>
                             </div>
                             <!--end::Content-->
         
@@ -792,6 +793,29 @@
                         </div>
                         <!--end::Wrapper-->
                     </div>
+                    @else 
+                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed  m-6 p-6">
+                        <!--begin::Icon-->
+                        <i class="ki-duotone ki-bank fs-2tx text-primary me-4"><span
+                                class="path1"></span><span class="path2"></span></i> <!--end::Icon-->
+        
+                        <!--begin::Wrapper-->
+                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                            <!--begin::Content-->
+                            <div class="mb-3 mb-md-0 fw-semibold">
+                                <h4 class="text-gray-900 fw-bold">Withdraw Your Money to a Bank Account</h4>
+        
+                                <div class="fs-6 text-gray-700 pe-7">You need to setup your bank account to withdraw bonus. You can complete this from your profile</div>
+                            </div>
+                            <!--end::Content-->
+        
+                            <!--begin::Action-->
+                            <a href="{{route('profile')}}" class="btn btn-primary px-6 align-self-center text-nowrap"> Setup Bank Details </a>
+                            <!--end::Action-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    @endif
                     <!--end::Notice-->
                     <div class="table-responsive">
                         <!--begin::Table-->
@@ -949,8 +973,6 @@
                 <div class="modal-header">
                     <!--begin::Modal title-->
                     <h2>Withdraw Bonus</h2>
-                    <!--end::Modal title-->
-
                     <!--begin::Close-->
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <i class="ki-duotone ki-cross fs-1">
@@ -970,16 +992,18 @@
                 <!--begin::Modal body-->
                 <div class="modal-body mx-5 mx-xl-15">
                     <!--begin::Form-->
-                    <form id="kt_withdraw_money_form" method="POST" action="" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+                    <form method="POST" action="{{route('withdrawals.store')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
                         
                         <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                             <!--begin::Label-->
-                            <label class="required fs-6 fw-semibold form-label mb-2">Amount</label>
+                            <label class="required fs-6 fw-semibold form-label mb-2">Amount <span class="small text-muted">(Balance: ₦{{$user->balance}})</span></label>
                             <!--end::Label-->
 
-                            <input type="number" id="amount" name="amount" class="form-control form-control-solid" placeholder="Amount" value="">
-
+                            <input type="number" id="amount" name="amount" max="{{$maximum > $user->balance ? $user->balance : $maximum}}" min="{{$minimum}}" class="form-control form-control-solid" placeholder="Amount">
+                            <div class="form-text">
+                                Minimum Withdrawal: {{$minimum}}, Maximum Withdrawal: {{$maximum > $user->balance ? $user->balance : $maximum}}
+                            </div>
                         </div>
                         
                         <!--begin::Actions-->
@@ -988,7 +1012,7 @@
                                 Discard
                             </button>
 
-                            <button type="button" id="assign_submit" class="btn btn-primary">
+                            <button type="submit" id="assign_submit" class="btn btn-primary">
                                 <span class="indicator-label">
                                     Submit
                                 </span>

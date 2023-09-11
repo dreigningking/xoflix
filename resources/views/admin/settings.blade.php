@@ -117,6 +117,39 @@
                                         <!--end::Col-->
                                     </div>
                                     <!--end::Input group-->
+                                    <div class="row mb-6">
+                                        <!--begin::Label-->
+                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Minimum Withdrawal </label>
+                                        <!--end::Label-->
+
+                                        <!--begin::Col-->
+                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                            <input type="number" name="minimum_withdrawal" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                        placeholder="" value="{{$settings->firstWhere('name','minimum_withdrawal')->value}}">
+                                            
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    
+                                    <div class="row mb-6">
+                                        <!--begin::Label-->
+                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Maximum Withdrawal </label>
+                                        <!--end::Label-->
+
+                                        <!--begin::Col-->
+                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                            <input type="number" name="maximum_withdrawal" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                        placeholder="" value="{{$settings->firstWhere('name','maximum_withdrawal')->value}}">
+                                            
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
 
                                     <div class="row mb-6">
                                         <!--begin::Label-->

@@ -64,15 +64,11 @@ class WithdrawalController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $user = auth()->user();
+        Withdrawal::create(['reference'=> uniqid(),'user_id'=> $user->id,'amount'=> $request->amount]);
+        return redirect()->back();
     }
 
     /**

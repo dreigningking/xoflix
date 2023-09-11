@@ -50,6 +50,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('notifications', [HomeController::class, 'index'])->name('notifications');
 Route::get('withdrawals', [HomeController::class, 'index'])->name('withdrawals');
+Route::post('withdrawals/store', [WithdrawalController::class, 'store'])->name('withdrawals.store');
 Route::get('freetrials', [HomeController::class, 'index'])->name('freetrials');
 Route::get('transactions', [HomeController::class, 'index'])->name('transactions');
 Route::get('referrals', [HomeController::class, 'index'])->name('referrals');
