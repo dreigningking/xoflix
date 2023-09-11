@@ -291,7 +291,7 @@
 
                     <div class="mb-10">
                         <label class="form-label">User</label>
-                        <select name="payment_id" class="form-select form-select-solid select-remote w-100" style="width: 100%" data-dropdown-parent="#newsubsription" data-placeholder="Select an option" data-allow-clear="true">
+                        <select name="payment_id" class="form-select form-select-solid subscriber-remote w-100" style="width: 100%" data-dropdown-parent="#newsubsription" data-placeholder="Select an option" data-allow-clear="true">
                             <option></option>
                             
                         </select>
