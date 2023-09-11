@@ -720,8 +720,7 @@
                 },
                 processResults: function(data) {
                     var data = $.map(data.data, function(obj) {
-                        obj.text = obj.reference + ':' + obj.user
-                            .name; // replace name with the property used for the text
+                        obj.text = obj.name;
                         return obj;
                     });
                     return {

@@ -34,6 +34,7 @@
                                 <th class="min-w-125px">Date</th>
                                 <th class="min-w-125px ps-0">Amount</th>
                                 <th class="min-w-125px ps-0">Status</th>
+                                <th class="min-w-125px ps-0">Action</th>
                             </tr>
                         </thead>
                         <!--end::Thead-->
@@ -48,6 +49,12 @@
                                     <td>₦{{$withdrawal->amount}}</td>
                                     <td @if($withdrawal->status == 'success') class="text-success" @else class="text-warning" @endif >
                                         {{ucwords($withdrawal->status)}}
+                                    </td>
+                                    <td>
+                                        <form id="withdrawal{{$withdrawal->id}}" action="{{route('admin.withdrawals.pay')}}" method="post" onsubmit="return confirm('Are you sure you want to continue?');">@csrf
+                                            <input type="hidden" name="withdrawal_id" value="{{$withdrawal->id}}">
+                                            <button class="btn btn-primary btn-sm">Pay</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty 

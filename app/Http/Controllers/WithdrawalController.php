@@ -50,7 +50,7 @@ class WithdrawalController extends Controller
             }
             
         }
-        
+        $withdrawals = $withdrawals->paginate(50);
         return view('admin.withdrawals',compact('withdrawals','status','name','sortBy'));
     }
 
@@ -71,38 +71,10 @@ class WithdrawalController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    
+    public function pay(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        dd($request->all());
     }
 
     /**
