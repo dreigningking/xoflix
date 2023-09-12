@@ -61,8 +61,34 @@
                                                     </div>
                                                     
                                                     <div class="d-flex justify-content-start flex-column">
-                                                        <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{$user->name}}</a>
-                                                        <span class="text-muted fw-semibold d-block fs-7">{{$user->email}}</span>
+                                                        <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
+                                                            <span class="clipboard_value">{{$user->name}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                            
+                                                        </span>
+                                                        <span class="text-muted fw-semibold d-block fs-7">
+                                                            <span class="clipboard_value">{{$user->email}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                        </span>
+                                                        <span class="text-muted fw-semibold d-block fs-7">
+                                                            <span class="clipboard_value">{{$user->whatsapp}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </td>
