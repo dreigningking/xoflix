@@ -132,14 +132,29 @@
                                                     <!--begin::Text-->
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
                                                         <p class="fw-bold text-primary text-center mt-3">XTREAM LINK: </p>
-                                                        <p class="text-center">{{$subscription->xtream_link}} </p>
+                                                        <p class="text-center">
+                                                            <span class="clipboard_value">{{$subscription->xtream_link}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                            
+                                                        </p>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
                                                                     <span class="fw-bold text-primary">Username: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span>{{$subscription->xtream_username}}</span>
+                                                                    <span class="clipboard_value">{{$subscription->xtream_username}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span> 
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -147,14 +162,28 @@
                                                                     <span class="fw-bold text-primary">Password: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span>{{$subscription->xtream_password}}</span>
+                                                                    <span class="clipboard_value">{{$subscription->xtream_password}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span> 
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                             
                                                         </table>
                                                         
                                                         <p class="fw-bold text-primary text-center mt-3">M3U LINK: </p>
-                                                        <span class="text-wrap"> {{$subscription->m3u_link}}</span> 
+                                                        <span>
+                                                            <span class="text-wrap clipboard_value"> {{$subscription->m3u_link}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                            </button>
+                                                        </span>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -217,7 +246,16 @@
                                                     <!--begin::Text-->
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
                                                         <p class="fw-bold text-primary text-center mt-3">LINK: </p>
-                                                        <p class="text-center">{{$trial->link}} </p>
+                                                        <p class="text-center">
+                                                            <span class="clipboard_value">{{$trial->link}}</span>
+                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                            </button>
+                                                            
+                                                        </p>
                                                         @if($trial->type == "xtream")
                                                         <table class="table">
                                                             <tr>
@@ -225,7 +263,13 @@
                                                                     <span class="fw-bold text-primary">Username: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span>{{$trial->username}}</span>
+                                                                    <span class="clipboard_value">{{$trial->username}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span> 
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -233,7 +277,13 @@
                                                                     <span class="fw-bold text-primary">Password: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span>{{$trial->password}}</span>
+                                                                    <span class="clipboard_value">{{$trial->password}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span> 
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                             
@@ -300,39 +350,33 @@
                                                                     </div>
                                                                     <!--end::Logo-->
                                                                     <div class="ps-3">
-                                                                        <p class="ps-3 mb-0 d-flex">
+                                                                        <p class="ps-3 mb-0 d-flex justify-content-between">
                                                                             <span class="text-primary fw-bold fs-5">Username: 
-                                                                                <span id="subscription_username_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold">{{$subscription->xtream_username}}</span>
-                                                                                <button id="_subscription_username_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_username_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                                    <span class="svg-icon svg-icon-2">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                        </svg>
-                                                                                    </span>     
+                                                                                <span class="text-gray-400 fw-bold clipboard_value">{{$subscription->xtream_username}}</span>
+                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
+                                                                                        Copy
+                                                                                    </span> 
+                                                                                    <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                                                 </button>
                                                                             </span> 
-                                                                            <span class="text-primary fw-bold fs-5">Password: 
-                                                                                <span id="subscription_password_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline">{{$subscription->xtream_password}}</span>
-                                                                                <button id="_subscription_password_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_password_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                                    <span class="svg-icon svg-icon-2">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                        </svg>
-                                                                                    </span>     
+                                                                            <span class="text-primary fw-bold fs-5"> Password: 
+                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->xtream_password}}</span>
+                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
+                                                                                        Copy
+                                                                                    </span>  
+                                                                                    <i class="bi bi-check p-0 check_icon" style="display: none"></i>   
                                                                                 </button>
                                                                             </span> 
                                                                             <span class="text-primary fw-bold fs-5">Url:
-                                                                                <span id="subscription_link1_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline">{{$subscription->xtream_link}} </span> 
-                                                                                <button id="_subscription_link1_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_link1_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                                    <span class="svg-icon svg-icon-2">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                            <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                        </svg>
+                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->xtream_link}} </span> 
+                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
+                                                                                        Copy
                                                                                     </span>     
                                                                                 </button>
+                                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>
                                                                             </span>
                                                                         </p>
                                                                         
@@ -347,14 +391,12 @@
                                                                     
                                                                     <div class="ps-3">
                                                                         <span class="text-primary fw-bold fs-5">Url:
-                                                                            <span id="subscription_link2_clipboard{{$subscription->id}}" class="text-gray-400 fw-bold  d-inline"> {{$subscription->m3u_link}}</span>
-                                                                            <button id="_subscription_link2_clipboard{{$subscription->id}}" data-clipboard-target="#subscription_link2_clipboard{{$subscription->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                                <span class="svg-icon svg-icon-2">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                        <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                                    </svg>
-                                                                                </span>     
+                                                                            <span class="text-gray-400 fw-bold d-inline clipboard_value"> {{$subscription->m3u_link}}</span>
+                                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                                    Copy
+                                                                                </span>   
+                                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>  
                                                                             </button>
                                                                         </span>
                                                                     </div>
@@ -405,39 +447,39 @@
                                                                 @if($trial->type == 'xtream')
                                                                 <p class="ps-3 mb-0 d-flex flex-nowrap">
                                                                     <span class="text-primary fw-bold fs-5">Username: 
-                                                                        <span id="trial_username_clipboard{{$trial->id}}" class="text-gray-400 fw-bold">{{$trial->username}}</span>
-                                                                        <button id="_trial_username_clipboard{{$trial->id}}" data-clipboard-target="#trial_username_clipboard{{$trial->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                            <span class="svg-icon svg-icon-2">
+                                                                        <span class="text-gray-400 fw-bold clipboard_value">{{$trial->username}}</span>
+                                                                        <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                            <span class="svg-icon svg-icon-2 copy_icon">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
                                                                                     <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
                                                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
                                                                                 </svg>
-                                                                            </span>     
+                                                                            </span> 
+                                                                            <i class="bi bi-check p-0 check_icon" style="display: none"></i>     
                                                                         </button>
                                                                     </span> 
                                                                     <span class="text-primary fw-bold fs-5">Password: 
-                                                                        <span id="trial_password_clipboard{{$trial->id}}" class="text-gray-400 fw-bold  d-inline">{{$trial->password}}</span>
-                                                                        <button id="_trial_password_clipboard{{$trial->id}}" data-clipboard-target="#trial_password_clipboard{{$trial->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                            <span class="svg-icon svg-icon-2">
+                                                                        <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->password}}</span>
+                                                                        <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                            <span class="svg-icon svg-icon-2 copy_icon">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
                                                                                     <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
                                                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
                                                                                 </svg>
-                                                                            </span>     
+                                                                            </span>  
+                                                                            <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                                         </button>
                                                                     </span> 
                                                                 </p>
                                                                 @endif
                                                                 <p class="ps-3 mb-0">
-                                                                    <span id="trial_link_clipboard{{$trial->id}}" class="text-primary fw-bold fs-5  mb-1">Url: </span> 
-                                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->link}}</span>
-                                                                    <button id="_trial_link_clipboard{{$trial->id}}" data-clipboard-target="#trial_link_clipboard{{$trial->id}}" class="copybutton btn btn-active-color-primary btn-color-gray-400 pt-0  btn-sm btn-outline-light">
-                                                                        <span class="svg-icon svg-icon-2">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                                                                <path opacity="0.5" d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z" fill="black"></path>
-                                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z" fill="black"></path>
-                                                                            </svg>
-                                                                        </span>     
+                                                                    <span class="text-primary fw-bold fs-5  mb-1">Url: </span> 
+                                                                    <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->link}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span>  
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                                     </button>
                                                                 </p>
                                                             </div>
@@ -731,8 +773,7 @@
                             </h4>
         
                             <p class="fs-6 fw-semibold text-gray-600 py-4 m-0">
-                                Plan your blog post by choosing a topic, creating an outline conduct <br>
-                                research, and checking facts
+                                We believe in the power of word-of-mouth. That's why we're excited to introduce our Referral Program, designed to reward you for spreading the love of our products and services to your friends and family.
                             </p>
         
                             <div class="d-flex">
@@ -753,10 +794,7 @@
         
                     <!--begin::Info-->
                     <p class="fs-5 fw-semibold text-gray-600 py-6">
-                        Writing headlines for blog posts is as much an art as it is a science, and probably
-                        warrants its own post,
-                        but for now, all I’d advise is experimenting with what works for your audience,
-                        especially if it’s not resonating with your audience
+                        Joining our Referral Program is simple, rewarding, and fun. You not only get to enjoy our top-notch products and services but also get paid for sharing them with your network.
                     </p>
                     <!--end::Info-->
         
@@ -1261,7 +1299,7 @@
         let urls = {dashboard:"{{route('dashboard')}}",transactions:"{{route('transactions')}}",notifications:"{{route('notifications')}}",referrals:"{{route('referrals')}}",withdrawals:"{{route('withdrawals')}}",freetrials:"{{route('freetrials')}}"}
         let current = window.location.href;
         let key = Object.keys(urls).find(k=>urls[k]===current);
-        console.log(key)
+        // console.log(key)
         $('.nav-link[href="#' + key + '"]' ).trigger('click');
         $('.nav-link[href="#' + key + '"]' ).addClass('active');
     })

@@ -89,12 +89,13 @@ class SubscriptionController extends Controller
 
     public function trials_store(Request $request)
     {
-        foreach (explode(PHP_EOL,$request->trials) as $trial) {
-            //dd($trial);
-            if(Str::contains($trial, 'username')){
-                $text = explode('?',$trial)[1];
+        // dd($request->all());
+        for($i = 0;$i < count($request->link); $i++){
+            // Trial::create(['username'=> $request->input("username.$i"),'password'=> $request->input("password.$i"),'link'=> $request->input("link.$i"),'type'=> $request->input("username.$i") ? 'xtream': 'm3u_plus']);
+            if(Str::contains($request->input("link.$i"), 'username')){
+                $text = explode('?',$request->input("link.$i"))[1];
                 $values = explode('&',$text);
-                $link = $trial;
+                $link = $request->input("link.$i");
                 foreach($values as $value){
                     if(Str::contains($value, 'username')){
                         $username = explode('=',$value)[1];
@@ -105,19 +106,19 @@ class SubscriptionController extends Controller
                     }
                 } 
             }else{
-                $link = explode(',',$trial)[0];
-                $username = explode(',',$trial)[1];
-                $password = explode(',',$trial)[2];
+                $link = $request->input("link.$i");
+                $username = $request->input("link.$i");
+                $password = $request->input("link.$i");
                 $type = 'xtream'; 
             }
             Trial::create(['username'=> $username,'password'=> $password,'link'=> $link,'type'=> $type]);
         }
+        
         return redirect()->back();
     }
 
     public function assign_trial(Request $request)
     {
-        
         Trial::where('id',$request->trial_id)->update(['user_id'=> $request->user_id]);
         return $request->expectsJson() ? response()->json(200) : redirect()->back();
     }

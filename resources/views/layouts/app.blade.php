@@ -61,7 +61,7 @@
                         <!--end::Heaeder menu toggle-->
                         <!--begin::Header Logo-->
                         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
-                            <a href="../dist/index.html">
+                            <a href="https://xoflix.tv">
                                 <img alt="Logo" src="{{ asset('media/logos/logo.png') }}"
                                     class="h-15px h-lg-50px logo-default" />
                                 <img alt="Logo" src="{{ asset('media/logos/logo.png') }}"
@@ -598,7 +598,7 @@
 
     <div class="modal fade" id="addtrial" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <!--begin::Modal content-->
             <div class="modal-content">
                 <!--begin::Modal header-->
@@ -629,30 +629,41 @@
                     <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials') }}"
                         class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                <span class="required">Paste Trial Codes Line by Line</span>
-                            </label>
-                            <!--end::Label-->
-
-                            {{-- <input type="url" class="form-control form-control-solid" placeholder="https://" name="link" required> --}}
-
-                            <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <textarea name="trials" id="trials" class="form-control form-control-lg form-control-solid" rows="8"
-                                    placeholder="Seperate values on a line with a comma, e.g:&#10;&#10;https://google.com/watch,acdefghijk,qwertyuiop&#10;https://yahoo.com/?username=acdefghijk&password=qwertyuiop"></textarea>
-                                <div class="form-text">
-                                    Format: Link, Username (optional), Password (optional).
+                        <div id="trial_wrapper">
+                            <div class="my-3 row border-bottom reg-cont">
+                                <div class="col-md-4">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <div class="input-group input-group-lg">
+                                            <input type="url" placeholder="Url" name="link[]" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" placeholder="username" name="username[]" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" placeholder="password" name="password[]" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!--end::Input group-->
-
-
-
-                        <!--begin::Actions-->
+                        <div class="add-more m-4">
+                            <a href="javascript:void(0);" class="add-reg"><i class="fa fa-plus-circle"></i> Add New</a>
+                        </div>
                         <div class="text-center pt-15">
                             <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
                                 Discard
@@ -706,6 +717,9 @@
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     <script>
+        $(document).ready(function(){
+            regcontent = $('.reg-cont').last().prop("outerHTML");
+        })
         $('.select-remote').select2({
             width: 'resolve',
             ajax: {
@@ -754,57 +768,105 @@
             }
         })
 
-        $('.copybutton').on('click', function() {
+        // $('.copy_button').on('click', function() {
 
-            const attribute = $(this).attr('data-clipboard-target')
-            const button = document.getElementById('_' + attribute.slice(1))
-            const target = document.getElementById(attribute.slice(1));
-            const clipboard = new ClipboardJS(button, {
-                target: target,
-                text: function() {
-                    return target.innerHTML;
+        //     const attribute = $(this).attr('data-clipboard-target')
+        //     const button = document.getElementById('_' + attribute.slice(1))
+        //     const target = document.getElementById(attribute.slice(1));
+        //     const clipboard = new ClipboardJS(button, {
+        //         target: target,
+        //         text: function() {
+        //             return target.innerHTML;
+        //         }
+        //     });
+        //     console.log('sometimes')
+        //     clipboard.on('success', function(e) {
+        //         var checkIcon = button.querySelector('.bi.bi-check');
+        //         var svgIcon = button.querySelector('.svg-icon');
+
+        //         // Exit check icon when already showing
+        //         if (checkIcon) {
+        //             return;
+        //         }
+
+        //         // Create check icon
+        //         checkIcon = document.createElement('i');
+        //         checkIcon.classList.add('bi');
+        //         checkIcon.classList.add('bi-check');
+        //         checkIcon.classList.add('fs-2x');
+        //         // Append check icon
+        //         button.appendChild(checkIcon);
+
+        //         // Highlight target
+        //         const classes = ['text-success', 'fw-boldest'];
+        //         target.classList.add(...classes);
+
+        //         // Hide copy icon
+        //         svgIcon.classList.add('d-none');
+
+        //         // Revert button label after 3 seconds
+        //         setTimeout(function() {
+        //             // Remove check icon
+        //             svgIcon.classList.remove('d-none');
+
+        //             // Revert icon
+        //             button.removeChild(checkIcon);
+
+        //             // Remove target highlight
+        //             target.classList.remove(...classes);
+
+        //         }, 3000)
+        //     });
+        // })
+
+        pasteButton = document.getElementsByClassName('paste_button');
+        for (var i = 0; i < pasteButton.length; i++) {
+            pasteButton[i].addEventListener('click', async (e) => {
+                let input = e.target.parentElement.querySelector("input")
+                try {
+                    const text = await navigator.clipboard.readText()
+                    input.value = text;
+                }catch (error) {
+                    console.log('Failed to read clipboard');
                 }
-            });
-            console.log('sometimes')
-            clipboard.on('success', function(e) {
-                var checkIcon = button.querySelector('.bi.bi-check');
-                var svgIcon = button.querySelector('.svg-icon');
+            })
+        }
 
-                // Exit check icon when already showing
-                if (checkIcon) {
-                    return;
+        $(document).on('click',".add-reg", function () {
+            $("#trial_wrapper").append(regcontent);
+            for (var i = 0; i < pasteButton.length; i++) {
+                pasteButton[i].addEventListener('click', async (e) => {
+                    let input = e.target.parentElement.querySelector("input")
+                    try {
+                        const text = await navigator.clipboard.readText()
+                        input.value = text;
+                    }catch (error) {
+                        console.log('Failed to read clipboard');
+                    }
+                })
+            }
+            return false;
+        });      
+
+        document.getElementsByClassName('copy_button').forEach(function(el) {
+            // console.log(el.parentElement)
+            el.addEventListener('click', async () => {
+                let clipvalue = el.parentElement.querySelector(".clipboard_value").innerHTML
+                try {
+                    await navigator.clipboard.writeText(clipvalue)
+                    el.querySelector('.copy_icon').style.display = "none";
+                    el.querySelector('.check_icon').style.display = "initial";
+                    setTimeout(function() {
+                        el.querySelector('.copy_icon').style.display = "initial";
+                        el.querySelector('.check_icon').style.display = "none";
+                    }, 3000)
+                }catch (error) {
+                    console.log('Failed to read clipboard');
                 }
-
-                // Create check icon
-                checkIcon = document.createElement('i');
-                checkIcon.classList.add('bi');
-                checkIcon.classList.add('bi-check');
-                checkIcon.classList.add('fs-2x');
-
-                // Append check icon
-                button.appendChild(checkIcon);
-
-                // Highlight target
-                const classes = ['text-success', 'fw-boldest'];
-                target.classList.add(...classes);
-
-                // Hide copy icon
-                svgIcon.classList.add('d-none');
-
-                // Revert button label after 3 seconds
-                setTimeout(function() {
-                    // Remove check icon
-                    svgIcon.classList.remove('d-none');
-
-                    // Revert icon
-                    button.removeChild(checkIcon);
-
-                    // Remove target highlight
-                    target.classList.remove(...classes);
-
-                }, 3000)
             });
         })
+
+        
     </script>
 </body>
 <!--end::Body-->

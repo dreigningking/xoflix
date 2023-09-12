@@ -225,7 +225,7 @@
 
                         <div class="input-group input-group-lg">
                             <input type="url" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                            <span class="input-group-text" id="paste_m3u">Paste</span>
+                            <span class="input-group-text paste_button">Paste</span>
                         </div>
                         
                     </div>
@@ -241,7 +241,7 @@
 
                         <div class="input-group input-group-lg">
                             <input type="url" name="xtream_link" id="xtream_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                            <span class="input-group-text" id="paste_xtream">Paste</span>
+                            <span class="input-group-text paste_button">Paste</span>
                         </div>
                         
                     </div>
@@ -253,7 +253,7 @@
                                 <!--end::Label-->
                                 <div class="input-group input-group-lg">
                                     <input type="text" name="username" id="username" class="form-control form-control-solid" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                    <span class="input-group-text" id="paste_username">Paste</span>
+                                    <span class="input-group-text paste_button">Paste</span>
                                 </div>
         
                             </div>
@@ -265,7 +265,7 @@
                                 <!--end::Label-->
                                 <div class="input-group input-group-lg">
                                     <input type="text" name="password" id="password" class="form-control form-control-solid" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
-                                    <span class="input-group-text" id="paste_password">Paste</span>
+                                    <span class="input-group-text paste_button">Paste</span>
                                 </div>
         
                             </div>
@@ -329,44 +329,4 @@
         
     </script>
 
-    <script>
-        const pasteButton = document.querySelector('#paste_xtream');
-        pasteButton.addEventListener('click', async () => {
-            try {
-                const text1 = await navigator.clipboard.readText()
-                $('#xtream_link').val(text1)     
-                
-            } catch (error) {
-                console.log('Failed to read clipboard');
-            }
-        });
-        const pasteButton2 = document.querySelector('#paste_m3u');
-        pasteButton2.addEventListener('click', async () => {
-            try {
-                const text2 = await navigator.clipboard.readText()
-                $('#m3u_link').val(text2)  
-            }catch (error) {
-                console.log('Failed to read clipboard');
-            }
-        })
-        const pasteUsername = document.querySelector('#paste_username');
-        pasteUsername.addEventListener('click', async () => {
-            try {
-                const text3 = await navigator.clipboard.readText()
-                $('#username').val(text3)  
-            }catch (error) {
-                console.log('Failed to read clipboard');
-            }
-        })
-        const pastePassword = document.querySelector('#paste_password');
-        pastePassword.addEventListener('click', async () => {
-            try {
-                const text4 = await navigator.clipboard.readText()
-                $('#password').val(text4)  
-            }catch (error) {
-                console.log('Failed to read clipboard');
-            }
-        })
-
-    </script>
 @endpush    
