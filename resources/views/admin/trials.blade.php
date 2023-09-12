@@ -130,7 +130,7 @@
                                                 <label class="form-label fs-6 fw-semibold mr-4">Type: </label>
                                                 <div class="d-flex justify-content-between">
                                                     <div class="form-check form-check-sm form-check-custom mx-3">
-                                                        <input class="form-check-input mx-3" name="type[]" @if(in_array('xstream',$type)) checked @endif type="checkbox" value="xstream"> Xtream
+                                                        <input class="form-check-input mx-3" name="type[]" @if(in_array('xtream',$type)) checked @endif type="checkbox" value="xtream"> Xtream
                                                     </div>
                                                     <div class="form-check form-check-sm form-check-custom mx-3">
                                                         <input class="form-check-input mx-3" name="type[]" @if(in_array('m3u_plus',$type)) checked @endif type="checkbox" value="m3u_plus"> M3u

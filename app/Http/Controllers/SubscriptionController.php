@@ -44,7 +44,7 @@ class SubscriptionController extends Controller
     public function trials()
     {
         //dd(request()->all());
-        $type = ['xstream','m3u_plus'];
+        $type = ['xtream','m3u_plus'];
         $expired = false;
         $shared = false;
         $assigned = false;
@@ -108,7 +108,7 @@ class SubscriptionController extends Controller
                 $link = explode(',',$trial)[0];
                 $username = explode(',',$trial)[1];
                 $password = explode(',',$trial)[2];
-                $type = 'xstream'; 
+                $type = 'xtream'; 
             }
             Trial::create(['username'=> $username,'password'=> $password,'link'=> $link,'type'=> $type]);
         }
