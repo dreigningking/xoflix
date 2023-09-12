@@ -157,8 +157,8 @@
                                             <td class="ps-0">{{$subscription->start_at->format('M d,Y')}}</td>
                                             <td class="ps-0">{{$subscription->end_at->format('M d,Y')}}</td>
 
-                                            <td class="text-center"><button
-                                                    class="btn btn-light btn-sm btn-active-light-primary">View</button>
+                                            <td class="text-center">
+                                                <button class="btn btn-light btn-sm btn-active-light-primary">View</button>
                                             </td>
                                         </tr>
                                         @endforeach
