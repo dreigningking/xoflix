@@ -33,6 +33,7 @@ class CheckFailedPaymentsJob implements ShouldQueue
     public function handle()
     {
         $payments = Payment::where('status','pending')->where('created_at','<',now()->subMinutes(15))->get();
+        
         foreach($payments as $payment){
             $details = $this->verifyFlutterWavePayment($payment->reference);
             if(!$details || !$details->status || $details->status != 'success' || !$details->data || $details->data->status != 'successful' || $details->data->amount < $payment->amount){

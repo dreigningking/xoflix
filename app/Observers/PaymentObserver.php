@@ -30,7 +30,7 @@ class PaymentObserver
     {
         if($payment->isDirty('status') && $payment->status == 'success'){
             $user = $payment->user;
-            if($user->payments->count() == 1 && $user->referred_by){
+            if($user->payments->where('status','success')->count() == 1 && $user->referred_by){
                 $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
                 $referrer = User::find($user->referred_by);
                 $bonus = $setting * $payment->amount / 100;
