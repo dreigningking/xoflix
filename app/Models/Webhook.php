@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Webhook extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['service','body'];
 }
