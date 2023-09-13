@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Task;
 use App\Models\Payment;
+use App\Models\Webhook;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+use App\Jobs\WebhookExecutionJob;
+
 use App\Http\Traits\FlutterwaveTrait;
-use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
@@ -97,9 +95,11 @@ class PaymentController extends Controller
     }
 
     
-    public function webhook()
-    {
-        //
+    public function webhook(Request $request){   
+        $result = $request->getContent();
+        $webhook = Webhook::create(['service'=> 'flutterwave','body'=> $result]);
+        WebhookExecutionJob::dispatch($webhook)->delay(now()->addMinutes(5));
+        return response()->json(200);
     }
 
     /**
