@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\TaskController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('webhook',[PaymentController::class, 'webhook']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
      
