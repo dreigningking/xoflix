@@ -98,7 +98,6 @@ class PaymentController extends Controller
     public function webhook(Request $request){   
         $result = $request->getContent();
         $webhook = Webhook::create(['service'=> 'flutterwave','body'=> $result]);
-        WebhookExecutionJob::dispatch($webhook)->delay(now()->addMinutes(5));
         return response()->json(200);
     }
 
@@ -124,4 +123,5 @@ class PaymentController extends Controller
     {
         //
     }
+
 }

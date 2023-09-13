@@ -15,15 +15,14 @@ class WebhookExecutionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $webhook;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Webhook $webhook)
+    public function __construct()
     {
-        $this->webhook = $webhook;
+        
     }
 
     /**
@@ -33,9 +32,9 @@ class WebhookExecutionJob implements ShouldQueue
      */
     public function handle()
     {
-        if($this->webhook->service == 'flutterwave'){
-            event(new FlutterwaveWebhookEvent($this->webhook));
+        $webhooks = Webhook::where('status',false)->where('service','flutterwave')->get();
+        foreach($webhooks as $webhook){
+            event(new FlutterwaveWebhookEvent($webhook));
         }
-
     }
 }
