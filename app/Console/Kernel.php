@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\WebhookExecutionJob;
+use App\Jobs\CheckFailedPaymentsJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new WebhookExecutionJob())->everyMinute();
+        $schedule->job(new CheckFailedPaymentsJob())->everyMinute();
     }
 
     /**

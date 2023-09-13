@@ -84,7 +84,7 @@ class PaymentController extends Controller
         }
         $details = $this->verifyFlutterWavePayment($payment->reference);
         // dd($details);
-        if(!$details || !$details->status || $details->status != 'success' || $details->data->status != 'successful' || $details->data->amount < $payment->amount){
+        if(!$details || !$details->status || $details->status != 'success' || !$details->data || $details->data->status != 'successful' || $details->data->amount < $payment->amount){
             return redirect()->route('home')->with(['result'=> 0,'message'=> 'Payment was not successful. Please try again']);
         }
         $payment->status = 'success';
