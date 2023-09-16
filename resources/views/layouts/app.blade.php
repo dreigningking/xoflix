@@ -117,6 +117,7 @@
 
                                         </div>
                                     </div>
+                                    @auth
                                     <div class="d-md-none menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                                         id="#kt_header_menu" data-kt-menu="true">
                                         @if (auth()->user()->role == 'user')
@@ -126,6 +127,7 @@
                                         @endif
 
                                     </div>
+                                    @endauth
                                     <!--end::Menu-->
                                 </div>
                                 <!--end::Menu wrapper-->
@@ -135,7 +137,7 @@
                             <div class="d-flex align-items-stretch flex-shrink-0">
                                 <!--begin::Toolbar wrapper-->
                                 <div class="topbar d-flex align-items-stretch flex-shrink-0">
-
+                                    @auth
                                     <!--begin::Notifications-->
                                     <div class="d-flex align-items-center ms-1 ms-lg-3">
                                         <!--begin::Menu- wrapper-->
@@ -548,8 +550,21 @@
                                         <!--end::Menu-->
                                         <!--end::Menu wrapper-->
                                     </div>
-                                    <!--end::User -->
-                                    
+                                    @else
+                                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                                        <a class="btn bg-white bg-opacity-20 bg-hover-white text-hover-primary text-white fw-bold py-3" href="{{ route('login') }}">
+                                            <span class="">Login</span>
+                                            
+                                        </a>
+                                    </div>
+                                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                                        <a class="btn bg-white bg-opacity-20 bg-hover-white text-hover-primary text-white fw-bold py-3" href="{{ route('register') }}">
+                                            <span class="">Register</span>
+                                            {{-- <span class="menu-arrow d-lg-none"></span> --}}
+                                        </a>
+
+                                    </div>
+                                    @endauth
                                 </div>
                                 <!--end::Toolbar wrapper-->
                             </div>

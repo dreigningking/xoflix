@@ -28,60 +28,66 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-5" id="kt_chat_contacts_body">
                         <!--begin::List-->
-                        <div class="me-n5 pe-5 h-200px h-lg-auto" >
+                        <div class="scroll-y me-n5 pe-5 h-450px h-lg-auto" id="messages" data-kt-element="messages"
+                            data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                            data-kt-scroll-max-height="auto"
+                            data-kt-scroll-dependencies="#kt_header, #kt_app_header, #kt_app_toolbar, #kt_toolbar, #kt_footer, #kt_app_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer"
+                            data-kt-scroll-wrappers="#kt_content, #kt_app_content, #kt_chat_messenger_body"
+                            data-kt-scroll-offset="5px" style="max-height: 131px;">
+
                             @forelse ($supports->groupBy('user_id') as $group)
                             
-                            <div class="d-flex flex-stack py-4">
-                                <!--begin::Details-->
-                                <div class="d-flex">
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-45px symbol-circle">
-                                            @if($group->first()->user->image)
-                                            <img alt="Pic" src="{{$group->first()->user->avatar}}">
-                                            @else
-                                            <span class="symbol-label bg-primary text-white rounded-circle">
-                                                {{ $group->first()->user->name[0] }} 
-                                            </span>
-                                            @endif
-                                        </div>
-                                        
-                                        <!--begin::Details-->
-                                        <div class="ms-5">
-                                            <a href="{{route('admin.support.show',$group->first()->user)}}" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$group->first()->user->name}}</a>
-                                            <div class="fw-semibold text-muted">{{$group->first()->user->email}}</div>
+                                <div class="d-flex flex-column flex-md-row justify-content-between py-4">
+                                    <!--begin::Details-->
+                                    <div class="d-flex flex-column flex-md-row">
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-45px symbol-circle">
+                                                @if($group->first()->user->image)
+                                                <img alt="Pic" src="{{$group->first()->user->avatar}}">
+                                                @else
+                                                <span class="symbol-label bg-primary text-white rounded-circle">
+                                                    {{ $group->first()->user->name[0] }} 
+                                                </span>
+                                                @endif
+                                            </div>
+                                            
+                                            <!--begin::Details-->
+                                            <div class="ms-5">
+                                                <a href="{{route('admin.support.show',$group->first()->user)}}" class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{$group->first()->user->name}}</a>
+                                                <div class="fw-semibold text-muted">{{$group->first()->user->email}}</div>
+                                            </div>
+                                            <!--end::Details-->
                                         </div>
                                         <!--end::Details-->
-                                    </div>
-                                    <!--end::Details-->
-                                    <div class="d-flex align-items-left pt-4">
-                                        <div class="ms-5">
-                                            <span class="badge badge-sm badge-circle badge-light-success">{{$group->count()}}</span>
-                                            <a class="fw-bold text-dark" href="{{route('admin.support.show',$group->first()->user)}}">
-                                                {{$group->first()->message}}
-                                            </a>
+                                        <div class="d-flex align-items-center pt-4">
+                                            <div class="ms-5">
+                                                <span class="badge badge-sm badge-circle badge-light-success">{{$group->count()}}</span>
+                                                <a class="fw-bold text-dark" href="{{route('admin.support.show',$group->first()->user)}}">
+                                                    {{Str::limit($group->first()->message,75)}}
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--begin::Lat seen-->
-                                <div class="d-flex flex-column align-items-end ms-2">
-                                    <span class="text-muted fs-7 mb-1">{{$group->first()->created_at->calendar()}}</span>
+                                    <!--begin::Lat seen-->
+                                    <div class="d-flex flex-column align-items-end ms-2">
+                                        <span class="text-muted fs-7 mb-1">{{$group->first()->created_at->calendar()}}</span>
 
+                                    </div>
+                                    <!--end::Lat seen-->
                                 </div>
-                                <!--end::Lat seen-->
-                            </div>
 
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed "></div>
-                            <!--end::Separator-->
+                                <!--begin::Separator-->
+                                <div class="separator separator-dashed "></div>
+                                <!--end::Separator-->
                             @empty
-                            <div class="p-5">
-                                <p class="text-center">No Messages</p>
-                            </div>
+                                <div class="p-5">
+                                    <p class="text-center">No Messages</p>
+                                </div>
                             @endforelse
                             
                         </div>
-                        <div class="row py-5">
+                        {{-- <div class="row py-5">
                             <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
                                 <div class="dataTables_length" id="kt_customers_table_length">
                                     <label>
@@ -122,7 +128,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <!--end::List-->
                     </div>
                     <!--end::Card body-->

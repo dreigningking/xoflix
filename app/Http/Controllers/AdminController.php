@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\Trial;
 use App\Models\Payment;
@@ -97,8 +98,24 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function plans()
     {
-        //
+        $plans = Plan::all();
+
+        return view('admin.plans',compact('plans'));
+    }
+
+    public function updatePlans(Request $request){
+        //dd($request->all());
+        $features = [];
+        foreach($request->features as $key => $feat){
+            $features[] = ['label'=> $request->features_label[$key],'description'=> $feat];
+        }
+        $prices = [];
+        foreach($request->prices as $key => $pric){
+            $prices[] = ['label'=> $request->prices_label[$key],'description'=> $pric];
+        }
+        $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'prices'=> $prices]);
+        return redirect()->back();
     }
 }

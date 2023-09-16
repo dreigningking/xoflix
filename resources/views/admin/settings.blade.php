@@ -32,74 +32,8 @@
                         <!--begin::Card body-->
                         <div class="card-body">
                             
-                                <div class="card-body border-top py-0 px-9">
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Subscription 1 Month</label>
-                                        <!--end::Label-->
-
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                            <input type="number" value="{{$settings->firstWhere('name','subscription_1month')->value}}" name="subscription_1month" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                        placeholder="">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <div class="row mb-6">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Subscription 3 Month</label>
-                                        <!--end::Label-->
-
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                            <input type="number" value="{{$settings->firstWhere('name','subscription_3month')->value}}" name="subscription_3month" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                        placeholder="" >
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <div class="row mb-6">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Subscription 6 Month</label>
-                                        <!--end::Label-->
-
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                            <input type="number" value="{{$settings->firstWhere('name','subscription_6month')->value}}" name="subscription_6month" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                        placeholder="" >
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
-                                    <div class="row mb-6">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Subscription 12 Month</label>
-                                        <!--end::Label-->
-
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                            <input type="number" value="{{$settings->firstWhere('name','subscription_12month')->value}}" name="subscription_12month" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                        placeholder="">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-
+                                <div class="card-body py-0 px-9">
+                                    
                                     <!--begin::Input group-->
                                     <div class="row mb-6">
                                         <!--begin::Label-->
@@ -116,6 +50,7 @@
                                         </div>
                                         <!--end::Col-->
                                     </div>
+                                    
                                     <!--end::Input group-->
                                     <div class="row mb-6">
                                         <!--begin::Label-->
@@ -270,8 +205,8 @@
 
                                 <!--begin::Card footer-->
                                 <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                    <button class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                                    <button class="btn btn-primary  px-6">Save Changes</button>
+                                    <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                                    <button type="submit" class="btn btn-primary  px-6">Save Changes</button>
                                 </div>
                                 <!--end::Card footer-->
                             

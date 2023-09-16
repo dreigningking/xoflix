@@ -111,6 +111,17 @@
             <!--end::Menu item-->
             <li class="menu-item mb-1">
                 <!--begin::Menu link-->
+                <a class="menu-link px-6 py-4 @if(Route::is('admin.plans')) active @endif" href="{{route('admin.plans')}}">
+                    <span class="menu-bullet">
+                        <span class="bullet"></span>
+                    </span>
+                    <span class="menu-title">Plans</span>
+                </a>
+                <!--end::Menu link-->
+            </li>
+            <!--begin::Menu item-->
+            <li class="menu-item mb-1">
+                <!--begin::Menu link-->
                 <a class="menu-link px-6 py-4 @if(Route::is('admin.settings')) active @endif" href="{{route('admin.settings')}}">
                     <span class="menu-bullet">
                         <span class="bullet"></span>
@@ -119,8 +130,6 @@
                 </a>
                 <!--end::Menu link-->
             </li>
-            <!--begin::Menu item-->
-            
             
             <li class="menu-item mb-1">
                 <!--begin::Menu link-->

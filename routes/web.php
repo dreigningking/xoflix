@@ -10,7 +10,8 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\SubscriptionController;
-
+use App\Models\Plan;
+use App\Models\Webhook;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('activities',[AdminController::class, 'activities'])->name('activities');
     Route::get('settings',[AdminController::class, 'settings'])->name('settings');
     Route::post('settings',[AdminController::class, 'updateSettings'])->name('settings');
+    Route::get('plans',[AdminController::class, 'plans'])->name('plans');
+    Route::post('plans',[AdminController::class, 'updatePlans'])->name('plans');
     Route::get('payments',[PaymentController::class, 'index'])->name('payments');
     Route::get('users',[UserController::class, 'index'])->name('users');
     Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
@@ -66,7 +69,8 @@ Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscr
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
-Route::get('check',function(){
-    \App\Jobs\CheckFailedPaymentsJob::dispatch();
-    return 'ok';
-});
+// Route::get('check',function(){
+//     $plan = Plan::find(1);
+//     dd($plan);
+//     return 'ok';
+// });
