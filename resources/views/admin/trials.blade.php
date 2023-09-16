@@ -36,7 +36,7 @@
                                     <!--begin::Row-->
                                     <div class="d-flex flex-wrap">
                                         <!--begin::Col-->
-                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
                                                 <span data-kt-countup="true" data-kt-countup-value="{{number_format($total)}}"
                                                     data-kt-countup-prefix="$" class="counted"
@@ -47,7 +47,7 @@
                                         <!--end::Col-->
 
                                         <!--begin::Col-->
-                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
                                                 <span class="counted" data-kt-countup="true" data-kt-countup-value="{{number_format($expired)}}"
                                                     data-kt-initialized="1">{{number_format($expired)}}</span>
@@ -57,7 +57,7 @@
                                         <!--end::Col-->
 
                                         <!--begin::Col-->
-                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
                                                 <span data-kt-countup="true" data-kt-countup-value="{{number_format($ongoing)}}"
                                                     data-kt-countup-prefix="$" class="counted"
@@ -66,7 +66,7 @@
                                             <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">Ongoing</span>
                                         </div>
 
-                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+                                        <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
                                                 <span data-kt-countup="true" data-kt-countup-value="{{number_format($available)}}"
                                                     data-kt-countup-prefix="$" class="counted"

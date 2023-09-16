@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,7 +37,8 @@ class HomeController extends Controller
         $twelve = $settings->firstWhere('name','subscription_12month')->value;
         $maximum = $settings->firstWhere('name','maximum_withdrawal')->value;
         $minimum = $settings->firstWhere('name','minimum_withdrawal')->value;
-        return view('user.dashboard',compact('user','one','three','six','twelve','maximum','minimum'));
+        $plans = Plan::all();
+        return view('user.dashboard',compact('user','one','three','six','twelve','maximum','minimum','plans'));
     }
 
     public function profile(){
