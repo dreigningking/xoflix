@@ -319,7 +319,7 @@
                                                     <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">{{$withdrawal->user->name}}</a>
                                                     <span class="text-muted fw-bold d-block fs-7">{{$withdrawal->created_at->calendar()}}</span>
                                                 </div>
-                                                <span class="badge badge-light fw-bolder my-2">₦{{$withdrawal->amount}}}</span>
+                                                <span class="badge badge-light fw-bolder my-2">₦{{$withdrawal->amount}}</span>
                                             </div>
                                             <!--end::Section-->
                                         </div>

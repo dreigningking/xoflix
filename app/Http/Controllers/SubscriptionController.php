@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Plan;
 use App\Models\Trial;
 use App\Models\Payment;
@@ -9,6 +10,7 @@ use App\Models\Setting;
 use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\FlutterwaveTrait;
 
 class SubscriptionController extends Controller
@@ -20,12 +22,12 @@ class SubscriptionController extends Controller
         $show_expired = false;
         $name = false;
 
-        $total = Subscription::count();
-        $expired = Subscription::where('end_at', '<', now())->count();
-        $ongoing = Subscription::where('end_at', '>', now())->count();
+        $total = Subscription::whereNotNull('start_at')->count();
+        $expired = Subscription::whereNotNull('start_at')->where('end_at', '<', now())->count();
+        $ongoing = Subscription::whereNotNull('start_at')->where('end_at', '>', now())->count();
         $new = Payment::whereDoesntHave('subscriptions')->count();
 
-        $subscriptions = Subscription::where('user_id', '!=', null);
+        $subscriptions = Subscription::whereNotNull('start_at')->where('user_id', '!=', null);
         if (request()->expired) {
             $show_expired = true;
             $subscriptions = $subscriptions->where('end_at', '>', now());
@@ -80,12 +82,9 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        $payment = Payment::find($request->payment_id);
-        $subscription = Subscription::create([
-            'user_id' => $payment->user_id, 'payment_id' => $payment->id, 'm3u_link' => $request->m3u_link,
-            'xtream_username' => $request->username, 'xtream_password' => $request->password, 'xtream_link' => $request->xtream_link,
-            'start_at' => now(), 'end_at' => $request->end_at
+        Subscription::where('id',$request->subscription_id)->update([
+            'm3u_link' => $request->m3u_link, 'xtream_username' => $request->username, 'xtream_password' => $request->password, 'xtream_link' => $request->xtream_link,
+            'start_at' => now(), 'end_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->end_at)
         ]);
         return redirect()->back();
     }
@@ -134,25 +133,36 @@ class SubscriptionController extends Controller
 
     public function pricing()
     {
-        $settings = Setting::all();
-        $one = $settings->firstWhere('name', 'subscription_1month')->value;
-        $three = $settings->firstWhere('name', 'subscription_3month')->value;
-        $six = $settings->firstWhere('name', 'subscription_6month')->value;
-        $twelve = $settings->firstWhere('name', 'subscription_12month')->value;
         $plans = Plan::all();
-        return view('pricing', compact('one', 'three', 'six', 'twelve','plans'));
+        return view('pricing', compact('plans'));
     }
 
     public function buy(Request $request)
     {
-
+        //dd($request->all());
+        
+        if(!auth()->check()){
+            if(!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect()->route('login');
+            }
+        }
         $user = auth()->user();
-        $settings = Setting::all();
-        $amount = $settings->firstWhere('name', "subscription_" . $request->duration . "month")->value;
-        $payment = Payment::create([
-            'reference' => uniqid(), 'user_id' => $user->id,
-            'amount' => $amount, 'duration' => $request->duration
-        ]);
+        $amount = array_sum($request->premium_amount) + array_sum($request->standard_amount);
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount ]);
+        if($request->has('premium_quantity')){
+            foreach(array_filter($request->premium_quantity) as $key => $quantity){
+                for($i = 0;$i < $quantity;$i++){
+                    Subscription::create(['plan_id'=> 1,'user_id'=> $user->id,'duration'=> $request->premium_duration[$key], 'payment_id'=> $payment->id]);
+                }
+            }
+        }
+        if($request->has('standard_quantity')){
+            foreach(array_filter($request->standard_quantity) as $key => $quantity){
+                for($i = 0;$i < $quantity;$i++){
+                    Subscription::create(['plan_id'=> 2,'user_id'=> $user->id,'duration'=> $request->standard_duration[$key], 'payment_id'=> $payment->id]);
+                }
+            }
+        }
         $response = $this->initiateFlutterWave($payment);
         if (!$response)
             return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);

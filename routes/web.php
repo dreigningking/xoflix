@@ -69,8 +69,7 @@ Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscr
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
-// Route::get('check',function(){
-//     $plan = Plan::find(1);
-//     dd($plan);
-//     return 'ok';
-// });
+Route::get('check',function(){
+    dd(intval('1 Month'));
+    return 'ok';
+});

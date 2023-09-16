@@ -12,7 +12,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reference','user_id','amount','method','duration','status'];
+    protected $fillable = ['reference','user_id','amount','method','status'];
 
     public static function boot(){
         parent::boot();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Payment;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,8 +28,10 @@ class UserController extends Controller
     
     public function paid_users()
     {
-        $payments = Payment::where('status','success')->doesntHave('subscriptions')->with('user')->get();
-        return response()->json(['data'=> $payments],200);
+        // $payments = Payment::where('status','success')->doesntHave('subscriptions')->with('user')->get();
+        $subscriptions = Subscription::whereHas('payment',function($query){
+            $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
+        return response()->json(['data'=> $subscriptions],200);
     }
 
     /**

@@ -529,7 +529,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 fw-semibold">
-                                                @foreach ($user->subscriptions as $subscription)
+                                                @foreach ($user->subscriptions->where('start_at','!=',null) as $subscription)
                                                 <tr>
         
                                                     <td class="d-flex align-items-center">

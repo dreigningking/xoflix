@@ -85,7 +85,7 @@ class User extends Authenticatable
     }
 
     public function activeSubscriptions(){
-        return $this->hasMany(Subscription::class)->where('start_at', '<', now())->where('end_at','>',now());
+        return $this->hasMany(Subscription::class)->where('start_at','!=',null)->where('start_at', '<', now())->where('end_at','>',now());
     }
 
     public function trials(){

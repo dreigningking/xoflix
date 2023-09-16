@@ -29,16 +29,16 @@ class AdminController extends Controller
         return redirect()->route('dashboard');
 
         $thisMonthUsers = User::where('role','user')->whereMonth('created_at',now()->format('m'))->count();
-        $thisMonthSubscriptions = Subscription::whereMonth('created_at',now()->format('m'))->count();
+        $thisMonthSubscriptions = Subscription::whereNotNull('start_at')->whereMonth('created_at',now()->format('m'))->count();
         $thisMonthPayments = Payment::where('status','success')->whereMonth('created_at',now()->format('m'))->count();
         $thisMonthWithdrawals = Withdrawal::where('status','paid')->whereMonth('created_at',now()->format('m'))->count();
         $recentPayments = Payment::where('status','success')->orderBy('created_at','desc')->whereBetween('created_at',[Carbon::yesterday(),now()])->get();
         $recentWithdrawal = Withdrawal::where('status','pending')->orderBy('created_at','desc')->get();
         
-        $totalActive = Subscription::where('start_at', '<', now())->where('end_at','>',now())->count();
-        $today = Subscription::whereDay('end_at',now()->format('d'))->count();
-        $thisWeek = Subscription::whereBetween('end_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->count();
-        $thisMonth = Subscription::whereMonth('end_at',now()->format('m'))->count();
+        $totalActive = Subscription::whereNotNull('start_at')->where('start_at', '<', now())->where('end_at','>',now())->count();
+        $today = Subscription::whereNotNull('start_at')->whereDay('end_at',now()->format('d'))->count();
+        $thisWeek = Subscription::whereNotNull('start_at')->whereBetween('end_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->count();
+        $thisMonth = Subscription::whereNotNull('start_at')->whereMonth('end_at',now()->format('m'))->count();
         $availableTrials = Trial::whereNull('user_id')->whereNull('affiliate_id')->count();
         return view('admin.dashboard',compact('thisMonthUsers','thisMonthSubscriptions','thisMonthPayments','thisMonthWithdrawals','recentPayments','recentWithdrawal','totalActive','today','thisWeek','thisMonth','availableTrials'));
     }

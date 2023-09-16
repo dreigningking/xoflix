@@ -121,10 +121,7 @@
                                     <!--begin::Thead-->
                                     <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
                                         <tr>
-                                            <th class="min-w-300px ps-9">User</th>
-                                            <th class="min-w-150px px-0">Type</th>
-                                            <th class="min-w-150px">Start</th>
-                                            <th class="min-w-125px">Expiry</th>
+                                            <th class="min-w-200px ps-9">User</th>
                                             <th class="min-w-125px text-center">Details</th>
                                         </tr>
                                     </thead>
@@ -153,13 +150,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{$subscription->type}}</td>
-                                            <td class="ps-0">{{$subscription->start_at->format('M d,Y')}}</td>
-                                            <td class="ps-0">{{$subscription->end_at->format('M d,Y')}}</td>
-
                                             <td class="text-center">
-                                                <button class="btn btn-light btn-sm btn-active-light-primary">View</button>
+                                                <button data-bs-toggle="modal" data-bs-target="#sub_details{{$subscription->id}}" class="btn btn-light btn-sm btn-active-light-primary">View</button>
                                             </td>
+                                            
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -291,7 +285,7 @@
 
                     <div class="mb-10">
                         <label class="form-label">User</label>
-                        <select name="payment_id" class="form-select form-select-solid subscriber-remote w-100" style="width: 100%" data-dropdown-parent="#newsubsription" data-placeholder="Select an option" data-allow-clear="true">
+                        <select name="subscription_id" class="form-select form-select-solid subscriber-remote w-100" style="width: 100%" data-dropdown-parent="#newsubsription" data-placeholder="Select an option" data-allow-clear="true">
                             <option></option>
                             
                         </select>
@@ -319,6 +313,84 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+@foreach ($subscriptions as $subscription)
+<div class="modal fade" id="sub_details{{$subscription->id}}" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <table class="table-bordered border-secondary">
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <h1 class="">Subscription Details</h1>
+                        </div>
+                    </td>
+                </tr>
+                @if($subscription->xtream_username)
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">Xtream Username:</div>
+                            <div>{{$subscription->xtream_username}}</div>
+                        </div>
+                    </td>
+                </tr>
+                @endif
+
+                @if($subscription->xtream_password)
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">Xtream Password:</div>
+                            <div>{{$subscription->xtream_password}}</div>
+                        </div>
+                    </td>
+                </tr>
+                @endif
+
+                @if($subscription->xtream_link)
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">Xtream Link:</div>
+                            <div>{{$subscription->xtream_link}}</div>
+                        </div>
+                    </td>
+                </tr>
+                @endif
+
+                @if($subscription->m3u_link)
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">M3u Link:</div>
+                            <div>{{$subscription->m3u_link}}</div>
+                        </div>
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">Start:</div>
+                            <div>{{$subscription->start_at->calendar()}}</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center p-2">
+                        <div class="d-flex flex-column">
+                            <div class="pe-2 fs-5 fw-bold">Expiry:</div>
+                            <div>{{$subscription->start_at->calendar()}}</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection
 @push('scripts')
     {{-- <script src="{{ asset('plugins/tempus-dominus.init.js') }}"></script> --}}

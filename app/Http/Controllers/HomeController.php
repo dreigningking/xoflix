@@ -28,17 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
+        // dd($user->activeSubscriptions);
         if($user->role != 'user')
         return redirect()->route('admin.dashboard');
         $settings = Setting::all();
-        $one = $settings->firstWhere('name','subscription_1month')->value;
-        $three = $settings->firstWhere('name','subscription_3month')->value;
-        $six = $settings->firstWhere('name','subscription_6month')->value;
-        $twelve = $settings->firstWhere('name','subscription_12month')->value;
         $maximum = $settings->firstWhere('name','maximum_withdrawal')->value;
         $minimum = $settings->firstWhere('name','minimum_withdrawal')->value;
         $plans = Plan::all();
-        return view('user.dashboard',compact('user','one','three','six','twelve','maximum','minimum','plans'));
+        return view('user.dashboard',compact('user','maximum','minimum','plans'));
     }
 
     public function profile(){
