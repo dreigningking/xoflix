@@ -110,8 +110,8 @@ class SubscriptionController extends Controller
                 }
             } else {
                 $link = $request->input("link.$i");
-                $username = $request->input("link.$i");
-                $password = $request->input("link.$i");
+                $username = $request->input("username.$i");
+                $password = $request->input("password.$i");
                 $type = 'xtream';
             }
             Trial::create(['username' => $username, 'password' => $password, 'link' => $link, 'type' => $type]);

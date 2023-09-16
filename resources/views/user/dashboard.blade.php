@@ -145,7 +145,7 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Username: </span> 
+                                                                    <span class="fw-bold text-primary">USERNAME: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span class="clipboard_value">{{$subscription->xtream_username}}</span>
@@ -159,7 +159,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Password: </span> 
+                                                                    <span class="fw-bold text-primary">PASSWORD: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span class="clipboard_value">{{$subscription->xtream_password}}</span>
@@ -187,7 +187,7 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Expiry: </span> 
+                                                                    <span class="fw-bold text-primary">EXPIRY: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
@@ -195,7 +195,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Remaining: </span> 
+                                                                    <span class="fw-bold text-primary">REMAINING: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span>{{$subscription->end_at->diffInDays(now())}} days</span>
@@ -260,7 +260,7 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Username: </span> 
+                                                                    <span class="fw-bold text-primary">USERNAME: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span class="clipboard_value">{{$trial->username}}</span>
@@ -274,7 +274,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Password: </span> 
+                                                                    <span class="fw-bold text-primary">PASSWORD: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span class="clipboard_value">{{$trial->password}}</span>
@@ -293,7 +293,7 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Expiry: </span> 
+                                                                    <span class="fw-bold text-primary">EXPIRY: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span>{{$trial->created_at->addHours(6)->format('d M Y h:i A')}}</span>
@@ -301,7 +301,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <span class="fw-bold text-primary">Remaining: </span> 
+                                                                    <span class="fw-bold text-primary">REMAINING: </span> 
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span>{{$trial->created_at->addHours(6)->diffInHours(now())}} hours</span>
@@ -351,7 +351,7 @@
                                                                     <!--end::Logo-->
                                                                     <div class="ps-3">
                                                                         <p class="ps-3 mb-0 d-flex justify-content-between">
-                                                                            <span class="text-primary fw-bold fs-5">Username: 
+                                                                            <span class="text-primary fw-bold fs-5">USERNAME: 
                                                                                 <span class="text-gray-400 fw-bold clipboard_value">{{$subscription->xtream_username}}</span>
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                     <span class="svg-icon svg-icon-2 copy_icon">
@@ -360,7 +360,7 @@
                                                                                     <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                                                 </button>
                                                                             </span> 
-                                                                            <span class="text-primary fw-bold fs-5"> Password: 
+                                                                            <span class="text-primary fw-bold fs-5"> PASSWORD: 
                                                                                 <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->xtream_password}}</span>
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                     <span class="svg-icon svg-icon-2 copy_icon">
@@ -446,7 +446,7 @@
                                                             <div class="d-flex flex-column">
                                                                 @if($trial->type == 'xtream')
                                                                 <p class="ps-3 mb-0 d-flex flex-nowrap">
-                                                                    <span class="text-primary fw-bold fs-5">Username: 
+                                                                    <span class="text-primary fw-bold fs-5">USERNAME: 
                                                                         <span class="text-gray-400 fw-bold clipboard_value">{{$trial->username}}</span>
                                                                         <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                             <span class="svg-icon svg-icon-2 copy_icon">
@@ -455,7 +455,7 @@
                                                                             <i class="bi bi-check p-0 check_icon" style="display: none"></i>     
                                                                         </button>
                                                                     </span> 
-                                                                    <span class="text-primary fw-bold fs-5">Password: 
+                                                                    <span class="text-primary fw-bold fs-5">PASSWORD: 
                                                                         <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->password}}</span>
                                                                         <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                             <span class="svg-icon svg-icon-2 copy_icon">
@@ -542,7 +542,7 @@
                                                         {{$subscription->end_at->format('d M Y h:i A')}}
                                                     </td>
                                                     <td>
-                                                            <span>Username:{{$subscription->xtream_username}} | Password: {{$subscription->xtream_password}}</span>
+                                                            <span>USERNAME:{{$subscription->xtream_username}} | PASSWORD: {{$subscription->xtream_password}}</span>
                                                             <span class="d-block"> {{$subscription->xtream_link}}</span>
                                                     </td>
                                                     <td>{{$subscription->m3u_link}}</td>
@@ -1038,13 +1038,13 @@
                                                 @if($trial->type == 'xtream')
                                                 <p class="mb-0">
                                                 <span class="ps-3 mb-0">
-                                                    <span class="text-primary fw-bold fs-5  mb-1">Username: </span> 
+                                                    <span class="text-primary fw-bold fs-5  mb-1">USERNAME: </span> 
                                                     <span class="text-gray-400 fw-bold  d-inline">{{$trial->username}}</span>
                                                     
                                                     
                                                 </span>
                                                 <span class="ps-3 mb-0">
-                                                    <span class="text-primary fw-bold fs-5  mb-1">Password: </span> 
+                                                    <span class="text-primary fw-bold fs-5  mb-1">PASSWORD: </span> 
                                                     <span class="text-gray-400 fw-bold  d-inline">{{$trial->password}}</span>
                                                 </span>
                                                 </p>
@@ -1135,11 +1135,11 @@
                         
                         <!--begin::Actions-->
                         <div class="text-center pt-15">
-                            <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
+                            <button type="reset" class="btn btn-light me-3">
                                 Discard
                             </button>
 
-                            <button type="submit" id="assign_submit" class="btn btn-primary">
+                            <button type="submit" id="withdrawal_submit" class="btn btn-primary">
                                 <span class="indicator-label">
                                     Submit
                                 </span>
@@ -1202,7 +1202,7 @@
                         
                         <!--begin::Actions-->
                         <div class="text-center pt-15">
-                            <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
+                            <button type="reset"  class="btn btn-light me-3">
                                 Discard
                             </button>
 

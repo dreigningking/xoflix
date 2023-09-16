@@ -864,7 +864,6 @@
         });      
 
         document.getElementsByClassName('copy_button').forEach(function(el) {
-            // console.log(el.parentElement)
             el.addEventListener('click', async () => {
                 let clipvalue = el.parentElement.querySelector(".clipboard_value").innerHTML
                 try {

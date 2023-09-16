@@ -216,15 +216,15 @@
                                                     <input name="trial_id" value="{{$trial->id}}" class="form-check-input checkboxes" type="checkbox">
                                                 </div>
                                             </td>
-                                            <td class="px-0">
+                                            <td class=" text-nowrap">
                                                 {{$trial->created_at->format('M d, Y')}} 
                                                 <span class="text-gray-400 d-block fs-7">
                                                     Time: {{$trial->created_at->format('h:i A')}}
                                                 </span>
                                                     
                                             </td>
-                                            <td class="px-0">{{ucwords($trial->type)}}</td>
-                                            <td>
+                                            <td class="">{{ucwords($trial->type)}}</td>
+                                            <td class="text-nowrap">
                                                 <div class="flex-grow-1">
                                                     <span class="text-gray-400 text-hover-primary fs-5">
                                                         {{$trial->link}}

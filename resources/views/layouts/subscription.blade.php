@@ -88,7 +88,7 @@
                                                     <div class="input-group input-group-sm pt-3 px-10 text-center buyvalues" style="display: none">
                                                         <button class="btn btn-secondary buy_plus" type="button">+</button>
                                                         <input type="number" name="buy_" value="1" class="form-control w-25 buyinput"/>
-                                                        <button class="btn btn-secondary buy_minus" type="button" id="button-addon2">-</button>
+                                                        <button class="btn btn-secondary buy_minus" type="button">-</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +111,7 @@
                                                     <div class="input-group input-group-sm pt-3 px-10 text-center buyvalues" style="display: none">
                                                         <button class="btn btn-secondary buy_plus" type="button">+</button>
                                                         <input type="number" name="buy_" value="1" class="form-control w-25 buyinput"/>
-                                                        <button class="btn btn-secondary buy_minus" type="button" id="button-addon2">-</button>
+                                                        <button class="btn btn-secondary buy_minus" type="button">-</button>
                                                     </div>
                                                 </div>
                                                     {{-- <button class="btn bg-white bg-opacity-20 bg-hover-white text-hover-success text-white fw-bold mx-auto">Buy</button> --}}
@@ -136,7 +136,7 @@
                                                     <div class="input-group input-group-sm pt-3 px-10 text-center buyvalues" style="display: none">
                                                         <button class="btn btn-secondary buy_plus" type="button">+</button>
                                                         <input type="number" name="buy_" value="1" class="form-control w-25 buyinput"/>
-                                                        <button class="btn btn-secondary buy_minus" type="button" id="button-addon2">-</button>
+                                                        <button class="btn btn-secondary buy_minus" type="button">-</button>
                                                     </div>
                                                 </div>
                                                 
