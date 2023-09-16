@@ -70,6 +70,5 @@ Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->na
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
 Route::get('check',function(){
-    dd(intval('1 Month'));
     return 'ok';
 });

@@ -75,7 +75,7 @@ class PaymentController extends Controller
         if(!request()->query('tx_ref')) 
         \abort(404);
         if(request()->query('status') != 'successful') 
-        return redirect()->route('home')->with(['result'=> 0,'message'=> 'Payment was not successful. Please try again']);
+        return redirect()->route('dashboard')->with(['result'=> 0,'message'=> 'Payment was not successful. Please try again']);
         $reference = request()->query('tx_ref');
         $payment = Payment::where('reference',$reference)->first();
         //if payment was already successful before now
@@ -85,7 +85,7 @@ class PaymentController extends Controller
         $details = $this->verifyFlutterWavePayment($payment->reference);
         // dd($details);
         if(!$details || !$details->status || $details->status != 'success' || !$details->data || $details->data->status != 'successful' || $details->data->amount < $payment->amount){
-            return redirect()->route('home')->with(['result'=> 0,'message'=> 'Payment was not successful. Please try again']);
+            return redirect()->route('dashboard')->with(['result'=> 0,'message'=> 'Payment was not successful. Please try again']);
         }
         $payment->status = 'success';
         $payment->method = $details->data->payment_type;
