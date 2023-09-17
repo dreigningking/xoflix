@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Earning;
 use App\Models\Payment;
 use App\Models\Setting;
+use Illuminate\Support\Arr;
 
 class PaymentObserver
 {
@@ -33,7 +34,10 @@ class PaymentObserver
             if($user->payments->where('status','success')->count() == 1 && $user->referred_by){
                 $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
                 $referrer = User::find($user->referred_by);
-                $bonus = $setting * $payment->amount / 100;
+                $price = Arr::first($payment->subscriptions->first()->plan->prices, function ($value, $key) use($payment) {
+                    return intval($value['label']) == $payment->subscriptions->first()->duration;
+                });
+                $bonus = $setting * $price['description'] / 100;
                 $referrer->balance += $bonus;
                 $referrer->save();
                 Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);

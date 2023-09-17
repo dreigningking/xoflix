@@ -255,6 +255,12 @@
                                 </table>
                                 <!--end::Table-->
                             </div>
+                            <div class="row my-5">
+                                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                                    @include('layouts.pagination',['data'=> $trials])
+                                    
+                                </div>
+                            </div>
                         </div>
                         <!--end::Tab panel-->
 

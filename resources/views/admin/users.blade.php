@@ -113,7 +113,12 @@
                                     </tbody>
                                 </table>
                             </div>
-
+                            <div class="row my-5">
+                                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                                    @include('layouts.pagination',['data'=> $users])
+                                    
+                                </div>
+                            </div>
                         </div>
                         <!--end::Table-->
                     </div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class WithdrawalController extends Controller
 {
+    // {"1":{"label":"1 Month","description":"2000"},"3":{"label":"3 Months","description":"3000"},"6":{"label":"6 Months","description":"4000"},"12":{"label":"12 Months","description":"6000"}}
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +16,6 @@ class WithdrawalController extends Controller
      */
     public function index()
     {
-        
         $sortBy = null;
         $status = null;
         $name = null;
@@ -74,7 +74,13 @@ class WithdrawalController extends Controller
     
     public function pay(Request $request)
     {
-        dd($request->all());
+        $withdrawal = Withdrawal::find($request->withdrawal_id);
+        $withdrawal->status = 'success';
+        $withdrawal->approved_at = now();
+        $withdrawal->save();
+        $withdrawal->user->balance -= $withdrawal->amount;
+        $withdrawal->user->save();
+        return redirect()->back();
     }
 
     /**

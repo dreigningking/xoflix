@@ -5,20 +5,16 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Payment;
 use App\Models\Webhook;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use App\Jobs\WebhookExecutionJob;
 
+use App\Jobs\WebhookExecutionJob;
 use App\Http\Traits\FlutterwaveTrait;
 
 class PaymentController extends Controller
 {
     use FlutterwaveTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         

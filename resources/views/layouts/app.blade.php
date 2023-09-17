@@ -724,7 +724,7 @@
     <script src="{{ asset('plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
-
+    <script src="//code.tidio.co/o7vudv9lxjxuxogkssx9ywmgdwwoqqrx.js" async></script>
     @stack('scripts')
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->

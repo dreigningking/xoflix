@@ -25,50 +25,60 @@
                     </div>
                     <!--end::Header-->
                     <div class="table-responsive">
-                    <table class="table table-row-bordered align-middle gy-6">
-                        <!--begin::Thead-->
-                        <thead class="border-bottom border-gray-200 fs-6 fw-bold bg-lighten">
-                            <tr>
-                                <th class="min-w-125px ps-9">Reference</th>
-                                <th class="min-w-125px px-0">User</th>
-                                <th class="min-w-125px">Date</th>
-                                <th class="min-w-125px ps-0">Amount</th>
-                                <th class="min-w-125px ps-0">Status</th>
-                                <th class="min-w-125px ps-0">Action</th>
-                            </tr>
-                        </thead>
-                        <!--end::Thead-->
+                        <table class="table table-row-bordered align-middle gy-6">
+                            <!--begin::Thead-->
+                            <thead class="border-bottom border-gray-200 fs-6 fw-bold bg-lighten">
+                                <tr>
+                                    <th class="min-w-125px ps-9">Reference</th>
+                                    <th class="min-w-125px px-0">User</th>
+                                    <th class="min-w-125px">Date</th>
+                                    <th class="min-w-125px ps-0">Amount</th>
+                                    <th class="min-w-125px ps-0">Status</th>
+                                    <th class="min-w-125px ps-0">Action</th>
+                                </tr>
+                            </thead>
+                            <!--end::Thead-->
 
-                        <!--begin::Tbody-->
-                        <tbody class="fs-6 fw-semibold text-gray-600">
-                            @forelse ($withdrawals as $withdrawal)
-                                <tr>
-                                    <td class="ps-9">{{$withdrawal->reference}}</td>
-                                    <td class="ps-0">{{$withdrawal->user->name}}</td>
-                                    <td>{{$withdrawal->created_at->format('M d, Y')}}</td>
-                                    <td>₦{{$withdrawal->amount}}</td>
-                                    <td @if($withdrawal->status == 'success') class="text-success" @else class="text-warning" @endif >
-                                        {{ucwords($withdrawal->status)}}
-                                    </td>
-                                    <td>
-                                        <form id="withdrawal{{$withdrawal->id}}" action="{{route('admin.withdrawals.pay')}}" method="post" onsubmit="return confirm('Are you sure you want to continue?');">@csrf
-                                            <input type="hidden" name="withdrawal_id" value="{{$withdrawal->id}}">
-                                            <button class="btn btn-primary btn-sm">Pay</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty 
-                                <tr>
-                                    <td colspan="5" class="text-center">
-                                        No Withdrawals Yet
-                                    </td>
-                                </tr>
-                            @endforelse
+                            <!--begin::Tbody-->
+                            <tbody class="fs-6 fw-semibold text-gray-600">
+                                @forelse ($withdrawals as $withdrawal)
+                                    <tr>
+                                        <td class="ps-9">{{$withdrawal->reference}}</td>
+                                        <td class="ps-0">{{$withdrawal->user->name}}</td>
+                                        <td>{{$withdrawal->created_at->format('M d, Y')}}</td>
+                                        <td>₦{{$withdrawal->amount}}</td>
+                                        <td @if($withdrawal->status == 'success') class="text-success" @else class="text-warning" @endif >
+                                            {{ucwords($withdrawal->status)}}
+                                        </td>
+                                        <td>
+                                            @if($withdrawal->status == 'success')
+                                                Paid: {{$withdrawal->approved_at->calendar()}}
+                                            @else
+                                            <form id="withdrawal{{$withdrawal->id}}" action="{{route('admin.withdrawals.pay')}}" method="post" onsubmit="return confirm('Are you sure you want to continue?');">@csrf
+                                                <input type="hidden" name="withdrawal_id" value="{{$withdrawal->id}}">
+                                                <button class="btn btn-primary btn-sm">Pay</button>
+                                            </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty 
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            No Withdrawals Yet
+                                        </td>
+                                    </tr>
+                                @endforelse
+                                
+
+                            </tbody>
+                            <!--end::Tbody-->
+                        </table>
+                    </div>
+                    <div class="row my-5">
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                            @include('layouts.pagination',['data'=> $withdrawals])
                             
-
-                        </tbody>
-                        <!--end::Tbody-->
-                    </table>
+                        </div>
                     </div>
                     <!--end::Tab content-->
                 </div>

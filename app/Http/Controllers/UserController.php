@@ -21,7 +21,7 @@ class UserController extends Controller
         $users = $users->where('firstname','LIKE',"%$search%")->orWhere('lastname','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%");
         if(request()->expectsJson())
         return response()->json(['data'=> $users->get()],200);
-        else $users = $users->paginate(50);
+        else $users = $users->orderBy('firstname','asc')->paginate(50);
         return view('admin.users',compact('users'));
     }
 
