@@ -12,6 +12,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\FlutterwaveTrait;
+use App\Notifications\SubscriptionActiveNotification;
 
 class SubscriptionController extends Controller
 {
@@ -86,6 +87,8 @@ class SubscriptionController extends Controller
             'm3u_link' => $request->m3u_link, 'xtream_username' => $request->username, 'xtream_password' => $request->password, 'xtream_link' => $request->xtream_link,
             'start_at' => now(), 'end_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->end_at)
         ]);
+        $subscription = Subscription::find($request->subscription_id);
+        $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
     }
 

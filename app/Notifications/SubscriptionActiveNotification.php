@@ -2,23 +2,24 @@
 
 namespace App\Notifications;
 
+use App\Models\Subscription;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class SubscriptionActiveNotification extends Notification
 {
     use Queueable;
-
+    public $subscription;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Subscription $subscription)
     {
-        //
+        $this->subscription = $subscription;
     }
 
     /**
@@ -29,7 +30,7 @@ class SubscriptionActiveNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -41,9 +42,13 @@ class SubscriptionActiveNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Subscription details for '.$this->subscription->plan->name.' '.$this->subscription->duration.' Month'.' is as follows:')
+                    ->line('Xtream Username: '.$this->subscription->xtream_username)
+                    ->line('Xtream Password: '.$this->subscription->xtream_password)
+                    ->line('Xtream Link: '.$this->subscription->xtream_link)
+                    ->line('M3u Link: '.$this->subscription->m3u_link)
+                    ->action('View Dashboard', route('dashboard'))
+                    ->line('Thank you for using Xoflix!');
     }
 
     /**
@@ -55,7 +60,9 @@ class SubscriptionActiveNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'subject' => 'Subscription Details',
+            'body' => 'Subscription details for '.$this->subscription->plan->name.' '.$this->subscription->duration.' Month'.' is ready',
+            'url'=> route('dashboard')
         ];
     }
 }

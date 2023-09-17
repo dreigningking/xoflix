@@ -1,17 +1,18 @@
 <?php
 
+use App\Models\Plan;
+use App\Models\Webhook;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Jobs\CheckExpiredSubscriptionsJob;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SupportController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\SubscriptionController;
-use App\Models\Plan;
-use App\Models\Webhook;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,5 +71,6 @@ Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->na
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
 Route::get('check',function(){
-    return 'ok';
+   CheckExpiredSubscriptionsJob::dispatch();
+   return 'ok';
 });

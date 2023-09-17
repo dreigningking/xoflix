@@ -2,26 +2,25 @@
 
 namespace App\Notifications;
 
-use App\Models\Payment;
+use App\Models\Subscription;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SubscriptionPaymentNotification extends Notification
+class SubscriptionExpiredNotification extends Notification
 {
     use Queueable;
-    public $payment;
+    public $subscription;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Payment $payment)
+    public function __construct(Subscription $subscription)
     {
-        $this->payment = $payment;
+        $this->subscription = $subscription;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -39,11 +38,14 @@ class SubscriptionPaymentNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+    
     public function toMail($notifiable)
     {
+        
         return (new MailMessage)
-                    ->line('Payment of '.$this->payment->amount.' received. Subscription details will be shared with you shortly')
-                    ->action('Dashboard', route('dashboard'))
+                    ->subject('Subscription Expired')
+                    ->line('Your Xoflix subscription of '.$this->subscription->plan->name.' '.$this->subscription->duration.' Month'.' has expired.')
+                    ->action('Buy New Subscription', route('subscription'))
                     ->line('Thank you for using Xoflix!');
     }
 
@@ -55,10 +57,11 @@ class SubscriptionPaymentNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        
         return [
-            'subject' => 'Payment Received',
-            'body' => 'Payment of '.$this->payment->amount.' received. Subscription details will be shared with you shortly',
-            'url'=> route('dashboard')
+            'subject' => 'Subscription Expired',
+            'body' => 'Your Xoflix subscription of '.$this->subscription->plan->name.' '.$this->subscription->duration.' Month'.' has expired',
+            'url'=> route('subscription')
         ];
     }
 }

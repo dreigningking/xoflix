@@ -2,23 +2,24 @@
 
 namespace App\Notifications;
 
+use App\Models\Earning;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class ReferralEarningNotification extends Notification
 {
     use Queueable;
-
+    public $earning;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Earning $earning)
     {
-        //
+        $this->earning = $earning;
     }
 
     /**
@@ -29,7 +30,7 @@ class ReferralEarningNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -41,9 +42,10 @@ class ReferralEarningNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('You have earned '.$this->earning->amount.' bonus for referring '.$this->earning->referred->name)
+                    ->line('Keep up the energy')
+                    ->action('View Balance', route('dashboard'))
+                    ->line('Thank you for using Xoflix!');
     }
 
     /**
@@ -55,7 +57,9 @@ class ReferralEarningNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'subject' => 'Referral Earning',
+            'body' => 'You have earned '.$this->earning->amount.' bonus for referring '.$this->earning->referred->name,
+            'url' => route('dashboard')
         ];
     }
 }
