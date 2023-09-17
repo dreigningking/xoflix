@@ -177,23 +177,20 @@
                                             <div class="d-flex flex-column bgi-no-repeat rounded-top"
                                                 style="background-image:url({{ asset('media/patterns/dropdown-header-bg.png') }}">
                                                 <h3 class="text-white fw-bold px-9 mt-10 mb-6">Notifications
-                                                    <span class="fs-8 opacity-75 ps-3">24 reports</span>
+                                                    <span class="fs-8 opacity-75 ps-3">No notifications</span>
                                                 </h3>
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <div class="scroll-y mh-325px my-5 px-8">
                                                     <!--begin::Item-->
                                                     <div class="d-flex flex-stack py-4">
                                                         <!--begin::Section-->
                                                         <div class="d-flex align-items-center me-2">
                                                             <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200
-                                                                OK</span>
+                                                            <span class="w-70px badge badge-light-success me-4">200 OK</span>
                                                             <!--end::Code-->
                                                             <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">New
-                                                                order</a>
+                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">New order</a>
                                                             <!--end::Title-->
                                                         </div>
                                                         <!--end::Section-->
@@ -207,13 +204,10 @@
                                                         <!--begin::Section-->
                                                         <div class="d-flex align-items-center me-2">
                                                             <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-danger me-4">500
-                                                                ERR</span>
+                                                            <span class="w-70px badge badge-light-danger me-4">500 ERR</span>
                                                             <!--end::Code-->
                                                             <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">New
-                                                                customer</a>
+                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">New customer</a>
                                                             <!--end::Title-->
                                                         </div>
                                                         <!--end::Section-->
@@ -228,17 +222,12 @@
                                                         <!--begin::Section-->
                                                         <div class="d-flex align-items-center me-2">
                                                             <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200
-                                                                OK</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Payment
-                                                                process</a>
+                                                            <span class="w-70px badge badge-light-success me-4">200 OK</span>
+
+                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">Payment process</a>
                                                             <!--end::Title-->
                                                         </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
+                                                        
                                                         <span class="badge badge-light fs-8">5 hrs</span>
                                                         <!--end::Label-->
                                                     </div>
@@ -248,10 +237,8 @@
                                                         <!--begin::Section-->
                                                         <div class="d-flex align-items-center me-2">
                                                             <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-warning me-4">300
-                                                                WRN
-                                                            </span>
-                                                            <!--end::Code-->
+                                                            <span class="w-70px badge badge-light-warning me-4">300 WRN </span>
+                                                            
                                                             <!--begin::Title-->
                                                             <a href="#"
                                                                 class="text-gray-800 text-hover-primary fw-bold">Search
@@ -445,7 +432,7 @@
                                                         <!--end::Svg Icon-->
                                                     </a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <!--end::Menu-->
                                         <!--end::Menu wrapper-->
