@@ -64,7 +64,7 @@
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <!--begin::Logo-->
                 <a href="{{url('/')}}" class="mb-12">
-                    <img alt="Logo" src="{{asset('media/logos/logo.png')}}"
+                    <img alt="Logo" src="{{asset('media/logos/logo_dark.png')}}"
                         class="h-50px theme-light-show">
                     
                 </a>

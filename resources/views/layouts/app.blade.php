@@ -62,9 +62,9 @@
                         <!--begin::Header Logo-->
                         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
                             <a href="https://xoflix.tv">
-                                <img alt="Logo" src="{{ asset('media/logos/logo.png') }}"
+                                <img alt="Logo" src="{{ asset('media/logos/logo_white.png') }}"
                                     class="h-15px h-lg-50px logo-default" />
-                                <img alt="Logo" src="{{ asset('media/logos/logo.png') }}"
+                                <img alt="Logo" src="{{ asset('media/logos/logo_dark.png') }}"
                                     class="h-15px h-lg-25px logo-sticky" />
                             </a>
                         </div>
