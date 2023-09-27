@@ -110,7 +110,7 @@
                                     <span class="text-muted mt-1 fw-bold fs-7">{{$availableTrials}} trials</span>
                                 </h3>
                                 <div class="card-toolbar">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#addtrial" class="btn btn-primary">Add New Trials</a>
+                                    <a href="{{route('admin.trials')}}" class="btn btn-primary">Add New Trials</a>
                                 </div>
                             </div>
                             <!--end::Card header-->

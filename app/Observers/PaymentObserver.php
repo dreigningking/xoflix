@@ -45,6 +45,12 @@ class PaymentObserver
                 $earning = Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
                 $referrer->notify(new ReferralEarningNotification($earning));
             }
+            foreach($payment->subscriptions as $subscription){
+                if($subscription->end_at){
+                    $subscription->start_at = null;
+                    $subscription->save();
+                }    
+            }
             $payment->user->notify(new SubscriptionPaymentNotification($payment));
         }
     }

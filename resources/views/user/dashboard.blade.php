@@ -189,7 +189,14 @@
                                                                     <span class="fw-bold text-primary">EXPIRY: </span> 
                                                                 </td>
                                                                 <td class="text-end">
+                                                                    @if($subscription->end_at->diffInDays(now()) > 7 )
                                                                     <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
+                                                                    @else 
+                                                                    <form action="{{route('subscription.renew')}}" method="post">@csrf
+                                                                        <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
+                                                                        <button type="submit" class="btn btn-sm btn-primary">Renew</button>
+                                                                    </form>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -538,7 +545,15 @@
                                                         {{$subscription->start_at->format('d M Y h:i A')}}
                                                     </td>
                                                     <td>
-                                                        {{$subscription->end_at->format('d M Y h:i A')}}
+                                                        @if($subscription->end_at->diffInDays(now()) > 7 )
+                                                            <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
+                                                        @else 
+                                                            <form action="{{route('subscription.renew')}}" method="post">@csrf
+                                                                <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
+                                                                <button type="submit" class="btn btn-sm btn-primary">Renew</button>
+                                                            </form>
+                                                        @endif
+                                                        
                                                     </td>
                                                     <td>
                                                             <span>USERNAME:{{$subscription->username}} | PASSWORD: {{$subscription->password}}</span>

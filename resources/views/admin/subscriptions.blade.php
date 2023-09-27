@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@push('styles')
+<link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
+@endpush
 @section('main')
     <div class="content flex-row-fluid" id="kt_content">
         <div class="d-flex flex-column flex-xl-row">
@@ -68,9 +71,9 @@
 
                                         <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-2 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
-                                                <span data-kt-countup="true" data-kt-countup-value="{{number_format($new)}}"
+                                                <span data-kt-countup="true" data-kt-countup-value="{{number_format($pendings->count())}}"
                                                     data-kt-countup-prefix="$" class="counted"
-                                                    data-kt-initialized="1">{{number_format($new)}}</span>
+                                                    data-kt-initialized="1">{{number_format($pendings->count())}}</span>
                                             </span>
                                             <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">New Request</span>
                                         </div>
@@ -91,115 +94,65 @@
                     <div class="card-header card-header-stretch">
                         <!--begin::Title-->
                         <div class="card-title">
-                            <h3 class="m-0 text-gray-800">Create New</h3>
+                            <h3 class="m-0 text-gray-800">Pending Subscriptions</h3>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="kt_modal_new_card_form" method="POST" action="{{route('admin.subscription')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+                        <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table id="datatable" class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                                <!--begin::Thead-->
+                                <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                                    <tr>
+                                        <th class="min-w-200px ps-9">User</th>
+                                        <th class="min-w-125px text-center">Type</th>
+                                        <th class="min-w-125px text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <!--end::Thead-->
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <label class="required fs-6 fw-semibold form-label mb-2">Username</label>
-                                        <!--end::Label-->
-                                        <div class="input-group input-group-lg">
-                                            <input type="text" name="username" id="username" class="form-control form-control-solid" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                            <span class="input-group-text paste_button">Paste</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <label class="required fs-6 fw-semibold form-label mb-2">Password</label>
-                                        <!--end::Label-->
-                                        <div class="input-group input-group-lg">
-                                            <input type="text" name="password" id="password" class="form-control form-control-solid" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
-                                            <span class="input-group-text paste_button">Paste</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">URL</span>
-                                </label>
-
-                                <select name="link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
-                                    @foreach ($links as $link)
-                                        <option value="{{$link->id}}">{{$link->url}}</option>
+                                <!--begin::Tbody-->
+                                <tbody class="fs-6 fw-semibold text-gray-600">
+                                    @foreach ($pendings as $subscription)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol-40px me-3"> 
+                                                    @if($subscription->user->image)
+                                                    <img alt="Pic" src="{{$subscription->user->avatar}}">
+                                                    @else
+                                                    <div class="symbol-label display-6 bg-light-primary text-primary rounded-circle">
+                                                        {{ $subscription->user->name[0] }} 
+                                                    </div>
+                                                    @endif                                              
+                                                                                                      
+                                                </div>
+                                                
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{$subscription->user->name}}</a>
+                                                    <span class="text-muted fw-semibold d-block fs-7">{{$subscription->user->email}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center"> @if($subscription->end_at) Renewal @else New @endif</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details"
+                                                data_subscription="{{$subscription->id}}" data_username="{{$subscription->username}}" 
+                                                data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
+                                                data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
+                                                data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at}}"
+                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->name}}">View</button>
+                                        </td>
+                                    </tr>
                                     @endforeach
-                                </select>
-                                
-                            </div>
-                            <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">Panel</span>
-                                </label>
-
-                                <select name="panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
-                                    @foreach ($panels as $panel)
-                                        <option value="{{$panel->id}}">{{$panel->name}}</option>
-                                    @endforeach
-                                </select>
-                                
-                            </div>
-                            <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                    <span class="required">M3U Link</span>
-                                </label>
-                                <!--end::Label-->
-        
-                                {{-- <input type="url" class="form-control form-control-solid" placeholder="https://" name="link" required> --}}
-        
-                                <div class="input-group input-group-lg">
-                                    <input type="url" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                    <span class="input-group-text paste_button">Paste</span>
-                                </div>
-                                
-                            </div>
-        
-                            
-        
-                            <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                <label class="required fs-6 fw-semibold form-label mb-2">Expiration</label>
-                                <div class="input-group" id="kt_td_picker_basic" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                    <input id="kt_td_picker_basic_input" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic"/>
-                                    <span class="input-group-text" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker">
-                                        <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                    </span>
-                                </div>
-                            </div>
-        
-                            <div class="mb-10">
-                                <label class="form-label">User</label>
-                                <select name="subscription_id" class="form-select form-select-solid subscriber-remote w-100" style="width: 100%"  data-placeholder="Select an option" data-allow-clear="true">
-                                    <option></option>
-                                    
-                                </select>
-                            </div>
-                            
-                            <!--begin::Actions-->
-                            <div class="text-center pt-4">
-                                <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
-                                    Discard
-                                </button>
-        
-                                <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                                    <span class="indicator-label">
-                                        Submit
-                                    </span>
-                                </button>
-                            </div>
-                            <!--end::Actions-->
-                        </form>
+                                </tbody>
+                                <!--end::Tbody-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        
                     </div>
+                    
                 </div>
                 
                 <div class="card mt-3">
@@ -304,7 +257,12 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button data-bs-toggle="modal" data-bs-target="#sub_details{{$subscription->id}}" class="btn btn-light btn-sm btn-active-light-primary">View</button>
+                                            <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details" 
+                                                data_subscription="{{$subscription->id}}" data_username="{{$subscription->username}}" 
+                                                data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
+                                                data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
+                                                data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at}}"
+                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->name}}">View</button>
                                         </td>
                                         
                                     </tr>
@@ -331,180 +289,160 @@
     </div>
 @endsection
 @section('modals')
-<div class="modal fade" id="newsubsription" tabindex="-1" aria-hidden="true">
-    <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
-        <!--begin::Modal content-->
-        <div class="modal-content">
-            <!--begin::Modal header-->
-            <div class="modal-header">
-                <!--begin::Modal title-->
-                <h2>Add New Subscription</h2>
-                <!--end::Modal title-->
+    <div class="modal fade" id="sub_details" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="kt_selectuser_form" method="POST" action="{{route('admin.subscription')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
-                <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <i class="ki-duotone ki-cross fs-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </i>
-                </div>
-                <!--end::Close-->
-            </div>
-            <!--end::Modal header-->
-
-            <!--begin::Modal body-->
-            <div class="modal-body scroll-y mx-5 mx-xl-15 pt-3">
-                <!--begin::Form-->
-                
-                <!--end::Form-->
-            </div>
-            <!--end::Modal body-->
-        </div>
-        <!--end::Modal content-->
-    </div>
-    <!--end::Modal dialog-->
-</div>
-@foreach ($subscriptions as $subscription)
-<div class="modal fade" id="sub_details{{$subscription->id}}" tabindex="-1" aria-hidden="true">
-    <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered">
-        <!--begin::Modal content-->
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-body">
-                    <form id="kt_selectuser_form" method="POST" action="{{route('admin.update_subscription')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
-
-                        <input type="hidden" name="subscription_id" value="{{$subscription->id}}" id="subscription_id">
-                        
-                        <div class="mb-10 row">
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Username</span>
-                                    </label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" value="{{$subscription->username}}" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                        <span class="input-group-text paste_button">Paste</span>
-                                    </div>
-            
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Password</span>
-                                    </label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" placeholder="password" value="{{$subscription->password}}" id="edit_password" name="password" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
-                                        <span class="input-group-text paste_button">Paste</span>
-                                    </div>
-            
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">URL</span>
-                                    </label>
-
-                                    <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
-                                        @foreach ($links as $link)
-                                            <option value="{{$link->id}}" @if($subscription->link_id == $link->id) selected @endif>{{$link->url}}</option>
-                                        @endforeach
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Panel</span>
-                                    </label>
-
-                                    <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
-                                        @foreach ($panels as $panel)
-                                            <option value="{{$panel->id}}" @if($subscription->panel_id == $panel->id) selected @endif>{{$panel->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">M3U Link</span>
-                                    </label>
-                                    <!--end::Label-->
-            
-                                    
-            
-                                    <div class="input-group input-group-lg">
-                                        <input type="url" id="edit_m3u_link" name="m3u_link" value="{{$subscription->m3u_link}}" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                        <span class="input-group-text paste_button">Paste</span>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <table class="table-bordered border-secondary">
-                                <tr>
-                                    <td class="text-center p-2">
-                                        <div class="d-flex">
-                                            <div class="pe-2 fs-5 fw-bold">Start:</div>
-                                            <div>{{$subscription->start_at->calendar()}}</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center p-2">
-                                        <div class="d-flex">
-                                            <div class="pe-2 fs-5 fw-bold">Expiry:</div>
-                                            <div>{{$subscription->start_at->calendar()}}</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                            </table> 
-                         </div>   
-                        
-                        <!--begin::Actions-->
-                        <div class="text-center pt-15">
-                            <button type="submit" name="action" value="update" class="btn btn-primary me-4">
-                                <span class="indicator-label">
-                                    Update
-                                </span>
-                            </button>
-
-                            {{-- <button type="submit" name="action" value="delete" id="kt_modal_new_card_cancel" class="btn btn-danger me-3">
-                                    Delete
-                            </button> --}}
-
+                            <input type="hidden" name="subscription_id" value="" id="subscription_id">
                             
-                        </div>
-                        <!--end::Actions-->
-                    </form>
+                            <div class="mb-10 row">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Username</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" value="" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Password</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" placeholder="password" value="" id="edit_password" name="password" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">URL</span>
+                                        </label>
+
+                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
+                                            @foreach ($links as $link)
+                                                <option value="{{$link->id}}">{{$link->url}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Panel</span>
+                                        </label>
+
+                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
+                                            @foreach ($panels as $panel)
+                                                <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">M3U Link</span>
+                                        </label>
+                                        <!--end::Label-->
+                
+                                        
+                
+                                        <div class="input-group input-group-lg">
+                                            <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <table class="table-bordered border-secondary">
+                                    <tr>
+                                        <td class="text-center p-2">
+                                            <div class="d-flex">
+                                                <div class="pe-2 fs-5 fw-bold">Start:</div>
+                                                <div><span id="edit_start"></span></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center p-2">
+                                            <div class="d-flex">
+                                                <div class="pe-2 fs-5 fw-bold">Expiry:</div>
+                                                <div><span id="edit_expiry"></span></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            <div><span id="edit_plan"></span> Plan</div>
+                                        </td>
+                                    </tr>
+                                    
+                                </table> 
+                            </div>   
+                            
+                            <!--begin::Actions-->
+                            <div class="text-center pt-15">
+                                <button type="submit" name="action" value="update" class="btn btn-primary me-4">
+                                    <span class="indicator-label">
+                                        Update
+                                    </span>
+                                </button>
+
+                                {{-- <button type="submit" name="action" value="delete" id="kt_modal_new_card_cancel" class="btn btn-danger me-3">
+                                        Delete
+                                </button> --}}
+
+                                
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                    </div>
                 </div>
+                
             </div>
-            
         </div>
     </div>
-</div>
-@endforeach
 @endsection
 @push('scripts')
     {{-- <script src="{{ asset('plugins/tempus-dominus.init.js') }}"></script> --}}
+    <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>
-        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
-            //put your config here
-        });
+        var subscriptionTable = $("#datatable").DataTable({});
+        // new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
+        //     //put your config here
+        // });
+
+        $('.sub_details').on('click',function(){
+            $('#subscription_id').val($(this).attr('data_subscription'))
+            $('#edit_username').val($(this).attr('data_username'))
+            $('#edit_password').val($(this).attr('data_password'))
+            $('#edit_link_id').val($(this).attr('data_link_id'))
+            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
+            $('#edit_panel_id').val($(this).attr('data_panel_id'))
+            $('#edit_user_id').val($(this).attr('data_user_id'))
+            $('#edit_start').text($(this).attr('data_start'))
+            $('#edit_expiry').text($(this).attr('data_expiry'))
+            $('#edit_plan').text($(this).attr('data_plan'))
+            $('#sub_details').modal('show')
+        })
         
     </script>
 

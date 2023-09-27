@@ -78,7 +78,7 @@
                                     </div>
                                     <!--end::Row-->
 
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#addtrial" class="btn btn-primary  px-6 flex-shrink-0 align-self-center">Add New</a>
+                                    {{-- <a href="#" data-bs-toggle="modal" data-bs-target="#addtrial" class="btn btn-primary  px-6 flex-shrink-0 align-self-center">Add New</a> --}}
                                 </div>
                                 <!--end::Left Section-->
                             </div>
@@ -531,7 +531,7 @@
                                     
             
                                     <div class="input-group input-group-lg">
-                                        <input type="url" id="edit_m3u_link" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                        <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
                                         <span class="input-group-text paste_button">Paste</span>
                                     </div>
                                     

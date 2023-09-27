@@ -42,7 +42,7 @@ class SubscriptionPaymentNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Payment of '.$this->payment->amount.' received. Subscription details will be shared with you shortly')
+                    ->line('Payment of '.$this->payment->amount.' received. Subscription information will be shared with you shortly')
                     ->action('Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
     }
@@ -57,7 +57,7 @@ class SubscriptionPaymentNotification extends Notification
     {
         return [
             'subject' => 'Payment Received',
-            'body' => 'Payment of '.$this->payment->amount.' received. Subscription details will be shared with you shortly',
+            'body' => 'Payment of '.$this->payment->amount.' received. Subscription information will be shared with you shortly',
             'url'=> route('dashboard')
         ];
     }

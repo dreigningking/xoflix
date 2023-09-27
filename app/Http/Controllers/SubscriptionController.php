@@ -9,6 +9,7 @@ use App\Models\Panel;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -28,8 +29,6 @@ class SubscriptionController extends Controller
         $total = Subscription::whereNotNull('start_at')->count();
         $expired = Subscription::whereNotNull('start_at')->where('end_at', '<', now())->count();
         $ongoing = Subscription::whereNotNull('start_at')->where('end_at', '>', now())->count();
-        $new = Payment::whereDoesntHave('subscriptions')->count();
-
         $subscriptions = Subscription::whereNotNull('start_at')->where('user_id', '!=', null);
         if ($hide_expired = request()->expired) {
             $subscriptions = $subscriptions->where('end_at', '>', now());
@@ -44,7 +43,9 @@ class SubscriptionController extends Controller
         $subscriptions = $subscriptions->paginate(50);
         $links = Link::all();
         $panels = Panel::all();
-        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired', 'ongoing', 'new'));
+        $pendings = Subscription::whereHas('payment',function($query){
+            $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
+        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired', 'ongoing', 'pendings'));
     }
 
     public function trials()
@@ -75,14 +76,40 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
+
+        $subscription = Subscription::find($request->subscription_id);
         Subscription::where('id',$request->subscription_id)->update([
             'm3u_link' => $request->m3u_link, 'username' => $request->username, 'password' => $request->password, 'link_id' => $request->link_id,
-            'panel_id' => $request->panel_id,'start_at' => now(), 'end_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->end_at)
+            'panel_id' => $request->panel_id,'start_at' => now(), 'end_at' => now()->addMonths($subscription->duration)
         ]);
-        $subscription = Subscription::find($request->subscription_id);
+        
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
     }
+
+    // public function update_subscription(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $subscription = Subscription::where('id', $request->subscription_id)->first();
+    //     // dd($subscription);
+    //     switch($request->action){ 
+    //         case 'update':  
+    //             if($request->username) $subscription->username = $request->username;
+    //             if($request->password) $subscription->password = $request->password;
+    //             if($request->link_id) $subscription->link_id = $request->link_id;
+    //             if($request->panel_id) $subscription->panel_id = $request->panel_id;
+    //             if($request->m3u_link) $subscription->m3u_link = $request->m3u_link;
+    //             $subscription->save();
+    //             return $request->expectsJson() ? response()->json(200) : redirect()->back();
+    //             break;
+    //         case 'delete': 
+    //             $subscription->delete();
+    //             return redirect()->back();
+    //             break;
+    //     }  
+        
+    // }
+
 
     public function trials_store(Request $request)
     {
@@ -118,29 +145,7 @@ class SubscriptionController extends Controller
         
     }
 
-    public function update_subscription(Request $request)
-    {
-        // dd($request->all());
-        $subscription = Subscription::where('id', $request->subscription_id)->first();
-        // dd($subscription);
-        switch($request->action){ 
-            case 'update':  
-                if($request->username) $subscription->username = $request->username;
-                if($request->password) $subscription->password = $request->password;
-                if($request->link_id) $subscription->link_id = $request->link_id;
-                if($request->panel_id) $subscription->panel_id = $request->panel_id;
-                if($request->m3u_link) $subscription->m3u_link = $request->m3u_link;
-                $subscription->save();
-                return $request->expectsJson() ? response()->json(200) : redirect()->back();
-                break;
-            case 'delete': 
-                $subscription->delete();
-                return redirect()->back();
-                break;
-        }  
-        
-    }
-
+    
 
     public function share_to_affilate(Request $request)
     {
@@ -148,6 +153,7 @@ class SubscriptionController extends Controller
         return response()->json(200);
     }
 
+    /* User side */
     public function pricing()
     {
         $plans = Plan::all();
@@ -180,6 +186,20 @@ class SubscriptionController extends Controller
                 }
             }
         }
+        $response = $this->initiateFlutterWave($payment);
+        if (!$response)
+            return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
+        else return redirect()->to($response);
+    }
+
+    public function renew(Request $request){
+        $subscription = Subscription::find($request->subscription_id);
+        $price = Arr::first($subscription->plan->prices, function ($value, $key) use($subscription) {
+            return intval($value['label']) == $subscription->duration;
+        });
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $price['description'] ]);
+        $subscription->payment_id = $payment->id;
+        $subscription->save();
         $response = $this->initiateFlutterWave($payment);
         if (!$response)
             return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);

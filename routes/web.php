@@ -44,7 +44,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('support/chat',[SupportController::class, 'reply'])->name('support.reply');
     Route::get('subscriptions',[SubscriptionController::class, 'index'])->name('subscriptions');
     Route::post('subscription',[SubscriptionController::class, 'store'])->name('subscription');
-    Route::post('update_subscription',[SubscriptionController::class, 'update_subscription'])->name('update_subscription');
+    // Route::post('update_subscription',[SubscriptionController::class, 'update_subscription'])->name('update_subscription');
     Route::get('trials',[SubscriptionController::class, 'trials'])->name('trials');
     Route::post('trials',[SubscriptionController::class, 'trials_store'])->name('trials');
     Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
@@ -68,6 +68,7 @@ Route::post('resolve/account', [PaymentController::class, 'resolve_account'])->n
 Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
 Route::get('subscription',[SubscriptionController::class, 'pricing'])->name('subscription');
 Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription');
+Route::post('subscription/renew',[SubscriptionController::class, 'renew'])->name('subscription.renew');
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
