@@ -89,10 +89,114 @@
 
                 </div>
                 <!--end::Row-->
+                <div class="card mb-5">
+                    <div class="card-header card-header-stretch">
+                        <!--begin::Title-->
+                        <div class="card-title">
+                            <h3 class="m-0 text-gray-800">Add Trials</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials') }}"
+                            class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
+                            <div id="trial_wrapper">
+                                <div class="my-3 row border-bottom reg-cont">
+                                    
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Username</span>
+                                            </label>
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                                <span class="input-group-text paste_button">Paste</span>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Password</span>
+                                            </label>
+                                            <div class="input-group input-group-lg">
+                                                <input type="text" placeholder="password" name="password" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
+                                                <span class="input-group-text paste_button">Paste</span>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">URL</span>
+                                            </label>
+            
+                                            <select name="link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
+                                                @foreach ($links as $link)
+                                                    <option value="{{$link->id}}">{{$link->url}}</option>
+                                                @endforeach
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">Panel</span>
+                                            </label>
+            
+                                            <select name="panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
+                                                @foreach ($panels as $panel)
+                                                    <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">M3U Link</span>
+                                            </label>
+                                            <!--end::Label-->
+                    
+                                            {{-- <input type="url" class="form-control form-control-solid" placeholder="https://" name="link" required> --}}
+                    
+                                            <div class="input-group input-group-lg">
+                                                <input type="url" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                                <span class="input-group-text paste_button">Paste</span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                   
+
+                                </div>
+                            </div>
+                            
+                            <div class="text-center pt-15">
+                                <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
+                                    Discard
+                                </button>
+
+                                <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
+                                    <span class="indicator-label">
+                                        Submit
+                                    </span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                    </div>
+                </div>
 
                 <!--begin::Statements-->
-                <div class="card  ">
+                <div class="card">
                     <!--begin::Header-->
                     <div class="card-header card-header-stretch">
                         <!--begin::Title-->
@@ -126,22 +230,12 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <form action="#" method="get">
                                             <!--begin::Input group-->
-                                            <div class="mb-10 d-flex">
-                                                <label class="form-label fs-6 fw-semibold mr-4">Type: </label>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="form-check form-check-sm form-check-custom mx-3">
-                                                        <input class="form-check-input mx-3" name="type[]" @if(in_array('xtream',$type)) checked @endif type="checkbox" value="xtream"> Xtream
-                                                    </div>
-                                                    <div class="form-check form-check-sm form-check-custom mx-3">
-                                                        <input class="form-check-input mx-3" name="type[]" @if(in_array('m3u_plus',$type)) checked @endif type="checkbox" value="m3u_plus"> M3u
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <!--end::Input group-->
 
                                             <!--begin::Input group-->
                                             <div class="mb-10 d-flex">
-                                                <label class="form-label fs-6 fw-semibold mr-4">Show: </label>
+                                                <label class="form-label fs-6 fw-semibold mr-4">Hide: </label>
                                                 <div class="d-flex flex-column">
                                                     <div class="form-check form-check-sm form-check-custom mb-3">
                                                         <input class="form-check-input mx-3" @if($assigned) checked @endif name="assigned" type="checkbox" value="1"> Assigned
@@ -150,7 +244,7 @@
                                                         <input class="form-check-input mx-3" @if($shared) checked @endif name="shared" type="checkbox" value="1"> Shared
                                                     </div>
                                                     <div class="form-check form-check-sm form-check-custom">
-                                                        <input class="form-check-input mx-3" @if($expired) checked @endif name="expired" type="checkbox" value="1"> Expired
+                                                        <input class="form-check-input mx-3" @if($expiry) checked @endif name="expiry" type="checkbox" value="1"> Expired
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,86 +277,84 @@
                     <!--end::Header-->
 
                     <!--begin::Tab Content-->
-                    <div id="kt_referred_users_tab_content" class="tab-content">
-                        <!--begin::Tab panel-->
-                        <div id="kt_referrals_1" class="card-body p-0 tab-pane fade show active" role="tabpanel"
-                            aria-labelledby="kt_referrals_year_tab">
-                            <div class="table-responsive">
-                                <!--begin::Table-->
-                                <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
-                                    <!--begin::Thead-->
-                                    <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
-                                        <tr>
-                                            <th class="">
-                                                <div class="form-check form-check-sm form-check-custom ">
-                                                    <input class="form-check-input" id="checkbox_master" type="checkbox" value="1">
-                                                </div>
-                                            </th>
-                                            <th class="w-175px px-0">Generated</th>
-                                            <th class="w-150px px-0">Type</th>
-                                            <th class="w-100px">Details</th>
-                                            <th class="min-w-125px text-center">Assign</th>
+                    <div class="card-body px-0">
+                        <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                                <!--begin::Thead-->
+                                <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                                    <tr>
+                                        <th class="">
+                                            <div class="form-check form-check-sm form-check-custom ">
+                                                <input class="form-check-input" id="checkbox_master" type="checkbox" value="1">
+                                            </div>
+                                        </th>
+                                        <th class="w-175px px-0">Generated</th>
+                                        
+                                        {{-- <th class="w-100px">Details</th> --}}
+                                        <th class="min-w-125px text-center">View</th>
 
-                                        </tr>
-                                    </thead>
-                                    <!--end::Thead-->
+                                    </tr>
+                                </thead>
+                                <!--end::Thead-->
 
-                                    <!--begin::Tbody-->
-                                    <tbody class="fs-6 fw-semibold text-gray-600">
-                                        @foreach ($trials as $trial)
-                                        <tr data-trial="{{$trial->id}}">
-                                            <td>
-                                                <div class="form-check form-check-sm form-check-custom">
-                                                    <input name="trial_id" value="{{$trial->id}}" class="form-check-input checkboxes" type="checkbox">
-                                                </div>
-                                            </td>
-                                            <td class=" text-nowrap">
-                                                {{$trial->created_at->format('M d, Y')}} 
-                                                <span class="text-gray-400 d-block fs-7">
-                                                    Time: {{$trial->created_at->format('h:i A')}}
+                                <!--begin::Tbody-->
+                                <tbody class="fs-6 fw-semibold text-gray-600">
+                                    @foreach ($trials as $trial)
+                                    <tr data-trial="{{$trial->id}}">
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom">
+                                                <input name="trial_id" value="{{$trial->id}}" class="form-check-input checkboxes" type="checkbox">
+                                            </div>
+                                        </td>
+                                        <td class=" text-nowrap">
+                                            {{$trial->created_at->format('M d, Y')}} 
+                                            <span class="text-gray-400 d-block fs-7">
+                                                Time: {{$trial->created_at->format('h:i A')}}
+                                            </span>
+                                                
+                                        </td>
+                                        
+                                        {{-- <td class="text-nowrap">
+                                            <div class="flex-grow-1">
+                                                <span class="text-gray-400 text-hover-primary fs-5">
+                                                    {{$trial->link->url}}
                                                 </span>
-                                                    
-                                            </td>
-                                            <td class="">{{ucwords($trial->type)}}</td>
-                                            <td class="text-nowrap">
-                                                <div class="flex-grow-1">
-                                                    <span class="text-gray-400 text-hover-primary fs-5">
-                                                        {{$trial->link}}
-                                                    </span>
-                                                    @if(!Str::contains($trial->link, 'username'))
-                                                    <span class="text-gray-400 d-block fs-7">User: {{$trial->username}} | Password:
-                                                        {{$trial->password}}</span>
-                                                    @endif
-                                                </div>
-                                            </td>
+                                                
+                                                <span class="text-gray-400 d-block fs-7">User: {{$trial->username}} | Password:
+                                                    {{$trial->password}}</span>
+                                                
+                                            </div>
+                                        </td> --}}
 
-                                            <td class="text-center px-0">
-                                                @if($trial->user_id)
-                                                Assigned
-                                                @elseif($trial->affiliate_id)
-                                                Shared
-                                                @else
-                                                <button type="button" class="btn btn-light btn-sm btn-active-light-primary selectuser" data-trial="{{$trial->id}}">Select
-                                                    User</button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        @endforeach
+                                        <td class="text-center px-0">
+                                            
+                                            @if($trial->created_at->addHours(6) < now() || (!$trial->user_id && !$trial->affiliate_id))
+                                            <button type="button" class="btn btn-light btn-sm btn-active-light-primary selectuser" 
+                                                data_trial="{{$trial->id}}" data_username="{{$trial->username}}" data_password="{{$trial->password}}"
+                                                data_link_id="{{$trial->link_id}}" data_m3u_link="{{$trial->m3u_link}}"
+                                                data_panel_id="{{$trial->panel_id}}" data_user_id="{{$trial->user_id}}">View</button>
+                                            @elseif($trial->affiliate_id)
+                                            Shared
+                                            @elseif($trial->user_id)
+                                            Assigned
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
 
 
-                                    </tbody>
-                                    <!--end::Tbody-->
-                                </table>
-                                <!--end::Table-->
-                            </div>
-                            <div class="row my-5">
-                                <div class="col-sm-12 d-flex align-items-center justify-content-center">
-                                    @include('layouts.pagination',['data'=> $trials])
-                                    
-                                </div>
+                                </tbody>
+                                <!--end::Tbody-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <div class="row my-5">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                                @include('layouts.pagination',['data'=> $trials])
+                                
                             </div>
                         </div>
-                        <!--end::Tab panel-->
 
 
                     </div>
@@ -276,6 +368,69 @@
     </div>
 @endsection
 @section('modals')
+<div class="modal fade" id="selectaffiliate" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h2>Select User</h2>
+                <!--end::Modal title-->
+
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                transform="rotate(45 7.41422 6)" fill="black" />
+                        </svg>
+                    </i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body mx-5 mx-xl-15">
+                <!--begin::Form-->
+                <form id="kt_affiliate_form"  action="" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+
+                    <input type="hidden" name="trial_id" id="trial_id">
+                    
+                    <div class="mb-10 row">
+                        <label class="form-label">Affiliate</label>
+                        <select name="user_id" id="affiliate_id" class="form-select form-select-solid select-remote w-100" style="width: 100%" data-dropdown-parent="#selectaffiliate" data-placeholder="Select an option" data-allow-clear="true">
+                            <option></option>
+                        </select>
+                    </div>
+                    
+                    <!--begin::Actions-->
+                    <div class="text-center pt-15">
+                        <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
+                            Discard
+                        </button>
+
+                        <button type="button" id="share_submit" class="btn btn-primary">
+                            <span class="indicator-label">
+                                Submit
+                            </span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
     <div class="modal fade" id="selectuser" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered">
@@ -284,7 +439,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2>Select User</h2>
+                    <h2>Trial Details</h2>
                     <!--end::Modal title-->
 
                     <!--begin::Close-->
@@ -304,31 +459,106 @@
                 <!--end::Modal header-->
 
                 <!--begin::Modal body-->
-                <div class="modal-body mx-5 mx-xl-15">
+                <div class="modal-body mx-0">
                     <!--begin::Form-->
-                    <form id="kt_selectuser_form" method="POST" action="" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+                    <form id="kt_selectuser_form" method="POST" action="{{route('admin.update_trial')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
                         <input type="hidden" name="trial_id" id="trial_id">
                         
                         <div class="mb-10 row">
-                            <label class="form-label">User</label>
-                            <select name="user_id" id="user_id" class="form-select form-select-solid select-remote w-100" style="width: 100%" data-dropdown-parent="#selectuser" data-placeholder="Select an option" data-allow-clear="true">
-                                <option></option>
-                                
-                            </select>
-                        </div>
+                            <div class="col-12">
+                                <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Username</span>
+                                    </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" value="" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                        <span class="input-group-text paste_button">Paste</span>
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Password</span>
+                                    </label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" placeholder="password" id="edit_password" name="password" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
+                                        <span class="input-group-text paste_button">Paste</span>
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">URL</span>
+                                    </label>
+    
+                                    <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
+                                        @foreach ($links as $link)
+                                            <option value="{{$link->id}}">{{$link->url}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Panel</span>
+                                    </label>
+    
+                                    <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
+                                        @foreach ($panels as $panel)
+                                            <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">M3U Link</span>
+                                    </label>
+                                    <!--end::Label-->
+            
+                                    
+            
+                                    <div class="input-group input-group-lg">
+                                        <input type="url" id="edit_m3u_link" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                        <span class="input-group-text paste_button">Paste</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label class="form-label">User</label>
+                                <select name="user_id" id="edit_user_id" class="form-select form-select-solid select-remote w-100" style="width: 100%" data-dropdown-parent="#selectuser" data-placeholder="Select an option" data-allow-clear="true">
+                                    <option></option>
+                                    
+                                </select>
+                            </div>
                         
                         <!--begin::Actions-->
                         <div class="text-center pt-15">
-                            <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
-                                Discard
-                            </button>
-
-                            <button type="button" id="assign_submit" class="btn btn-primary">
+                            <button type="submit" name="action" value="update" class="btn btn-primary me-4">
                                 <span class="indicator-label">
-                                    Submit
+                                    Update
                                 </span>
                             </button>
+
+                            <button type="submit" name="action" value="delete" id="kt_modal_new_card_cancel" class="btn btn-danger me-3">
+                                    Delete
+                            </button>
+
+                            
                         </div>
                         <!--end::Actions-->
                     </form>
@@ -340,118 +570,37 @@
         </div>
         <!--end::Modal dialog-->
     </div>
-    <div class="modal fade" id="selectaffiliate" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header">
-                    <!--begin::Modal title-->
-                    <h2>Select User</h2>
-                    <!--end::Modal title-->
-
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <i class="ki-duotone ki-cross fs-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="black" />
-                            </svg>
-                        </i>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--end::Modal header-->
-
-                <!--begin::Modal body-->
-                <div class="modal-body mx-5 mx-xl-15">
-                    <!--begin::Form-->
-                    <form id="kt_affiliate_form"  action="" class="form fv-plugins-bootstrap5 fv-plugins-framework">
-
-                        <input type="hidden" name="trial_id" id="trial_id">
-                        
-                        <div class="mb-10 row">
-                            <label class="form-label">Affiliate</label>
-                            <select name="user_id" id="affiliate_id" class="form-select form-select-solid select-remote w-100" style="width: 100%" data-dropdown-parent="#selectaffiliate" data-placeholder="Select an option" data-allow-clear="true">
-                                <option></option>
-                            </select>
-                        </div>
-                        
-                        <!--begin::Actions-->
-                        <div class="text-center pt-15">
-                            <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
-                                Discard
-                            </button>
-
-                            <button type="button" id="share_submit" class="btn btn-primary">
-                                <span class="indicator-label">
-                                    Submit
-                                </span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-                <!--end::Modal body-->
-            </div>
-            <!--end::Modal content-->
-        </div>
-        <!--end::Modal dialog-->
-    </div>
+    
 @endsection
 @push('scripts')
     <script>
         
         $('.selectuser').on('click',function(){
-            $('#trial_id').val($(this).attr('data-trial'))
+            $('#trial_id').val($(this).attr('data_trial'))
+            $('#edit_username').val($(this).attr('data_username'))
+            $('#edit_password').val($(this).attr('data_password'))
+            $('#edit_link_id').val($(this).attr('data_link_id'))
+            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
+            $('#edit_panel_id').val($(this).attr('data_panel_id'))
+            $('#edit_user_id').val($(this).attr('data_user_id'))
             $('#selectuser').modal('show')
         })
-        $('#assign_submit').on('click',function(){
-            let trial_id = $('#trial_id').val()
-            let user_id = $('#user_id').val()
-            
-            $.ajax({
-                type:'POST',
-                dataType: 'json',
-                url: "{{route('admin.assign_trial')}}",
-                data: {
-                    '_token' : $('meta[name="csrf-token"]').attr('content'),
-                    'user_id': user_id,
-                    'trial_id': trial_id
-                },
-                success:function(data) {
-                    // $('.selectuser[data-trial='+trial_id+']').replaceWith("<span>Assigned</span>")
-                    $('tr[data-trial='+trial_id+']').fadeOut();
-                    $('#selectuser').modal('hide')
-                    console.log('here')
-                },
-                error: function (data, textStatus, errorThrown) {
-                    //show error on modal
-                    console.log('not');
-                },
-            });
-            
-        })
+        
         $(document).on('change','.checkboxes,#checkbox_master',function(){
-            console.log($('.checkboxes:checked').length)
+            // console.log($('.checkboxes:checked').length)
             if($('.checkboxes:checked').length){
                 $('#shareto').removeClass('disabled')
-                console.log('removing')
+                
             }else{
                 $('#shareto').addClass('disabled')
-                console.log('adding')
+                
             }
         })
         $('#shareto').click(function(){
             $('#selectaffiliate').modal('show')
         })
         $('#share_submit').on('click',function(){
-            // console.log($('.checkboxes:checked'))
+            console.log('hey')
             let user_id = $('#affiliate_id').val();
             let trials = [];
             $('.checkboxes:checked').each(function(index,valu){
@@ -468,11 +617,6 @@
                     'trials': trials
                 },
                 success:function(data) {
-                    // $('.selectuser[data-trial='+trial_id+']').replaceWith("<span>Assigned</span>")
-                    trials.forEach(function (el) {
-                        $('tr[data-trial='+el+']').fadeOut();
-                    })
-                    
                     $('#selectaffiliate').modal('hide')
                     
                 },

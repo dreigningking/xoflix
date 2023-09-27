@@ -628,57 +628,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y mx-1 mx-xl-1">
 
-                    <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials') }}"
-                        class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
-
-                        <div id="trial_wrapper">
-                            <div class="my-3 row border-bottom reg-cont">
-                                <div class="col-md-4">
-                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <div class="input-group input-group-lg">
-                                            <input type="url" placeholder="Url" name="link[]" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                            <span class="input-group-text paste_button">Paste</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
-                                        <div class="input-group input-group-lg">
-                                            <input type="text" placeholder="username" name="username[]" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                            <span class="input-group-text paste_button">Paste</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
-                                        <div class="input-group input-group-lg">
-                                            <input type="text" placeholder="password" name="password[]" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
-                                            <span class="input-group-text paste_button">Paste</span>
-                                        </div>
-                
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="add-more m-4">
-                            <a href="javascript:void(0);" class="add-reg"><i class="fa fa-plus-circle"></i> Add New</a>
-                        </div>
-                        <div class="text-center pt-15">
-                            <button type="reset" id="kt_modal_new_card_cancel" class="btn btn-light me-3">
-                                Discard
-                            </button>
-
-                            <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                                <span class="indicator-label">
-                                    Submit
-                                </span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
+                    
                     <!--end::Form-->
                 </div>
                 <!--end::Modal body-->
@@ -834,21 +784,7 @@
             })
         }
 
-        $(document).on('click',".add-reg", function () {
-            $("#trial_wrapper").append(regcontent);
-            for (var i = 0; i < pasteButton.length; i++) {
-                pasteButton[i].addEventListener('click', async (e) => {
-                    let input = e.target.parentElement.querySelector("input")
-                    try {
-                        const text = await navigator.clipboard.readText()
-                        input.value = text;
-                    }catch (error) {
-                        console.log('Failed to read clipboard');
-                    }
-                })
-            }
-            return false;
-        });      
+            
 
         document.getElementsByClassName('copy_button').forEach(function(el) {
             el.addEventListener('click', async () => {

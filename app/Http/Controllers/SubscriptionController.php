@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Link;
 use App\Models\Plan;
+use App\Models\Panel;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
@@ -20,7 +22,7 @@ class SubscriptionController extends Controller
 
     public function index()
     {
-        $show_expired = false;
+        $hide_expired = false;
         $name = false;
 
         $total = Subscription::whereNotNull('start_at')->count();
@@ -29,48 +31,36 @@ class SubscriptionController extends Controller
         $new = Payment::whereDoesntHave('subscriptions')->count();
 
         $subscriptions = Subscription::whereNotNull('start_at')->where('user_id', '!=', null);
-        if (request()->expired) {
-            $show_expired = true;
+        if ($hide_expired = request()->expired) {
             $subscriptions = $subscriptions->where('end_at', '>', now());
         }
 
         if (request()->query() && request()->query('name')) {
             $name = request()->query('name');
-            $payments = $subscriptions->whereHas('user', function ($query) use ($name) {
+            $subscriptions = $subscriptions->whereHas('user', function ($query) use ($name) {
                 $query->where('firstname', 'LIKE', "%$name%")->orWhere('lastname', 'LIKE', "%$name%");
             });
         }
         $subscriptions = $subscriptions->paginate(50);
-
-        return view('admin.subscriptions', compact('subscriptions', 'show_expired', 'name', 'total', 'expired', 'ongoing', 'new'));
+        $links = Link::all();
+        $panels = Panel::all();
+        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired', 'ongoing', 'new'));
     }
 
     public function trials()
     {
         //dd(request()->all());
-        $type = ['xtream', 'm3u_plus'];
-        $expired = false;
+        $expiry = false;
         $shared = false;
         $assigned = false;
-        $trials = Trial::where('link', '!=', null);
-        if (request()->type) {
-            $type = request()->type;
-            $trials = $trials->whereIn('type', $type);
-        }
-
-        if (request()->expired) {
-            $expired = true;
-        } else {
-            $trials = $trials->where('created_at', '>', now()->subHours(6));
-        }
-        if (request()->shared) {
-            $shared = true;
-        } else {
+        $trials = Trial::where('link_id', '!=', null);
+        if ($expiry = request()->expiry) {
+            $trials = $trials->where('created_at','>', now()->subHours(6));
+        } 
+        if ($shared = request()->shared) {
             $trials = $trials->whereNull('affiliate_id');
-        }
+        } 
         if ($assigned = request()->assigned) {
-            $assigned = true;
-        } else {
             $trials = $trials->whereNull('user_id');
         }
         $trials = $trials->paginate(20);
@@ -78,14 +68,16 @@ class SubscriptionController extends Controller
         $expired = Trial::where('created_at', '<', now()->subHours(6))->count();
         $ongoing = Trial::where('created_at', '>', now()->subHours(6))->count();
         $available = Trial::whereNull('user_id')->whereNull('affiliate_id')->count();
-        return view('admin.trials', compact('trials', 'total', 'expired', 'ongoing', 'available', 'type', 'shared', 'assigned'));
+        $links = Link::all();
+        $panels = Panel::all();
+        return view('admin.trials', compact('trials','links','panels', 'total','expired', 'ongoing', 'available', 'expiry','shared', 'assigned'));
     }
 
     public function store(Request $request)
     {
         Subscription::where('id',$request->subscription_id)->update([
-            'm3u_link' => $request->m3u_link, 'xtream_username' => $request->username, 'xtream_password' => $request->password, 'xtream_link' => $request->xtream_link,
-            'start_at' => now(), 'end_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->end_at)
+            'm3u_link' => $request->m3u_link, 'username' => $request->username, 'password' => $request->password, 'link_id' => $request->link_id,
+            'panel_id' => $request->panel_id,'start_at' => now(), 'end_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->end_at)
         ]);
         $subscription = Subscription::find($request->subscription_id);
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
@@ -94,39 +86,61 @@ class SubscriptionController extends Controller
 
     public function trials_store(Request $request)
     {
-        // dd($request->all());
-        for ($i = 0; $i < count($request->link); $i++) {
-            // Trial::create(['username'=> $request->input("username.$i"),'password'=> $request->input("password.$i"),'link'=> $request->input("link.$i"),'type'=> $request->input("username.$i") ? 'xtream': 'm3u_plus']);
-            if (Str::contains($request->input("link.$i"), 'username')) {
-                $text = explode('?', $request->input("link.$i"))[1];
-                $values = explode('&', $text);
-                $link = $request->input("link.$i");
-                foreach ($values as $value) {
-                    if (Str::contains($value, 'username')) {
-                        $username = explode('=', $value)[1];
-                    } elseif (Str::contains($value, 'password')) {
-                        $password = explode('=', $value)[1];
-                    } elseif (Str::contains($value, 'type')) {
-                        $type = explode('=', $value)[1];
-                    }
-                }
-            } else {
-                $link = $request->input("link.$i");
-                $username = $request->input("username.$i");
-                $password = $request->input("password.$i");
-                $type = 'xtream';
-            }
-            Trial::create(['username' => $username, 'password' => $password, 'link' => $link, 'type' => $type]);
-        }
+        // dd($req
+        Trial::create(['username' => $request->username, 'password' => $request->password,'m3u_link'=> $request->m3u_link , 'link_id' => $request->link_id, 'panel_id' => $request->panel_id]);
 
         return redirect()->back();
     }
 
-    public function assign_trial(Request $request)
+    public function update_trial(Request $request)
     {
-        Trial::where('id', $request->trial_id)->update(['user_id' => $request->user_id]);
-        return $request->expectsJson() ? response()->json(200) : redirect()->back();
+        
+        $trial = Trial::where('id', $request->trial_id)->first();
+        switch($request->action){ 
+            case 'update':  
+                if($request->user_id) {
+                    $trial->user_id = $request->user_id;
+                    $trial->created_at = now();
+                }
+                if($request->username) $trial->user_id = $request->user_id;
+                if($request->password) $trial->password = $request->password;
+                if($request->link_id) $trial->link_id = $request->link_id;
+                if($request->panel_id) $trial->panel_id = $request->panel_id;
+                if($request->m3u_link) $trial->m3u_link = $request->m3u_link;
+                $trial->save();
+                return $request->expectsJson() ? response()->json(200) : redirect()->back();
+                break;
+            case 'delete': 
+                $trial->delete();
+                return redirect()->back();
+                break;
+        }  
+        
     }
+
+    public function update_subscription(Request $request)
+    {
+        // dd($request->all());
+        $subscription = Subscription::where('id', $request->subscription_id)->first();
+        // dd($subscription);
+        switch($request->action){ 
+            case 'update':  
+                if($request->username) $subscription->username = $request->username;
+                if($request->password) $subscription->password = $request->password;
+                if($request->link_id) $subscription->link_id = $request->link_id;
+                if($request->panel_id) $subscription->panel_id = $request->panel_id;
+                if($request->m3u_link) $subscription->m3u_link = $request->m3u_link;
+                $subscription->save();
+                return $request->expectsJson() ? response()->json(200) : redirect()->back();
+                break;
+            case 'delete': 
+                $subscription->delete();
+                return redirect()->back();
+                break;
+        }  
+        
+    }
+
 
     public function share_to_affilate(Request $request)
     {

@@ -23,11 +23,13 @@
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i> 
-                                <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search user">
+                                <form action="#" id="searchForm">
+                                    <input id="usersearch" name="search" value="{{$search}}" type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search user">
+                                </form>
                             </div>
                             <!--end::Search-->
                         </div>
-                        <!--begin::Card title-->
+                        
 
                         
                     </div>
@@ -130,3 +132,4 @@
         <!--end::Layout - Activity-->
     </div>
 @endsection
+

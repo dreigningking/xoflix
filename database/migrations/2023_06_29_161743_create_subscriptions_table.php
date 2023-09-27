@@ -18,9 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('payment_id');
             $table->string('m3u_link');
-            $table->string('xtream_username');
-            $table->string('xtream_password');
-            $table->text('xtream_link');
+            $table->string('username');
+            $table->string('password');
+            $table->text('link_id');
+            $table->text('panel_id');
             $table->timestamp('start_at');
             $table->timestamp('end_at');
             $table->timestamps();

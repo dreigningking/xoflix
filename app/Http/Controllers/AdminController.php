@@ -9,6 +9,8 @@ use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
 use App\Models\Activity;
+use App\Models\Link;
+use App\Models\Panel;
 use App\Models\Withdrawal;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -73,7 +75,9 @@ class AdminController extends Controller
     public function settings()
     {
         $settings = Setting::all();
-        return view('admin.settings',compact('settings'));
+        $links = Link::all();
+        $panels = Panel::all();
+        return view('admin.settings',compact('settings','links','panels'));
     }
 
     
@@ -92,12 +96,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function plans()
     {
         $plans = Plan::all();
@@ -117,5 +115,33 @@ class AdminController extends Controller
         }
         $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'prices'=> $prices]);
         return redirect()->back();
+    }
+
+    public function links(Request $request){
+        switch($request->action){
+            case 'create':  Link::create(['url'=> $request->url]);
+                            return redirect()->back();
+                break;
+            case 'update':  Link::where('id',$request->url_id)->update(['url'=> $request->url]);
+                            return redirect()->back();
+                break;
+            case 'delete': Link::where('id',$request->url_id)->delete();
+                      return redirect()->back();
+                break;
+        }
+    }
+
+    public function panels(Request $request){
+        switch($request->action){
+            case 'create':  Panel::create(['name'=> $request->panel]);
+                            return redirect()->back();
+                break;
+            case 'update':  Panel::where('id',$request->panel_id)->update(['name'=> $request->panel]);
+                            return redirect()->back();
+                break;
+            case 'delete': Panel::where('id',$request->panel_id)->delete();
+                      return redirect()->back();
+                break;
+        }
     }
 }

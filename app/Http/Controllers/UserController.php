@@ -16,13 +16,14 @@ class UserController extends Controller
      */
     public function index()
     {
+        $search = null;
         $users = User::where('role','user');
         if($search = request()->search)
         $users = $users->where('firstname','LIKE',"%$search%")->orWhere('lastname','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%");
         if(request()->expectsJson())
         return response()->json(['data'=> $users->get()],200);
         else $users = $users->orderBy('firstname','asc')->paginate(50);
-        return view('admin.users',compact('users'));
+        return view('admin.users',compact('users','search'));
     }
 
     

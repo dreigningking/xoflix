@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @push('styles')
 <link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css"/>
-
 @endpush
 @section('breadcrumb')
 <div id="kt_toolbar_container" class=" container-xxl  d-flex flex-stack flex-wrap">
@@ -123,7 +122,7 @@
                                                     </div>
                                                     <!--end::Icon-->
                                                     <!--begin::Title-->
-                                                    <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Subscription: {{$subscription->xtream_username}}</h4>
+                                                    <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Subscription: {{$subscription->username}}</h4>
                                                     <!--end::Title-->
                                                 </div>
                                                 <!--end::Heading-->
@@ -131,9 +130,9 @@
                                                 <div id="kt_job_{{$subscription->id}}" class="collapse fs-6 ms-1">
                                                     <!--begin::Text-->
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
-                                                        <p class="fw-bold text-primary text-center mt-3">XTREAM LINK: </p>
+                                                        <p class="fw-bold text-primary text-center mt-3">LINK: </p>
                                                         <p class="text-center">
-                                                            <span class="clipboard_value">{{$subscription->xtream_link}}</span>
+                                                            <span class="clipboard_value">{{$subscription->link->url}}</span>
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
                                                                     Copy
@@ -148,7 +147,7 @@
                                                                     <span class="fw-bold text-primary">USERNAME: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span class="clipboard_value">{{$subscription->xtream_username}}</span>
+                                                                    <span class="clipboard_value">{{$subscription->username}}</span>
                                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                                             Copy
@@ -162,7 +161,7 @@
                                                                     <span class="fw-bold text-primary">PASSWORD: </span> 
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span class="clipboard_value">{{$subscription->xtream_password}}</span>
+                                                                    <span class="clipboard_value">{{$subscription->password}}</span>
                                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                                             Copy
@@ -352,7 +351,7 @@
                                                                     <div class="ps-3">
                                                                         <p class="ps-3 mb-0 d-flex justify-content-between">
                                                                             <span class="text-primary fw-bold fs-5">USERNAME: 
-                                                                                <span class="text-gray-400 fw-bold clipboard_value">{{$subscription->xtream_username}}</span>
+                                                                                <span class="text-gray-400 fw-bold clipboard_value">{{$subscription->username}}</span>
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                     <span class="svg-icon svg-icon-2 copy_icon">
                                                                                         Copy
@@ -361,7 +360,7 @@
                                                                                 </button>
                                                                             </span> 
                                                                             <span class="text-primary fw-bold fs-5"> PASSWORD: 
-                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->xtream_password}}</span>
+                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->password}}</span>
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                     <span class="svg-icon svg-icon-2 copy_icon">
                                                                                         Copy
@@ -370,7 +369,7 @@
                                                                                 </button>
                                                                             </span> 
                                                                             <span class="text-primary fw-bold fs-5">Url:
-                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->xtream_link}} </span> 
+                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->link->url}} </span> 
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                     <span class="svg-icon svg-icon-2 copy_icon">
                                                                                         Copy
@@ -542,8 +541,8 @@
                                                         {{$subscription->end_at->format('d M Y h:i A')}}
                                                     </td>
                                                     <td>
-                                                            <span>USERNAME:{{$subscription->xtream_username}} | PASSWORD: {{$subscription->xtream_password}}</span>
-                                                            <span class="d-block"> {{$subscription->xtream_link}}</span>
+                                                            <span>USERNAME:{{$subscription->username}} | PASSWORD: {{$subscription->password}}</span>
+                                                            <span class="d-block"> {{$subscription->link->url}}</span>
                                                     </td>
                                                     <td>{{$subscription->m3u_link}}</td>
                                                 </tr>
@@ -1186,7 +1185,7 @@
                 <!--begin::Modal body-->
                 <div class="modal-body mx-5 mx-xl-15">
                     <!--begin::Form-->
-                    <form id="kt_selectuser_form" method="POST" action="{{route('assign_trial')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+                    <form id="kt_selectuser_form" method="POST" action="{{route('update_trial')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
                         <input type="hidden" name="trial_id" id="trial_id">
                         
@@ -1206,7 +1205,7 @@
                                 Discard
                             </button>
 
-                            <button type="submit" id="assign_submit" class="btn btn-primary">
+                            <button type="submit" name="action" value="update" class="btn btn-primary">
                                 <span class="indicator-label">
                                     Submit
                                 </span>

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Plan;
-use App\Models\Webhook;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -32,6 +30,8 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('activities',[AdminController::class, 'activities'])->name('activities');
     Route::get('settings',[AdminController::class, 'settings'])->name('settings');
     Route::post('settings',[AdminController::class, 'updateSettings'])->name('settings');
+    Route::post('links',[AdminController::class, 'links'])->name('links');
+    Route::post('panels',[AdminController::class, 'panels'])->name('panels');
     Route::get('plans',[AdminController::class, 'plans'])->name('plans');
     Route::post('plans',[AdminController::class, 'updatePlans'])->name('plans');
     Route::get('payments',[PaymentController::class, 'index'])->name('payments');
@@ -44,9 +44,10 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('support/chat',[SupportController::class, 'reply'])->name('support.reply');
     Route::get('subscriptions',[SubscriptionController::class, 'index'])->name('subscriptions');
     Route::post('subscription',[SubscriptionController::class, 'store'])->name('subscription');
+    Route::post('update_subscription',[SubscriptionController::class, 'update_subscription'])->name('update_subscription');
     Route::get('trials',[SubscriptionController::class, 'trials'])->name('trials');
     Route::post('trials',[SubscriptionController::class, 'trials_store'])->name('trials');
-    Route::post('assign_trial',[SubscriptionController::class, 'assign_trial'])->name('assign_trial');
+    Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
     Route::post('share_to_affilate',[SubscriptionController::class, 'share_to_affilate'])->name('share_to_affilate');
 });
 
@@ -64,13 +65,18 @@ Route::post('profile', [HomeController::class, 'profile_update'])->name('profile
 Route::post('password', [HomeController::class, 'password_update'])->name('password_update');
 Route::get('referredby/{user}', [RegisterController::class, 'referrer'])->name('referrer');
 Route::post('resolve/account', [PaymentController::class, 'resolve_account'])->name('resolve_account');
-Route::post('assign_trial',[SubscriptionController::class, 'assign_trial'])->name('assign_trial');
+Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
 Route::get('subscription',[SubscriptionController::class, 'pricing'])->name('subscription');
 Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription');
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
 Route::get('check',function(){
-   CheckExpiredSubscriptionsJob::dispatch();
+   $subscriptions = \App\Models\Subscription::all();
+   foreach($subscriptions as $subscription){
+        $link = \App\Models\Link::create(['url' => $subscription->link->url]);
+        $subscription->link_id = $link->id;
+        $subscription->save();
+   }
    return 'ok';
 });
