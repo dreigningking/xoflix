@@ -463,7 +463,7 @@
                     <!--begin::Form-->
                     <form id="kt_selectuser_form" method="POST" action="{{route('admin.update_trial')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
-                        <input type="hidden" name="trial_id" id="trial_id">
+                        <input type="hidden" name="trial_id" class="trial_id">
                         
                         <div class="mb-10 row">
                             <div class="col-12">
@@ -576,7 +576,7 @@
     <script>
         
         $('.selectuser').on('click',function(){
-            $('#trial_id').val($(this).attr('data_trial'))
+            $('.trial_id').val($(this).attr('data_trial'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
             $('#edit_link_id').val($(this).attr('data_link_id'))

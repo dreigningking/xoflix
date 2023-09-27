@@ -94,7 +94,7 @@ class SubscriptionController extends Controller
 
     public function update_trial(Request $request)
     {
-        
+        //dd($request->all());
         $trial = Trial::where('id', $request->trial_id)->first();
         switch($request->action){ 
             case 'update':  
