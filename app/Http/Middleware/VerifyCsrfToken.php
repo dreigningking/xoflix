@@ -15,4 +15,6 @@ class VerifyCsrfToken extends Middleware
         'api/webhook',
         'logout'
     ];
+
+    
 }

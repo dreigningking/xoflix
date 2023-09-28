@@ -76,13 +76,17 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $subscription = Subscription::find($request->subscription_id);
-        Subscription::where('id',$request->subscription_id)->update([
-            'm3u_link' => $request->m3u_link, 'username' => $request->username, 'password' => $request->password, 'link_id' => $request->link_id,
-            'panel_id' => $request->panel_id,'start_at' => now(), 'end_at' => now()->addMonths($subscription->duration)
-        ]);
-        
+        $subscription->username = $request->username;
+        $subscription->password = $request->password;
+        $subscription->m3u_link = $request->m3u_link;
+        $subscription->link_id = $request->link_id;
+        $subscription->panel_id = $request->panel_id;
+        $subscription->start_at = now();
+        $subscription->end_at = now()->addMonths($subscription->duration);
+        $subscription->save();
+        // dd($subscription->link->url);
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
     }

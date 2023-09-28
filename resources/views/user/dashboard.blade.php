@@ -253,7 +253,7 @@
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
                                                         <p class="fw-bold text-primary text-center mt-3">LINK: </p>
                                                         <p class="text-center">
-                                                            <span class="clipboard_value">{{$trial->link}}</span>
+                                                            <span class="clipboard_value">{{$trial->link->url}}</span>
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
                                                                     Copy
@@ -262,7 +262,7 @@
                                                             </button>
                                                             
                                                         </p>
-                                                        @if($trial->type == "xtream")
+                                                        
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -294,7 +294,7 @@
                                                             </tr>
                                                             
                                                         </table>
-                                                        @endif
+                                                        
                                                         
                                                         <table class="table">
                                                             <tr>
@@ -436,21 +436,9 @@
                                                     <tr>
                                                         <!--begin::Author=-->
                                                         <td class="">
-                                                            <div class="d-flex align-items-center">
-                                                                <!--begin::Logo-->
-                                                                <div class="symbol symbol-50px me-2">
-                                                                    <span class="symbol-label">
-                                                                        <img alt="" class="w-25px" @if($trial->type == 'xtream') src="{{asset('media/svg/brand-logos/aven.svg')}}" @else src="{{asset('media/svg/brand-logos/atica.svg')}}" @endif />
-                                                                    </span>
-                                                                </div>
-                                                                <!--end::Logo-->
-                                                                <div class="ps-3">
-                                                                    <a href="#" class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">{{$trial->type}}</a>
-                                                                    <span class="text-gray-400 fw-bold d-inline">Trial</span>
-                                                                </div>
-                                                            </div>
+                                                            
                                                             <div class="d-flex flex-column">
-                                                                @if($trial->type == 'xtream')
+                                                                
                                                                 <p class="ps-3 mb-0 d-flex flex-nowrap">
                                                                     <span class="text-primary fw-bold fs-5">USERNAME: 
                                                                         <span class="text-gray-400 fw-bold clipboard_value">{{$trial->username}}</span>
@@ -471,10 +459,10 @@
                                                                         </button>
                                                                     </span> 
                                                                 </p>
-                                                                @endif
+                                                                
                                                                 <p class="ps-3 mb-0">
                                                                     <span class="text-primary fw-bold fs-5  mb-1">Url: </span> 
-                                                                    <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->link}}</span>
+                                                                    <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->link->url}}</span>
                                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                                             Copy
@@ -1035,21 +1023,9 @@
                                     <tr>
                                         <!--begin::Author=-->
                                         <td class="ps-9">
-                                            <div class="d-flex align-items-center">
-                                                <!--begin::Logo-->
-                                                <div class="symbol symbol-50px me-2">
-                                                    <span class="symbol-label">
-                                                        <img alt="" class="w-25px" @if($trial->type == 'xtream') src="{{asset('media/svg/brand-logos/aven.svg')}}" @else src="{{asset('media/svg/brand-logos/atica.svg')}}" @endif />
-                                                    </span>
-                                                </div>
-                                                <!--end::Logo-->
-                                                <div class="ps-3">
-                                                    <a href="#" class="text-gray-800 fw-boldest fs-5 text-hover-primary mb-1">{{$trial->type}}</a>
-                                                    <span class="text-gray-400 fw-bold d-inline">Trial</span>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="d-flex flex-column">
-                                                @if($trial->type == 'xtream')
+                                                
                                                 <p class="mb-0">
                                                 <span class="ps-3 mb-0">
                                                     <span class="text-primary fw-bold fs-5  mb-1">USERNAME: </span> 
@@ -1062,10 +1038,10 @@
                                                     <span class="text-gray-400 fw-bold  d-inline">{{$trial->password}}</span>
                                                 </span>
                                                 </p>
-                                                @endif
+                                                
                                                 <p class="ps-3 mb-0">
                                                     <span class="text-primary fw-bold fs-5  mb-1">Url: </span> 
-                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->link}}</span>
+                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->link->url}}</span>
                                                 </p>
                                             </div>
                                         </td>
