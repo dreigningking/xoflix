@@ -76,7 +76,6 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $subscription = Subscription::find($request->subscription_id);
         $subscription->username = $request->username;
         $subscription->password = $request->password;

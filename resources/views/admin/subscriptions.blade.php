@@ -332,7 +332,8 @@
                                             <span class="required">URL</span>
                                         </label>
 
-                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
+                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL" required>
+                                            <option value=""></option>
                                             @foreach ($links as $link)
                                                 <option value="{{$link->id}}">{{$link->url}}</option>
                                             @endforeach
@@ -347,7 +348,8 @@
                                             <span class="required">Panel</span>
                                         </label>
 
-                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel">
+                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
+                                            <option value=""></option>
                                             @foreach ($panels as $panel)
                                                 <option value="{{$panel->id}}">{{$panel->name}}</option>
                                             @endforeach
@@ -430,7 +432,7 @@
         //     //put your config here
         // });
 
-        $('.sub_details').on('click',function(){
+        $(document).on('click','.sub_details',function(e){
             $('#subscription_id').val($(this).attr('data_subscription'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
