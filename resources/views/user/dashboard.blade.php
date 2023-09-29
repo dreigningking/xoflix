@@ -612,13 +612,13 @@
         
                             <!--begin::Tbody-->
                             <tbody class="fs-6 fw-semibold text-gray-600">
-                                @foreach ($user->payments->where('status','success') as $payment)
+                                @foreach ($user->payments->whereIn('status',['success','paid']) as $payment)
                                     <tr>
                                         <td class="ps-9">{{$payment->created_at->format('M d, Y')}}</td>
                                         <td class="">{{$payment->reference}}</td>
                                         <td class="ps-0">{{$payment->method}}  </td>
                                         <td>₦{{$payment->amount}}</td>
-                                        <td class="text-success">Success</td>
+                                        <td class="text-success">{{ucwords($payment->status)}}</td>
                                     </tr>
                                 
                                 @endforeach

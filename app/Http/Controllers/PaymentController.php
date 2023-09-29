@@ -99,10 +99,11 @@ class PaymentController extends Controller
     public function upload(Request $request)
     {
         $payment = Payment::find($request->payment_id);
-        if($payment->upload) Storage::delete('public/payment',$payment->upload);
+        if($payment->upload) Storage::delete('public/payments',$payment->upload);
             $image = time().'.'.$request->file('upload')->getClientOriginalExtension();
-            $request->file('upload')->storeAs('public/payment',$image);
+            $request->file('upload')->storeAs('public/payments',$image);
             $payment->upload = $image;
+            $payment->method = 'transfer/ussd';
             $payment->status = 'paid';
             $payment->save();
             $payment->user->notify(new SubscriptionPaymentNotification($payment));

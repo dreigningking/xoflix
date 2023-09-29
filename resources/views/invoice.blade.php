@@ -55,7 +55,7 @@
 							<!--begin::Title-->
 							<h6 class="mb-0 fw-boldest text-gray-600 text-hover-primary">PAYMENT PROOF </h6>
 							<!--end::Title-->
-							<form action="" method="post">@csrf
+							<form action="{{route('payment.upload')}}" method="post" enctype="multipart/form-data">@csrf
 							<!--begin::Item-->
 								<input type="hidden" name="payment_id" value="{{$payment->id}}">
 								<div class=" mb-6">
@@ -65,7 +65,7 @@
 
 									<!--begin::Col-->
 									<div class=" fv-row fv-plugins-icon-container">
-										<input type="file" name="upload" class="form-control form-control-lg  mb-3 mb-lg-0" >
+										<input type="file" name="upload" accept=".pdf,.jpg,.png" class="form-control form-control-lg  mb-3 mb-lg-0" >
 										<div
 											class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
 										</div>

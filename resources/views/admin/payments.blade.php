@@ -178,7 +178,7 @@
                                             @if ($payment->status == 'success') 
                                             <span class="text-success"> {{ ucwords($payment->status) }} </span>
                                             @elseif($payment->status == 'paid') 
-                                            <form action="{{route('admin.payments.confirmation')}}" method="POST">@csrf
+                                            <form action="{{route('admin.payments.confirmation')}}" method="POST" onsubmit="return confirm('Are you sure you want to confirm payment?')">@csrf
                                                 <input type="hidden" name="payment_id" value="{{$payment->id}}">
                                                 <button class="btn btn-sm btn-primary">Confirm</button>
                                             </form>

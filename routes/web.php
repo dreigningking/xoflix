@@ -71,6 +71,7 @@ Route::get('subscription',[SubscriptionController::class, 'pricing'])->name('sub
 Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription');
 Route::get('subscription/payment/{payment}',[SubscriptionController::class, 'payment'])->name('subscription.payment');
 Route::post('subscription/renew',[SubscriptionController::class, 'renew'])->name('subscription.renew');
+Route::post('payment/upload',[PaymentController::class, 'upload'])->name('payment.upload');
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
