@@ -433,17 +433,19 @@
         // });
 
         $(document).on('click','.sub_details',function(e){
+            
             $('#subscription_id').val($(this).attr('data_subscription'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
-            $('#edit_link_id').val($(this).attr('data_link_id'))
+            $('#edit_link_id').val($(this).attr('data_link_id')).trigger("change")
             $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
-            $('#edit_panel_id').val($(this).attr('data_panel_id'))
+            $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
             $('#edit_user_id').val($(this).attr('data_user_id'))
             $('#edit_start').text($(this).attr('data_start'))
             $('#edit_expiry').text($(this).attr('data_expiry'))
             $('#edit_plan').text($(this).attr('data_plan'))
             $('#sub_details').modal('show')
+            
         })
         
     </script>
