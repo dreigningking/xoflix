@@ -41,8 +41,13 @@ class SubscriptionPaymentNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        if($this->payment->status == "success"){
+            $status = "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
+        }else{ 
+            $status = "Payment of ".$this->payment->amount." naira has been received. Please wait for some moment for confirmation of payment or contact support";
+        }
         return (new MailMessage)
-                    ->line('Payment of '.$this->payment->amount.' received. Subscription information will be shared with you shortly')
+                    ->line($status)
                     ->action('Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
     }
@@ -55,9 +60,15 @@ class SubscriptionPaymentNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        if($this->payment->status == "success"){
+            $status = "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
+        }else{ 
+            $status = "Payment of ".$this->payment->amount." naira has been received. Please wait for some moment for confirmation of payment or contact support";
+        }
+
         return [
-            'subject' => 'Payment Received',
-            'body' => 'Payment of '.$this->payment->amount.' received. Subscription information will be shared with you shortly',
+            'subject' => 'Payment Info',
+            'body' => $status,
             'url'=> route('dashboard')
         ];
     }

@@ -19,11 +19,19 @@ class Payment extends Model
         parent::observe(new PaymentObserver);
     }
 
+    public function getProofAttribute(){
+        return $this->upload ? config('app.url')."/storage/payments/$this->upload" : null;  
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
 
     public function subscriptions(){
         return $this->hasMany(Subscription::class);
+    }
+
+    public function getRouteKeyName(){
+        return 'reference';
     }
 }

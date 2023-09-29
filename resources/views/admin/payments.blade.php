@@ -84,7 +84,66 @@
                         <div class="card-title">
                             <h3>Payments</h3>
                         </div>
-                        <!--end::Title-->
+                        <div class="card-toolbar m-0">
+                            <div class="">
+                                <button type="button" class="btn btn-light-primary me-3 mt-4" data-kt-menu-trigger="click"
+                                    data-kt-menu-placement="bottom-end">
+                                    Filter
+                                </button>
+                                <!--begin::Menu 1-->
+                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                                    <!--begin::Header-->
+                                    <div class="px-7 py-5">
+                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Separator-->
+                                    <div class="separator border-gray-200"></div>
+                                    <!--end::Separator-->
+
+                                    <!--begin::Content-->
+                                    <div class="px-7 py-3" data-kt-user-table-filter="form">
+                                        <form action="#" method="get">
+                                            <div class="mb-3">
+                                                <label class="form-label fs-6 fw-semibold d-block">User: </label>
+                                                <div class="">
+                                                    <input class="form-control" value="{{$name}}" type="text" name="name">
+                                                </div>
+                                            </div>
+
+                                            <!--begin::Input group-->
+                                            <div class="mb-3">
+                                                <label class="form-label fs-6 fw-semibold mr-4">Status: </label>
+                                                <select name="status" id="" class="form-select">
+                                                    <option value="" @if(!$status) selected @endif>All</option>
+                                                    <option value="paid" @if($status == 'paid') selected @endif>Paid</option>
+                                                    <option value="pending" @if($status == 'pending') selected @endif>Pending</option>
+                                                    <option value="success" @if($status == 'success') selected @endif>Success</option>
+                                                    <option value="failed" @if($status == 'failed') selected @endif>Failed</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fs-6 fw-semibold mr-4">Sort Date: </label>
+                                                <select name="sortBy" id="" class="form-select">
+                                                    <option value="date_desc" @if($sortBy == 'date_desc') selected @endif>Descending</option>
+                                                    <option value="date_asc" @if($sortBy == 'date_asc') selected @endif>Ascending</option>
+                                                </select>
+                                            </div>
+
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                                <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                    </div>
+                                    <!--end::Content-->
+                                </div>
+
+                            </div>
+                        </div>
 
 
                     </div>
@@ -95,10 +154,11 @@
                             <thead class="border-bottom border-gray-200 fs-6 fw-bold bg-lighten">
                                 <tr>
                                     <th class="min-w-125px ps-9">Reference</th>
-                                    <th class="min-w-125px px-0">User</th>
                                     <th class="min-w-125px">Date</th>
+                                    <th class="min-w-125px px-0">User</th>
                                     <th class="min-w-125px ps-0">Amount</th>
                                     <th class="min-w-125px ps-0">Status</th>
+                                    
                                 </tr>
                             </thead>
                             <!--end::Thead-->
@@ -107,14 +167,26 @@
                             <tbody class="fs-6 fw-semibold text-gray-600">
                                 @forelse ($payments as $payment)
                                     <tr>
-                                        <td class="ps-9">{{ $payment->reference }}</td>
-                                        <td class="ps-0">{{ $payment->user->name }}</td>
-                                        <td>{{ $payment->created_at->format('M d, Y') }}</td>
-                                        <td>₦{{ $payment->amount }}</td>
-                                        <td
-                                            @if ($payment->status == 'success') class="text-success" @else class="text-warning" @endif>
-                                            {{ ucwords($payment->status) }}
+                                        <td class="ps-9">
+                                            <a @if($payment->proof) href="{{$payment->proof}}"  target="_blank" @endif>{{ $payment->reference }}</a>
                                         </td>
+                                        <td>{{ $payment->created_at->format('M d, Y') }}</td>
+                                        <td class="ps-0">{{ $payment->user->name }}</td>
+                                        
+                                        <td>₦{{ $payment->amount }}</td>
+                                        <td>
+                                            @if ($payment->status == 'success') 
+                                            <span class="text-success"> {{ ucwords($payment->status) }} </span>
+                                            @elseif($payment->status == 'paid') 
+                                            <form action="{{route('admin.payments.confirmation')}}" method="POST">@csrf
+                                                <input type="hidden" name="payment_id" value="{{$payment->id}}">
+                                                <button class="btn btn-sm btn-primary">Confirm</button>
+                                            </form>
+                                            @else <span class="text-warning"> {{ ucwords($payment->status) }} </span>
+                                            @endif
+                                            
+                                        </td>
+                                       
                                     </tr>
                                 @empty
                                     <tr>

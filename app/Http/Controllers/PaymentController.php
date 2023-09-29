@@ -7,16 +7,16 @@ use App\Models\Payment;
 use App\Models\Webhook;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-
 use App\Jobs\WebhookExecutionJob;
 use App\Http\Traits\FlutterwaveTrait;
+use Illuminate\Support\Facades\Storage;
+use App\Notifications\SubscriptionPaymentNotification;
 
 class PaymentController extends Controller
 {
     use FlutterwaveTrait;
 
-    public function index()
-    {
+    public function index(){
         
         $sortBy = null;
         $status = null;
@@ -33,15 +33,7 @@ class PaymentController extends Controller
                     $query->where('firstname','LIKE',"%$name%")->orWhere('lastname','LIKE',"%$name%");
                 });
         }
-        if(request()->query() && request()->query('from_date')){
-            $from_date = request()->query('from_date');
-            $payments = $payments->where('created_at','>=',$from_date);
-        }
-        if(request()->query() && request()->query('to_date')){
-            $to_date = request()->query('to_date');
-            $payments = $payments->where('created_at','<=',$to_date);
-        }
-
+        
         if(request()->query() && request()->query('sortBy')){
             $sortBy = request()->query('sortBy');
             if(request()->query('sortBy') == 'date_asc'){
@@ -104,20 +96,25 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function upload(Request $request)
     {
-        //
+        $payment = Payment::find($request->payment_id);
+        if($payment->upload) Storage::delete('public/payment',$payment->upload);
+            $image = time().'.'.$request->file('upload')->getClientOriginalExtension();
+            $request->file('upload')->storeAs('public/payment',$image);
+            $payment->upload = $image;
+            $payment->status = 'paid';
+            $payment->save();
+            $payment->user->notify(new SubscriptionPaymentNotification($payment));
+            return redirect()->route('dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    
+    public function confirmation(Request $request){
+        $payment = Payment::find($request->payment_id);
+        $payment->status = 'success';
+        $payment->save();
+        return redirect()->back();
     }
 
 }

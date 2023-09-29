@@ -121,6 +121,49 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Bank Name </label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" name="bank_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','bank_name')->value}}">
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Bank Account Number </label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" name="account_number" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','account_number')->value}}">
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Account Name </label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" name="account_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','account_name')->value}}">
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
                                             </div>
                                             <div class="card-header border-0">
                                                 <div class="card-title m-0">

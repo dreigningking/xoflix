@@ -76,6 +76,7 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
+        
         $subscription = Subscription::find($request->subscription_id);
         $subscription->username = $request->username;
         $subscription->password = $request->password;
@@ -85,7 +86,7 @@ class SubscriptionController extends Controller
         $subscription->start_at = now();
         $subscription->end_at = now()->addMonths($subscription->duration);
         $subscription->save();
-        // dd($subscription->link->url);
+        
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
     }
@@ -189,10 +190,11 @@ class SubscriptionController extends Controller
                 }
             }
         }
-        $response = $this->initiateFlutterWave($payment);
-        if (!$response)
-            return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
-        else return redirect()->to($response);
+        return redirect()->route('subscription.payment',$payment);
+        // $response = $this->initiateFlutterWave($payment);
+        // if (!$response)
+        //     return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
+        // else return redirect()->to($response);
     }
 
     public function renew(Request $request){
@@ -203,9 +205,18 @@ class SubscriptionController extends Controller
         $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $price['description'] ]);
         $subscription->payment_id = $payment->id;
         $subscription->save();
-        $response = $this->initiateFlutterWave($payment);
-        if (!$response)
-            return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
-        else return redirect()->to($response);
+        return redirect()->route('subscription.payment',$payment);
+        // $response = $this->initiateFlutterWave($payment);
+        // if (!$response)
+        //     return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
+        // else return redirect()->to($response);
+    }
+
+    public function payment(Payment $payment){
+        $settings = Setting::all();
+        $bank = $settings->firstWhere('name','bank_name')->value;
+        $account_number = $settings->firstWhere('name','account_number')->value;
+        $account_name = $settings->firstWhere('name','account_name')->value;
+        return view('invoice',compact('payment','bank','account_number','account_name'));
     }
 }
