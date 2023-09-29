@@ -129,7 +129,7 @@
                 
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="number" name="bank_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','bank_name')->value}}">
+                                                        <input type="text" name="bank_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','bank_name')->value}}">
                                                         <div
                                                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                         </div>
@@ -157,7 +157,7 @@
                 
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="number" name="account_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','account_name')->value}}">
+                                                        <input type="text" name="account_name" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" value="{{$settings->firstWhere('name','account_name')->value}}">
                                                         <div
                                                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                         </div>
