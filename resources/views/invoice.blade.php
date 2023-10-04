@@ -38,7 +38,15 @@
 							<!--begin::Item-->
 							<div class="mb-6">
 								<div class="fw-bold text-gray-600 fs-7">Account:</div>
-								<div class="fw-bolder text-gray-800 fs-6">{{$account_number}}
+								<div class="fw-bolder text-gray-800 fs-6">
+									
+									<span class="clipboard_value">{{$account_number}}</span>
+									<button class="copy_button btn btn-light btn-active-light-primary fw-bold flex-shrink-0 py-0">
+										<span class="svg-icon svg-icon-2 copy_icon">
+											Copy
+										</span>  
+										<i class="bi bi-check fs-2x p-0 check_icon" style="display: none"></i>    
+									</button>
 									<br />{{$account_name}}
 								</div>
 							</div>
