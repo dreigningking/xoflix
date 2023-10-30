@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Setting;
+use App\Models\Activity;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -72,6 +73,7 @@ class HomeController extends Controller
             $user->image = $image;
         }
         $user->save();
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'User updated profile']);
         return redirect()->back();
     }
 
@@ -91,6 +93,7 @@ class HomeController extends Controller
         if(Hash::check($request->oldpassword, $user->password)){
             $user->password = Hash::make($request->password);
             $user->save();
+            Activity::create(['user_id'=> auth()->id(),'description'=> 'User updated password']);
             return redirect()->back();
             // return redirect()->back()->with(['flash_type' => 'success','flash_msg'=>'Password changed successfully']); //with success
         }

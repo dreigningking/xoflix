@@ -9,6 +9,7 @@ use App\Models\Panel;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
+use App\Models\Activity;
 use Illuminate\Support\Arr;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -85,7 +86,7 @@ class SubscriptionController extends Controller
         $subscription->end_at = Carbon::parse($request->end_at);
         $subscription->plan_id = $request->plan_id;
         $subscription->save();
-        
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin updated subscription']);
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
     }
@@ -118,7 +119,7 @@ class SubscriptionController extends Controller
     {
         // dd($req
         Trial::create(['username' => $request->username, 'password' => $request->password,'m3u_link'=> $request->m3u_link , 'link_id' => $request->link_id, 'panel_id' => $request->panel_id]);
-
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin created Trial']);
         return redirect()->back();
     }
 
@@ -138,10 +139,12 @@ class SubscriptionController extends Controller
                 if($request->panel_id) $trial->panel_id = $request->panel_id;
                 if($request->m3u_link) $trial->m3u_link = $request->m3u_link;
                 $trial->save();
+                Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin updated trial']);
                 return $request->expectsJson() ? response()->json(200) : redirect()->back();
                 break;
             case 'delete': 
                 $trial->delete();
+                Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin deleted trial']);
                 return redirect()->back();
                 break;
         }  
@@ -153,6 +156,7 @@ class SubscriptionController extends Controller
     public function share_to_affilate(Request $request)
     {
         Trial::whereIn('id', $request->trials)->update(['affiliate_id' => $request->user_id]);
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin shared trial to affiliate']);
         return response()->json(200);
     }
 

@@ -89,10 +89,7 @@ class AdminController extends Controller
         foreach($request->except('_token') as $key => $value){
             Setting::where('name',$key)->update(['value'=> $value]);
         }
-        // Cache::forget('settings');
-        // $settings = Cache::rememberForever('settings', function () {
-        //     return \App\Models\Setting::select(['name','value'])->get()->pluck('value','name')->toArray();
-        // });
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Settings']);
         return redirect()->back();
     }
 
@@ -114,19 +111,23 @@ class AdminController extends Controller
             $prices[] = ['label'=> $request->prices_label[$key],'description'=> $pric];
         }
         $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'prices'=> $prices]);
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Plans','objectable_id'=> $request->plan_id,'objectable_type'=> 'App\Models\Plan']);
         return redirect()->back();
     }
 
     public function links(Request $request){
         switch($request->action){
             case 'create':  Link::create(['url'=> $request->url]);
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Created Link']);
                             return redirect()->back();
                 break;
             case 'update':  Link::where('id',$request->url_id)->update(['url'=> $request->url]);
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Link','objectable_id'=> $request->url_id,'objectable_type'=> 'App\Models\Link']);
                             return redirect()->back();
                 break;
-            case 'delete': Link::where('id',$request->url_id)->delete();
-                      return redirect()->back();
+            case 'delete':  Link::where('id',$request->url_id)->delete();
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Deleted Link']);
+                            return redirect()->back();
                 break;
         }
     }
@@ -134,13 +135,16 @@ class AdminController extends Controller
     public function panels(Request $request){
         switch($request->action){
             case 'create':  Panel::create(['name'=> $request->panel]);
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Created Panel']);
                             return redirect()->back();
                 break;
             case 'update':  Panel::where('id',$request->panel_id)->update(['name'=> $request->panel]);
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Panel','objectable_id'=> $request->panel_id,'objectable_type'=> 'App\Models\Panel']);
                             return redirect()->back();
                 break;
-            case 'delete': Panel::where('id',$request->panel_id)->delete();
-                      return redirect()->back();
+            case 'delete':  Panel::where('id',$request->panel_id)->delete();
+                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Deleted Panel']);
+                            return redirect()->back();
                 break;
         }
     }

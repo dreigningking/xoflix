@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Activity;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,7 @@ class WithdrawalController extends Controller
     {
         $user = auth()->user();
         Withdrawal::create(['reference'=> uniqid(),'user_id'=> $user->id,'amount'=> $request->amount]);
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'User requested earnings withdrarwal']);
         return redirect()->back();
     }
 
@@ -80,6 +82,7 @@ class WithdrawalController extends Controller
         $withdrawal->save();
         $withdrawal->user->balance -= $withdrawal->amount;
         $withdrawal->user->save();
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin paid earnings withdrawal to user']);
         return redirect()->back();
     }
 

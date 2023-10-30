@@ -6,13 +6,14 @@ use Carbon\Carbon;
 use App\Models\Payment;
 use App\Models\Setting;
 use App\Models\Webhook;
+use App\Models\Activity;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 use App\Jobs\WebhookExecutionJob;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SubscriptionPaymentNotification;
-use Laravel\Ui\Presets\React;
 
 class PaymentController extends Controller
 {
@@ -109,9 +110,11 @@ class PaymentController extends Controller
         $payment->method = 'transfer/ussd';
         $payment->status = 'paid';
         $payment->save();
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'User uploaded payment proof','objectable_id'=> $payment->id,'objectable_type'=> get_class($payment)]);
         if($link->value){
             return redirect()->to($link->value);
         }
+
         return redirect()->route('dashboard');
     }
 
@@ -120,11 +123,13 @@ class PaymentController extends Controller
         $payment = Payment::find($request->payment_id);
         $payment->status = 'success';
         $payment->save();
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin confirmed payment','objectable_id'=> $payment->id,'objectable_type'=> get_class($payment)]);
         return redirect()->back();
     }
 
     public function destroy(Request $request){
         $payment = Payment::where('id',$request->payment_id)->delete();
+        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin deleted payment']);
         return redirect()->back();
     }
 

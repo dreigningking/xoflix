@@ -78,6 +78,7 @@ Route::post('payment/upload',[PaymentController::class, 'upload'])->name('paymen
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
+
 Route::get('check',function(){
    $subscriptions = \App\Models\Subscription::all();
    foreach($subscriptions as $subscription){

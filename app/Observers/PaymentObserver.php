@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Models\Earning;
 use App\Models\Payment;
 use App\Models\Setting;
+use App\Models\Activity;
+use Illuminate\Support\Arr;
 use App\Notifications\ReferralEarningNotification;
 use App\Notifications\SubscriptionPaymentNotification;
-use Illuminate\Support\Arr;
 
 class PaymentObserver
 {
@@ -44,6 +45,7 @@ class PaymentObserver
                     $referrer->balance += $bonus;
                     $referrer->save();
                     $earning = Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
+                    Activity::create(['user_id'=> $user->referred_by,'description'=> 'User earned bonus']);
                     $referrer->notify(new ReferralEarningNotification($earning));
                 }
                 foreach($payment->subscriptions as $subscription){

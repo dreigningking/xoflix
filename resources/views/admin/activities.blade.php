@@ -59,7 +59,7 @@
                                     <!--begin::Timeline heading-->
                                     <div class="pe-3 mb-5">
                                         <!--begin::Title-->
-                                        <div class="fs-5 fw-bold mb-2">{{$activity->Description}}</div>
+                                        <div class="fs-5 fw-bold mb-2">{{$activity->description}}</div>
                                         <!--end::Title-->
                                         <!--begin::Description-->
                                         <div class="overflow-auto pb-5">
