@@ -141,7 +141,7 @@
                                                 data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
                                                 data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
                                                 data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at}}"
-                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->name}}">View</button>
+                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->id}}">View</button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -261,8 +261,8 @@
                                                 data_subscription="{{$subscription->id}}" data_username="{{$subscription->username}}" 
                                                 data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
                                                 data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
-                                                data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at}}"
-                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->name}}">View</button>
+                                                data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at->format('m/d/Y h:i A')}}"
+                                                data_expiry="{{$subscription->end_at->format('m/d/Y h:i A')}}" data_plan="{{$subscription->plan->id}}">View</button>
                                         </td>
                                         
                                     </tr>
@@ -377,7 +377,7 @@
                                         <label class="required fs-6 fw-semibold form-label mb-2">Start</label>
 
                                         <div class="input-group" id="kt_td_picker_basic" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_input" type="text" name="start_at" class="form-control" data-td-target="#kt_td_picker_basic"/>
+                                            <input id="kt_td_picker_basic_input" type="text" name="start_at" class="form-control" data-td-target="#kt_td_picker_basic" required/>
                                             <span class="input-group-text" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker">
                                                 <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
                                             </span>
@@ -391,7 +391,7 @@
                                         <label class="required fs-6 fw-semibold form-label mb-2">Expiry</label>
 
                                         <div class="input-group" id="kt_td_picker_basic2" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_input2" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic2"/>
+                                            <input id="kt_td_picker_basic_input2" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic2" required/>
                                             <span class="input-group-text" data-td-target="#kt_td_picker_basic2" data-td-toggle="datetimepicker">
                                                 <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
                                             </span>
@@ -407,7 +407,7 @@
                                             <span class="required">Plan</span>
                                         </label>
 
-                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
+                                        <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
                                             <option value=""></option>
                                             <option value="1">Premium Plan</option>
                                             <option value="2">Standard Plan</option>
@@ -462,9 +462,10 @@
             $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
             $('#edit_user_id').val($(this).attr('data_user_id'))
             
-            $('#edit_start').text($(this).attr('data_start'))
-            $('#edit_expiry').text($(this).attr('data_expiry'))
-            $('#edit_plan').text($(this).attr('data_plan'))
+            $('#kt_td_picker_basic_input').val($(this).attr('data_start'))
+            $('#kt_td_picker_basic_input2').val($(this).attr('data_expiry'))
+            $('#edit_plan').val($(this).attr('data_plan')).trigger("change")
+            
 
             $('#sub_details').modal('show')
             

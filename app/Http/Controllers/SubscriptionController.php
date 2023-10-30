@@ -10,7 +10,6 @@ use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,15 +75,15 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        
         $subscription = Subscription::find($request->subscription_id);
         $subscription->username = $request->username;
         $subscription->password = $request->password;
         $subscription->m3u_link = $request->m3u_link;
         $subscription->link_id = $request->link_id;
         $subscription->panel_id = $request->panel_id;
-        $subscription->start_at = now();
-        $subscription->end_at = now()->addMonths($subscription->duration);
+        $subscription->start_at = Carbon::parse($request->start_at);
+        $subscription->end_at = Carbon::parse($request->end_at);
+        $subscription->plan_id = $request->plan_id;
         $subscription->save();
         
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
