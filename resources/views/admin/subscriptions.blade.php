@@ -358,15 +358,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <div class="d-flex flex-column mb-2 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">M3U Link</span>
                                         </label>
                                         <!--end::Label-->
-                
-                                        
-                
                                         <div class="input-group input-group-lg">
                                             <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
                                             <span class="input-group-text paste_button">Paste</span>
@@ -374,31 +371,51 @@
                                         
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <table class="table-bordered border-secondary">
-                                    <tr>
-                                        <td class="text-center p-2">
-                                            <div class="d-flex">
-                                                <div class="pe-2 fs-5 fw-bold">Start:</div>
-                                                <div><span id="edit_start"></span></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center p-2">
-                                            <div class="d-flex">
-                                                <div class="pe-2 fs-5 fw-bold">Expiry:</div>
-                                                <div><span id="edit_expiry"></span></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="text-center">
-                                            <div><span id="edit_plan"></span> Plan</div>
-                                        </td>
-                                    </tr>
+                            
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Start</label>
+
+                                        <div class="input-group" id="kt_td_picker_basic" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                            <input id="kt_td_picker_basic_input" type="text" name="start_at" class="form-control" data-td-target="#kt_td_picker_basic"/>
+                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker">
+                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
                                     
-                                </table> 
-                            </div>   
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Expiry</label>
+
+                                        <div class="input-group" id="kt_td_picker_basic2" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                            <input id="kt_td_picker_basic_input2" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic2"/>
+                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic2" data-td-toggle="datetimepicker">
+                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Plan</span>
+                                        </label>
+
+                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
+                                            <option value=""></option>
+                                            <option value="1">Premium Plan</option>
+                                            <option value="2">Standard Plan</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            
                             
                             <!--begin::Actions-->
                             <div class="text-center pt-15">
@@ -428,9 +445,12 @@
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>
         var subscriptionTable = $("#datatable").DataTable({});
-        // new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
-        //     //put your config here
-        // });
+        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
+            //put your config here
+        });
+        new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic2"), {
+            //put your config here
+        });
 
         $(document).on('click','.sub_details',function(e){
             
@@ -441,9 +461,11 @@
             $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
             $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
             $('#edit_user_id').val($(this).attr('data_user_id'))
+            
             $('#edit_start').text($(this).attr('data_start'))
             $('#edit_expiry').text($(this).attr('data_expiry'))
             $('#edit_plan').text($(this).attr('data_plan'))
+
             $('#sub_details').modal('show')
             
         })

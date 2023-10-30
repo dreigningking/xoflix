@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\FlutterwaveTrait;
@@ -35,6 +36,9 @@ class HomeController extends Controller
         $maximum = $settings->firstWhere('name','maximum_withdrawal')->value;
         $minimum = $settings->firstWhere('name','minimum_withdrawal')->value;
         $plans = Plan::all();
+        if(Str::contains(request()->url(),'notifications')){
+            $user->unreadNotifications->markAsRead();
+        }
         return view('user.dashboard',compact('user','maximum','minimum','plans'));
     }
 

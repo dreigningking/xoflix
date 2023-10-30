@@ -36,6 +36,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('plans',[AdminController::class, 'updatePlans'])->name('plans');
     Route::get('payments',[PaymentController::class, 'index'])->name('payments');
     Route::post('payments/confirmation',[PaymentController::class, 'confirmation'])->name('payments.confirmation');
+    Route::post('payments/delete',[PaymentController::class, 'destroy'])->name('payments.delete');
     Route::get('users',[UserController::class, 'index'])->name('users');
     Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
     Route::get('withdrawals',[WithdrawalController::class, 'index'])->name('withdrawals');

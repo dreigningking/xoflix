@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Payment;
+use App\Models\Setting;
 use App\Models\Webhook;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Jobs\WebhookExecutionJob;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\SubscriptionPaymentNotification;
+use Laravel\Ui\Presets\React;
 
 class PaymentController extends Controller
 {
@@ -98,16 +100,19 @@ class PaymentController extends Controller
      */
     public function upload(Request $request)
     {
+        $link = Setting::where('name','payment_redirection')->first();
         $payment = Payment::find($request->payment_id);
         if($payment->upload) Storage::delete('public/payments',$payment->upload);
-            $image = time().'.'.$request->file('upload')->getClientOriginalExtension();
-            $request->file('upload')->storeAs('public/payments',$image);
-            $payment->upload = $image;
-            $payment->method = 'transfer/ussd';
-            $payment->status = 'paid';
-            $payment->save();
-            $payment->user->notify(new SubscriptionPaymentNotification($payment));
-            return redirect()->route('dashboard');
+        $image = time().'.'.$request->file('upload')->getClientOriginalExtension();
+        $request->file('upload')->storeAs('public/payments',$image);
+        $payment->upload = $image;
+        $payment->method = 'transfer/ussd';
+        $payment->status = 'paid';
+        $payment->save();
+        if($link->value){
+            return redirect()->to($link->value);
+        }
+        return redirect()->route('dashboard');
     }
 
     
@@ -115,6 +120,11 @@ class PaymentController extends Controller
         $payment = Payment::find($request->payment_id);
         $payment->status = 'success';
         $payment->save();
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request){
+        $payment = Payment::where('id',$request->payment_id)->delete();
         return redirect()->back();
     }
 

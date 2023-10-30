@@ -177,262 +177,39 @@
                                             <div class="d-flex flex-column bgi-no-repeat rounded-top"
                                                 style="background-image:url({{ asset('media/patterns/dropdown-header-bg.png') }}">
                                                 <h3 class="text-white fw-bold px-9 mt-10 mb-6">Notifications
+                                                    @if(!auth()->user()->unreadNotifications->count())
                                                     <span class="fs-8 opacity-75 ps-3">No notifications</span>
+                                                    @endif
                                                 </h3>
                                             </div>
-                                            {{-- <div>
+                                            @if(auth()->user()->unreadNotifications->count())
+                                            <div>
                                                 <div class="scroll-y mh-325px my-5 px-8">
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200 OK</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">New order</a>
-                                                            <!--end::Title-->
+                                                    @foreach (auth()->user()->unreadNotifications->sortByDesc('created_at') as $notification)
+                                                        <div class="d-flex flex-stack py-4">
+                                                            <!--begin::Section-->
+                                                            <div class="d-flex align-items-center me-2">
+                                                                <a href="{{route('notifications')}}" class="text-gray-800 text-hover-primary fw-bold">
+                                                                    {{$notification->data['subject']}}
+                                                                </a>
+                                                            </div>
+                                                            <span class="badge badge-light fs-8">{{$notification->created_at->calendar()}}</span>
                                                         </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Just now</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-danger me-4">500 ERR</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">New customer</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">2 hrs</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200 OK</span>
-
-                                                            <a href="#" class="text-gray-800 text-hover-primary fw-bold">Payment process</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        
-                                                        <span class="badge badge-light fs-8">5 hrs</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-warning me-4">300 WRN </span>
-                                                            
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Search
-                                                                query
-                                                            </a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">2 days</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200
-                                                                OK</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">API
-                                                                connection</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">1 week</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-success me-4">200
-                                                                OK</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Database
-                                                                restore</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Mar 5</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-warning me-4">300
-                                                                WRN</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">System
-                                                                update</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">May 15</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-warning me-4">300
-                                                                WRN</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Server
-                                                                OS update</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Apr 3</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-warning me-4">300
-                                                                WRN</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">API
-                                                                rollback</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Jun 30</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-danger me-4">500
-                                                                ERR</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Refund
-                                                                process</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Jul 10</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-danger me-4">500
-                                                                ERR</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Withdrawal
-                                                                process</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Sep 10</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
-                                                    <!--begin::Item-->
-                                                    <div class="d-flex flex-stack py-4">
-                                                        <!--begin::Section-->
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Code-->
-                                                            <span class="w-70px badge badge-light-danger me-4">500
-                                                                ERR</span>
-                                                            <!--end::Code-->
-                                                            <!--begin::Title-->
-                                                            <a href="#"
-                                                                class="text-gray-800 text-hover-primary fw-bold">Mail
-                                                                tasks</a>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Section-->
-                                                        <!--begin::Label-->
-                                                        <span class="badge badge-light fs-8">Dec 10</span>
-                                                        <!--end::Label-->
-                                                    </div>
-                                                    <!--end::Item-->
+                                                    @endforeach
                                                 </div>
                                                 <div class="py-3 text-center border-top">
-                                                    <a href="#"
-                                                        class="btn btn-color-gray-600 btn-active-color-primary">View
-                                                        All
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                                                    <a href="{{route('notifications')}}" class="btn btn-color-gray-600 btn-active-color-primary">View All
                                                         <span class="svg-icon svg-icon-5">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="18" y="13"
-                                                                    width="13" height="2" rx="1"
-                                                                    transform="rotate(-180 18 13)" fill="black" />
-                                                                <path
-                                                                    d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="black" />
+                                                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                                                     fill="black" />
                                                             </svg>
                                                         </span>
-                                                        <!--end::Svg Icon-->
                                                     </a>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                            @endif
                                         </div>
                                         <!--end::Menu-->
                                         <!--end::Menu wrapper-->
@@ -460,9 +237,7 @@
                                     <div class="d-flex align-items-center ms-1 ms-lg-3"
                                         id="kt_header_user_menu_toggle">
                                         <!--begin::Menu wrapper-->
-                                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
-                                            data-kt-menu-trigger="click" data-kt-menu-attach="parent"
-                                            data-kt-menu-placement="bottom-end">
+                                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px"   data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                                             @if (auth()->user()->image)
                                                 <img alt="Pic" src="{{ auth()->user()->avatar }}">
                                             @else
@@ -495,10 +270,8 @@
                                                     <div class="d-flex flex-column">
                                                         <div class="fw-bolder d-flex align-items-center fs-5">
                                                             {{ ucwords(auth()->user()->name) }}
-
                                                         </div>
-                                                        <a href="#"
-                                                            class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
+                                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
                                                     </div>
                                                     <!--end::Username-->
                                                 </div>
@@ -784,11 +557,11 @@
             })
         }
 
-            
 
         document.getElementsByClassName('copy_button').forEach(function(el) {
             el.addEventListener('click', async () => {
                 let clipvalue = el.parentElement.querySelector(".clipboard_value").innerHTML
+                console.log(clipvalue)
                 try {
                     await navigator.clipboard.writeText(clipvalue)
                     el.querySelector('.copy_icon').style.display = "none";

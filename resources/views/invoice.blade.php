@@ -41,11 +41,11 @@
 								<div class="fw-bolder text-gray-800 fs-6">
 									
 									<span class="clipboard_value">{{$account_number}}</span>
-									<button class="copy_button btn btn-light btn-active-light-primary fw-bold flex-shrink-0 py-0">
-										<span class="svg-icon svg-icon-2 copy_icon">
-											Copy
-										</span>  
-										<i class="bi bi-check fs-2x p-0 check_icon" style="display: none"></i>    
+									<button class="copy_button btn btn-primary  fw-bold p-2">
+										<i class="fa fa-copy copy_icon">
+											 Copy
+										</i>  
+										<i class="bi bi-check fs-2 p-0 check_icon" style="display: none"></i>    
 									</button>
 									<br />{{$account_name}}
 								</div>
@@ -62,7 +62,8 @@
 							<!--end::Item-->
 							<!--begin::Title-->
 							<h6 class="mb-0 fw-boldest text-gray-600 text-hover-primary">PAYMENT PROOF </h6>
-							<!--end::Title-->
+							<h3 class="mt-3">Payment proof (screenshot) must be <br> uploaded for
+								payment to be acknowledged</h3>
 							<form action="{{route('payment.upload')}}" method="post" enctype="multipart/form-data">@csrf
 							<!--begin::Item-->
 								<input type="hidden" name="payment_id" value="{{$payment->id}}">
@@ -73,7 +74,7 @@
 
 									<!--begin::Col-->
 									<div class=" fv-row fv-plugins-icon-container">
-										<input type="file" name="upload" accept=".pdf,.jpg,.png" class="form-control form-control-lg  mb-3 mb-lg-0" >
+										<input type="file" name="upload" accept=".pdf,.jpg,.png" class="form-control form-control-lg  mb-3 mb-lg-0" required>
 										<div
 											class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
 										</div>
@@ -81,7 +82,7 @@
 									<!--end::Col-->
 								</div>
 								<div class="mb-6 text-left">
-									<button type="submit" class="btn  btn-primary btn-block">Save </button>
+									<button type="submit" class="btn  btn-primary btn-block">SUBMIT </button>
 								</div>
 							</form>
 							<!--end::Item-->

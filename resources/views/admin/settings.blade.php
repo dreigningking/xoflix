@@ -164,6 +164,20 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Payment Redirection</label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="url" name="payment_redirection" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="https://" value="{{$settings->firstWhere('name','payment_redirection')->value}}">
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
                                             </div>
                                             <div class="card-header border-0">
                                                 <div class="card-title m-0">

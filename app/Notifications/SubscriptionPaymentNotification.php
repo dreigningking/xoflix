@@ -33,42 +33,32 @@ class SubscriptionPaymentNotification extends Notification
         return ['mail','database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+
     public function toMail($notifiable)
     {
-        if($this->payment->status == "success"){
-            $status = "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
-        }else{ 
-            $status = "Payment of ".$this->payment->amount." naira has been received. Please wait for some moment for confirmation of payment or contact support";
-        }
         return (new MailMessage)
-                    ->line($status)
+                    ->line($this->message())
                     ->action('Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+    public function message(){
+        switch($this->payment->status){
+            case 'success': return "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
+                break;
+            case 'paid': return "Your payment submission of ".$this->payment->amount." naira was successful. Please wait for confirmation of payment or contact support";
+                break;
+            default: return "Your payment of ".$this->payment->amount." naira failed. Please contact support";
+                break;
+        }
+    }
+
     public function toArray($notifiable)
     {
-        if($this->payment->status == "success"){
-            $status = "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
-        }else{ 
-            $status = "Payment of ".$this->payment->amount." naira has been received. Please wait for some moment for confirmation of payment or contact support";
-        }
-
+        
         return [
             'subject' => 'Payment Info',
-            'body' => $status,
+            'body' => $this->message(),
             'url'=> route('dashboard')
         ];
     }

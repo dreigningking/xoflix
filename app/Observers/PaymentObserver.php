@@ -31,25 +31,27 @@ class PaymentObserver
      */
     public function updated(Payment $payment)
     {
-        if($payment->isDirty('status') && $payment->status == 'success'){
-            $user = $payment->user;
-            if($user->payments->where('status','success')->count() == 1 && $user->referred_by){
-                $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
-                $referrer = User::find($user->referred_by);
-                $price = Arr::first($payment->subscriptions->first()->plan->prices, function ($value, $key) use($payment) {
-                    return intval($value['label']) == $payment->subscriptions->first()->duration;
-                });
-                $bonus = $setting * $price['description'] / 100;
-                $referrer->balance += $bonus;
-                $referrer->save();
-                $earning = Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
-                $referrer->notify(new ReferralEarningNotification($earning));
-            }
-            foreach($payment->subscriptions as $subscription){
-                if($subscription->end_at){
-                    $subscription->start_at = null;
-                    $subscription->save();
-                }    
+        if($payment->isDirty('status')){
+            if($payment->status == 'success'){
+                $user = $payment->user;
+                if($user->payments->where('status','success')->count() == 1 && $user->referred_by){
+                    $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
+                    $referrer = User::find($user->referred_by);
+                    $price = Arr::first($payment->subscriptions->first()->plan->prices, function ($value, $key) use($payment) {
+                        return intval($value['label']) == $payment->subscriptions->first()->duration;
+                    });
+                    $bonus = $setting * $price['description'] / 100;
+                    $referrer->balance += $bonus;
+                    $referrer->save();
+                    $earning = Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
+                    $referrer->notify(new ReferralEarningNotification($earning));
+                }
+                foreach($payment->subscriptions as $subscription){
+                    if($subscription->end_at){
+                        $subscription->start_at = null;
+                        $subscription->save();
+                    }    
+                }
             }
             $payment->user->notify(new SubscriptionPaymentNotification($payment));
         }
