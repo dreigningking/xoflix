@@ -94,7 +94,7 @@
 
                                         </div>
                                         <div class="menu-item  me-lg-1">
-                                            <a class="menu-link py-3" href="{{ route('subscription') }}">
+                                            <a class="menu-link py-3" href="{{ route('subscription.purchase') }}">
                                                 <span class="menu-title">Buy Subscription</span>
 
                                             </a>

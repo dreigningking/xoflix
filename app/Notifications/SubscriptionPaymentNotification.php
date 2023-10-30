@@ -37,6 +37,7 @@ class SubscriptionPaymentNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->greeting('Dear '.$notifiable->name)
                     ->line($this->message())
                     ->action('Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
@@ -46,7 +47,7 @@ class SubscriptionPaymentNotification extends Notification
         switch($this->payment->status){
             case 'success': return "Payment of ".$this->payment->amount." naira has been confirmed. Subscription information will be shared with you shortly";
                 break;
-            case 'paid': return "Your payment submission of ".$this->payment->amount." naira was successful. Please wait for confirmation of payment or contact support";
+            case 'paid': return "We acknowledge the receipt of your payment in the amount of ".$this->payment->amount." made on ".$this->payment->created_at->format('d-M-Y')." Your transaction reference number is: ".$this->payment->reference.". Please note that this payment is currently pending confirmation. Once the confirmation is complete, we will send you a confirmation notice.";
                 break;
             default: return "Your payment of ".$this->payment->amount." naira failed. Please contact support";
                 break;

@@ -87,7 +87,7 @@
                                     <!--begin::Card title-->
                                     <h3 class="card-title fw-bolder text-gray-800 fs-2">Current Subscription Summary</h3>
                                     <div class="card-toolbar">
-                                        <a href="{{route('subscription')}}" class="btn btn-primary">Purchase Subscription</a>
+                                        <a href="{{route('subscription.purchase')}}" class="btn btn-primary">Purchase Subscription</a>
                                     </div>
                                 </div>
                                 <!--end::Header-->

@@ -68,7 +68,9 @@ Route::post('password', [HomeController::class, 'password_update'])->name('passw
 Route::get('referredby/{user}', [RegisterController::class, 'referrer'])->name('referrer');
 Route::post('resolve/account', [PaymentController::class, 'resolve_account'])->name('resolve_account');
 Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
-Route::get('subscription',[SubscriptionController::class, 'pricing'])->name('subscription');
+Route::get('subscription/purchase',[SubscriptionController::class, 'pricing'])->name('subscription.purchase');
+
+Route::get('subscription',[SubscriptionController::class, 'subscriptions'])->name('subscription');
 Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription');
 Route::get('subscription/payment/{payment}',[SubscriptionController::class, 'payment'])->name('subscription.payment');
 Route::post('subscription/renew',[SubscriptionController::class, 'renew'])->name('subscription.renew');

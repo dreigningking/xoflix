@@ -163,6 +163,11 @@ class SubscriptionController extends Controller
         return view('pricing', compact('plans'));
     }
 
+    public function subscriptions(){
+        $user = auth()->user();
+        return view('user.subscription',compact('user'));
+    }
+
     public function buy(Request $request)
     {
         //dd($request->all());
