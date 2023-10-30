@@ -117,10 +117,21 @@
                                         <!--begin::Body-->
                                         <div id="kt_job_{{$subscription->id}}" class="collapse fs-6 ms-1">
                                             <!--begin::Text-->
-                                            <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
+                                            <div class="mb-4 text-gray-600 fw-bold fs-6">
                                                 <p class="fw-bold text-primary text-center mt-3">LINK: </p>
-                                                <p class="text-center">
+                                                <p class="d-flex justify-content-between border-bottom border-dark pb-2">
                                                     <span class="clipboard_value">{{$subscription->link->url}}</span>
+                                                    <button class="copy_button ms-1 px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                            Copy
+                                                        </span> 
+                                                        <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                    </button>
+                                                    
+                                                </p>
+                                                <p class="fw-bold text-primary text-center mt-3">NAME: </p>
+                                                <p class="d-flex justify-content-between border-bottom border-dark pb-2">
+                                                    <span class="clipboard_value">XOFLIX</span>
                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                             Copy
@@ -129,62 +140,40 @@
                                                     </button>
                                                     
                                                 </p>
-                                                <table class="table">
-                                                    <tr>
-                                                        <td>
-                                                            <span class="fw-bold text-primary">NAME: </span> 
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="clipboard_value">XOFLIX</span>
-                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="fw-bold text-primary">USERNAME: </span> 
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="clipboard_value">{{$subscription->username}}</span>
-                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="fw-bold text-primary">PASSWORD: </span> 
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="clipboard_value">{{$subscription->password}}</span>
-                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                <p class="fw-bold text-primary text-center mt-3">USERNAME: </p>
+                                                <p class="d-flex justify-content-between border-bottom border-dark pb-2">
+                                                    <span class="clipboard_value">{{$subscription->username}}</span>
+                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                            Copy
+                                                        </span> 
+                                                        <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                    </button>
                                                     
-                                                </table>
+                                                </p>
+                                                <p class="fw-bold text-primary text-center mt-3">PASSWORD: </p>
+                                                <p class="d-flex justify-content-between border-bottom border-dark pb-2">
+                                                    <span class="clipboard_value">{{$subscription->password}}</span>
+                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                            Copy
+                                                        </span> 
+                                                        <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                    </button>
+                                                    
+                                                </p>
+                                            
                                                 
                                                 <p class="fw-bold text-primary text-center mt-3">M3U LINK: </p>
-                                                <span>
-                                                    <span class="text-wrap clipboard_value"> {{$subscription->m3u_link}}</span>
+                                                <p class="d-flex justify-content-between border-bottom border-dark pb-2">
+                                                    <div class="clipboard_value"> {{$subscription->m3u_link}}</div>
                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                             Copy
                                                         </span> 
                                                         <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                     </button>
-                                                </span>
+                                                </p>
                                                 <table class="table">
                                                     <tr>
                                                         <td>
