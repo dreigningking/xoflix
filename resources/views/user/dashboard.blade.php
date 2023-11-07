@@ -177,7 +177,7 @@
                                                     
                                                         
                                                         <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
-                                                        <p class="d-flex justify-content-between border-bottom border-dark pb-2">
+                                                        <p class="d-flex justify-content-between  pb-2">
                                                             <div class="clipboard_value"> {{$subscription->m3u_link}}</div>
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
@@ -186,6 +186,7 @@
                                                                 <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
                                                             </button>
                                                         </p>
+                                                        <p class="border-bottom border-dark"></p>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
