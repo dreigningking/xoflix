@@ -35,7 +35,7 @@
                                     <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1" aria-selected="true" role="tab">Premium</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2" aria-selected="false" role="tab" tabindex="-1">Standard</a>
+                                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2" aria-selected="false" role="tab" tabindex="-1">Special</a>
                                 </li>
                                 
                             </ul>
@@ -87,7 +87,7 @@
                 
                                 <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
                                     <form action="{{route('admin.plans')}}" method="post">@csrf
-                                        @foreach ($plans->firstWhere('name','Standard')->features as $feature)
+                                        @foreach ($plans->firstWhere('name','Special')->features as $feature)
                                             <input type="hidden" name="plan_id" value="2">
                                             <div class="row mb-6">
                                                 <!--begin::Label-->
@@ -105,7 +105,7 @@
                                             </div>
                                         @endforeach
                                         <p>Prices</p>
-                                        @foreach ($plans->firstWhere('name','Standard')->prices as $price)
+                                        @foreach ($plans->firstWhere('name','Special')->prices as $price)
                                             <div class="row mb-6">
                                                 <!--begin::Label-->
                                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{$price['label']}}</label>

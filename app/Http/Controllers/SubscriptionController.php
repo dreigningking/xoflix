@@ -182,7 +182,7 @@ class SubscriptionController extends Controller
             }
         }
         $user = auth()->user();
-        $amount = array_sum($request->premium_amount) + array_sum($request->standard_amount);
+        $amount = array_sum($request->premium_amount) + array_sum($request->special_amount);
         $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount ]);
         if($request->has('premium_quantity')){
             foreach(array_filter($request->premium_quantity) as $key => $quantity){
@@ -191,10 +191,10 @@ class SubscriptionController extends Controller
                 }
             }
         }
-        if($request->has('standard_quantity')){
-            foreach(array_filter($request->standard_quantity) as $key => $quantity){
+        if($request->has('special_quantity')){
+            foreach(array_filter($request->special_quantity) as $key => $quantity){
                 for($i = 0;$i < $quantity;$i++){
-                    Subscription::create(['plan_id'=> 2,'user_id'=> $user->id,'duration'=> $request->standard_duration[$key], 'payment_id'=> $payment->id]);
+                    Subscription::create(['plan_id'=> 2,'user_id'=> $user->id,'duration'=> $request->special_duration[$key], 'payment_id'=> $payment->id]);
                 }
             }
         }

@@ -19,7 +19,7 @@
                             <a class="nav-link w-100 btn btn-flex btn-active-light-info" data-bs-toggle="tab" href="#kt_vtab_pane_5" aria-selected="false" role="tab" tabindex="-1">
                                 <i class="ki-duotone ki-icons/duotune/general/gen003.svg fs-2 text-primary"></i>                        <span class="d-flex flex-column align-items-start">
                                 <span class="d-flex flex-column align-items-start">
-                                    <span class="fs-4 fw-bold">Standard</span>
+                                    <span class="fs-4 fw-bold">Special</span>
                                 </span>
                             </a>
                         </li>
@@ -108,10 +108,10 @@
 
                     <div class="tab-pane fade" id="kt_vtab_pane_5" role="tabpanel">
                         <div class="text-center mt-5">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#standard_details">View Details</a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#special_details">View Details</a>
                         </div>
 
-                        <div class="modal fade" id="standard_details" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="special_details" tabindex="-1" aria-hidden="true">
                             <!--begin::Modal dialog-->
                             <div class="modal-dialog modal-dialog-centered mw-650px">
                                 <!--begin::Modal content-->
@@ -120,11 +120,11 @@
                                         <tr>
                                             <td class="text-center p-2">
                                                 <div class="d-flex flex-column">
-                                                    <h1 class="">Standard Details</h1>
+                                                    <h1 class="">Special Details</h1>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @foreach ($plans->firstWhere('name','Standard')->features as $feature)
+                                        @foreach ($plans->firstWhere('name','Special')->features as $feature)
                                         <tr>
                                             <td class="text-center p-2">
                                                 <div class="d-flex flex-column">
@@ -148,7 +148,7 @@
                                 <!--begin::Table head-->
                                 <thead class="align-middle">
                                     <tr id="kt_pricing">
-                                        @foreach ($plans->firstWhere('name','Standard')->prices as $price)
+                                        @foreach ($plans->firstWhere('name','Special')->prices as $price)
                                             <th class="text-center min-w-200px">
                                                 <div class="min-w-200px card-rounded @switch($loop->iteration) @case(1) border border-dark @break @case(2) bg-success @break @case(3) bg-primary @break @case(4) bg-info @break @endswitch py-12 mb-5">
                                                     <div class="@if($loop->iteration == 1) text-dark @else text-white @endif fs-3 fw-bold mb-7">{{$price['label']}}</div>
@@ -159,14 +159,14 @@
                                                         {{number_format($price['description'])}}
                                                     </div> 
                                                     <div class="action">
-                                                        <input type="hidden" class="plan_name" value="{{$price['label']}} Standard ">
-                                                        <input type="hidden" class="price" name="standard_price[{{intval($price['label'])}}]" value="{{intval($price['description'])}}">
-                                                        <input type="hidden" class="duration" name="standard_duration[{{intval($price['label'])}}]" value="{{intval($price['label'])}}">
-                                                        <input type="hidden" class="amount" name="standard_amount[{{intval($price['label'])}}]" value="0">
+                                                        <input type="hidden" class="plan_name" value="{{$price['label']}} Special ">
+                                                        <input type="hidden" class="price" name="special_price[{{intval($price['label'])}}]" value="{{intval($price['description'])}}">
+                                                        <input type="hidden" class="duration" name="special_duration[{{intval($price['label'])}}]" value="{{intval($price['label'])}}">
+                                                        <input type="hidden" class="amount" name="special_amount[{{intval($price['label'])}}]" value="0">
                                                         <button type="button" class="btn @switch($loop->iteration) @case(1) btn-light-dark @break @case(2) bg-white bg-opacity-20 bg-hover-white text-hover-success text-white @break @case(3) bg-white bg-opacity-20 bg-hover-white text-hover-primary text-white @break @case(4) bg-white bg-opacity-20 bg-hover-white text-hover-info text-white @break @endswitch fw-bold mx-auto buy">Buy</button>
                                                         <div class="input-group input-group-sm pt-3 px-10 text-center buyvalues" style="display: none">
                                                             <button class="btn btn-secondary buy_minus" type="button">-</button>
-                                                            <input type="number" name="standard_quantity[{{intval($price['label'])}}]" value="0" class="form-control w-25 quantity"/>
+                                                            <input type="number" name="special_quantity[{{intval($price['label'])}}]" value="0" class="form-control w-25 quantity"/>
                                                             <button class="btn btn-secondary buy_plus" type="button">+</button>
                                                         </div>
                                                     </div>
@@ -186,7 +186,7 @@
                 <div class="row mt-3">
                     <div class="col-12 text-center" id="selected_plans">
                         {{-- <p>2 Months Premium x 1</p>
-                        <p>2 Months Standard x 4</p> --}}
+                        <p>2 Months Special x 4</p> --}}
                     </div>
                 </div>
                 @guest

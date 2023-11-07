@@ -96,6 +96,14 @@
                         <div class="card-title">
                             <h3 class="m-0 text-gray-800">Pending Subscriptions</h3>
                         </div>
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                  </svg>
+                            </i>                
+                            <input type="text" id="searchSubscription" class="form-control form-control-solid w-250px ps-12" placeholder="Search">
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -410,7 +418,7 @@
                                         <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
                                             <option value=""></option>
                                             <option value="1">Premium Plan</option>
-                                            <option value="2">Standard Plan</option>
+                                            <option value="2">Special Plan</option>
                                         </select>
                                         
                                     </div>
@@ -445,6 +453,9 @@
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>
         var subscriptionTable = $("#datatable").DataTable({});
+        $('#searchSubscription').on('keyup',function(){
+            subscriptionTable.search($(this).val()).draw();
+        });
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
             //put your config here
         });

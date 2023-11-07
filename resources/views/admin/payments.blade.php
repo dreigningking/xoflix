@@ -166,25 +166,24 @@
                                         </td>
                                         <td> ₦{{ $payment->amount }}</td>
                                         <td>
-                                            @if ($payment->status == 'success') 
-                                                <span class="text-success"> {{ ucwords($payment->status) }} </span>
-                                            @elseif($payment->status == 'paid') 
-                                                <form action="{{route('admin.payments.confirmation')}}" method="POST" onsubmit="return confirm('Are you sure you want to confirm payment?')">@csrf
-                                                    <input type="hidden" name="payment_id" value="{{$payment->id}}">
-                                                    <button class="btn btn-sm btn-primary">Confirm</button>
-                                                </form>
-                                            @elseif($payment->status == 'failed') 
-                                                <div class="d-flex align-items-center">
-                                                    <span class="text-danger mx-2"> {{ ucwords($payment->status) }}  </span>
-                                                    <form action="{{route('admin.payments.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete payment?')">@csrf
+                                            <div class="d-flex align-items-center">
+                                                @if ($payment->status == 'success') 
+                                                    <span class="text-success"> {{ ucwords($payment->status) }} </span>
+                                                @elseif($payment->status == 'paid') 
+                                                    <form action="{{route('admin.payments.confirmation')}}" method="POST" onsubmit="return confirm('Are you sure you want to confirm payment?')">@csrf
                                                         <input type="hidden" name="payment_id" value="{{$payment->id}}">
-                                                        <button class="btn btn-sm btn-danger px-2 text-center"> <i class="fa fs-2 ps-1 fa-trash"></i> </button>
+                                                        <button class="btn btn-sm btn-primary">Confirm</button>
                                                     </form>
-                                                </div>
-                                            @else 
-                                            <span class="text-warning mr-2"> {{ ucwords($payment->status) }}  </span>
-                                            @endif
-                                            
+                                                @elseif($payment->status == 'failed') 
+                                                    <span class="text-danger mx-2"> {{ ucwords($payment->status) }}  </span>
+                                                @else 
+                                                    <span class="text-warning mr-2"> {{ ucwords($payment->status) }}  </span>
+                                                @endif
+                                                <form action="{{route('admin.payments.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete payment?')">@csrf
+                                                    <input type="hidden" name="payment_id" value="{{$payment->id}}">
+                                                    <button class="btn btn-sm btn-danger ms-2 px-2 text-center"> <i class="fa fs-2 ps-1 fa-trash"></i> </button>
+                                                </form>
+                                            </div>
                                         </td>
                                         <div class="modal fade" id="paiduser{{$payment->id}}" tabindex="-1" aria-hidden="true">
                                             <!--begin::Modal dialog-->

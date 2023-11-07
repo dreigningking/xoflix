@@ -130,7 +130,7 @@
                                                 <div id="kt_job_{{$subscription->id}}" class="collapse fs-6 ms-1">
                                                     <!--begin::Text-->
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6">
-                                                        <p class="fw-bold text-primary text-center mt-3">LINK: </p>
+                                                        {{-- <p class="fw-bold text-primary text-center mt-3">LINK: </p>
                                                         <p class="d-flex justify-content-between border-bottom border-dark pb-2">
                                                             <span class="clipboard_value">{{$subscription->link->url}}</span>
                                                             <button class="copy_button ms-1 px-2 py-1 btn btn-light border border-dark btn-sm">
@@ -140,7 +140,7 @@
                                                                 <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
                                                             </button>
                                                             
-                                                        </p>
+                                                        </p> --}}
                                                         <p class="fw-bold text-primary text-center mt-3">NAME: </p>
                                                         <p class="d-flex justify-content-between border-bottom border-dark pb-2">
                                                             <span class="clipboard_value">XOFLIX</span>
@@ -176,7 +176,7 @@
                                                         </p>
                                                     
                                                         
-                                                        <p class="fw-bold text-primary text-center mt-3">M3U LINK: </p>
+                                                        <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
                                                         <p class="d-flex justify-content-between border-bottom border-dark pb-2">
                                                             <div class="clipboard_value"> {{$subscription->m3u_link}}</div>
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
@@ -254,17 +254,7 @@
                                                 <div id="kt_trial_{{$trial->id}}" class="collapse fs-6 ms-1">
                                                     <!--begin::Text-->
                                                     <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
-                                                        <p class="fw-bold text-primary text-center mt-3">LINK: </p>
-                                                        <p class="text-center">
-                                                            <span class="clipboard_value">{{$trial->link->url}}</span>
-                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                            </button>
-                                                            
-                                                        </p>
+                                                        
                                                         
                                                         <table class="table">
                                                             <tr>
@@ -301,6 +291,20 @@
                                                                 </td>
                                                                 <td class="text-end">
                                                                     <span class="clipboard_value">{{$trial->password}}</span>
+                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
+                                                                        <span class="svg-icon svg-icon-2 copy_icon">
+                                                                            Copy
+                                                                        </span> 
+                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="fw-bold text-primary">SMART TV URL: </span> 
+                                                                </td>
+                                                                <td class="text-end">
+                                                                    <span class="clipboard_value">{{$trial->link->url}}</span>
                                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                         <span class="svg-icon svg-icon-2 copy_icon">
                                                                             Copy
@@ -407,7 +411,7 @@
                                                                                 </button>
                                                                         </p>
 
-                                                                            <span class="text-primary fw-bold fs-5">Url:</span>
+                                                                            <span class="text-primary fw-bold fs-5">Smart TV Url:</span>
                                                                         <p class="ps-3 mb-0 d-flex justify-content-between">
                                                                                 <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->link->url}} </span> 
                                                                                 <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
@@ -429,7 +433,7 @@
                                                                     </div>
                                                                     
                                                                     <div class="ps-3">
-                                                                        <span class="text-primary fw-bold fs-5">Url:
+                                                                        <span class="text-primary fw-bold fs-5">Smart Tv Url:
                                                                             <span class="text-gray-400 fw-bold d-inline clipboard_value"> {{$subscription->m3u_link}}</span>
                                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                                 <span class="svg-icon svg-icon-2 copy_icon">
@@ -503,7 +507,7 @@
                                                                 </p>
                                                                 
                                                                 <p class="ps-3 mb-0">
-                                                                    <span class="text-primary fw-bold fs-5  mb-1">Url: </span> 
+                                                                    <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
                                                                     <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->link->url}}</span>
                                                                     <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                         <span class="svg-icon svg-icon-2 copy_icon">
@@ -559,7 +563,7 @@
                                                     <th class="min-w-125px">Start</th>
                                                     <th class="min-w-125px">Expiry</th>
                                                     <th class="min-w-125px">XTREAM</th>
-                                                    <th class="min-w-125px">M3U</th>
+                                                    <th class="min-w-125px">SMART TV URL</th>
                                                     
                                                     </th>
                                                 </tr>
@@ -1082,7 +1086,7 @@
                                                 </p>
                                                 
                                                 <p class="ps-3 mb-0">
-                                                    <span class="text-primary fw-bold fs-5  mb-1">Url: </span> 
+                                                    <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
                                                     <span class="text-gray-400 fw-bold  d-inline">{{$trial->link->url}}</span>
                                                 </p>
                                             </div>
