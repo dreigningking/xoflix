@@ -369,7 +369,7 @@
                                     <div class="d-flex flex-column mb-2 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">M3U Link</span>
+                                            <span class="required">Smart TV Link</span>
                                         </label>
                                         <!--end::Label-->
                                         <div class="input-group input-group-lg">
@@ -432,7 +432,9 @@
                                         Update
                                     </span>
                                 </button>
-
+                                <button type="button" class="close btn btn-danger me-3" data-dismiss="modal" aria-label="Close">
+                                        Cancel
+                                </button>
                                 {{-- <button type="submit" name="action" value="delete" id="kt_modal_new_card_cancel" class="btn btn-danger me-3">
                                         Delete
                                 </button> --}}

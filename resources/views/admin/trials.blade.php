@@ -161,7 +161,7 @@
                                         <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">M3U Link</span>
+                                                <span class="required">Smart TV Link</span>
                                             </label>
                                             <!--end::Label-->
                     
@@ -524,7 +524,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">M3U Link</span>
+                                        <span class="required">Smart TV Link</span>
                                     </label>
                                     <!--end::Label-->
             

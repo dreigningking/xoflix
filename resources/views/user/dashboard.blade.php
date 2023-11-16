@@ -179,6 +179,18 @@
                                                         
                                                     
                                                         
+                                                        <p class="fw-bold text-primary text-center mt-3">XTREAM URL: </p>
+                                                        <div class="input-group input-group-lg">
+                                                            <input type="text" value="{{$subscription->link->url}}" class="form-control form-control-solid"/>
+                                                            <span class="clipboard_value" style="display: none">{{$subscription->link->url}}</span>
+                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                        </div>
+                                                        
                                                         <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
                                                         <div class="input-group input-group-lg">
                                                             <input type="text" value="{{$subscription->m3u_link}}" class="form-control form-control-solid"/>
@@ -298,10 +310,22 @@
                                                             </button>
                                                         </div>
 
-                                                        <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
+                                                        <p class="fw-bold text-primary text-center mt-3">XTREAM URL: </p>
                                                         <div class="input-group input-group-lg">
                                                             <input type="text" value="{{$trial->link->url}}" class="form-control form-control-solid"/>
                                                             <span class="clipboard_value" style="display: none">{{$subscription->link->url}}</span>
+                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
+                                                                <span class="svg-icon svg-icon-2 copy_icon">
+                                                                    Copy
+                                                                </span> 
+                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
+                                                            </button>
+                                                        </div>
+
+                                                        <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
+                                                        <div class="input-group input-group-lg">
+                                                            <input type="text" value="{{$trial->m3u_link}}" class="form-control form-control-solid"/>
+                                                            <span class="clipboard_value" style="display: none">{{$subscription->m3u_link}}</span>
                                                             <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
                                                                     Copy
@@ -1022,8 +1046,13 @@
                                                 </p>
                                                 
                                                 <p class="ps-3 mb-0">
-                                                    <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
+                                                    <span class="text-primary fw-bold fs-5  mb-1">Xtream Url: </span> 
                                                     <span class="text-gray-400 fw-bold  d-inline">{{$trial->link->url}}</span>
+                                                </p>
+
+                                                <p class="ps-3 mb-0">
+                                                    <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
+                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->m3u_link}}</span>
                                                 </p>
                                             </div>
                                         </td>
