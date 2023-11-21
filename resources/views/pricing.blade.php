@@ -6,53 +6,41 @@
 @endsection
 @push('scripts')
 <script>
-    $(document).on('click','.buy',function(){
-        $(this).closest('.action').find('.quantity').first().val(1)
-        $(this).closest('.action').find('.amount').first().val($(this).closest('.action').find('.price').first().val())
-        $(this).closest('.action').find('.buyvalues').fadeIn();
-        // let name = $(this).closest('.action').find('.plan_name').val();
-        // $('#selected_plans').append(`<p>${name} x 1 </p>`)
-        $(this).hide();
-
-        getAmount();
+    
+    $(document).on('input change','.quantity',function(){
+        let months = $(this).val();
+        let price = $(this).closest('.action').find('.price').first().val()
+        let connection = $(this).closest('.action').find('.connections').first().val()
+        let amount = parseInt(price) * parseInt(months) * parseInt(connection)
+        $(this).closest('.action').find('.displayed_price').text(amount)
     })
-
     $(document).on('click','.buy_plus',function(){
         let input = $(this).closest('.buyvalues').find('.quantity')
+        let months = parseInt(input.val()) + 1
+        input.val(months)
         let price = $(this).closest('.action').find('.price').first().val()
-        let amount = $(this).closest('.action').find('.amount').first()
-        let new_quantity = parseInt(input.val()) + 1
-        input.val(new_quantity)
-        amount.val(new_quantity * parseInt(price))
-        getAmount();
+        let connection = $(this).closest('.action').find('.connections').first().val()
+        let amount = parseInt(price) * parseInt(months) * parseInt(connection)
+        $(this).closest('.action').find('.displayed_price').text(amount)
     })
 
     $(document).on('click','.buy_minus',function(){
         let input = $(this).closest('.buyvalues').find('.quantity')
+        let months = parseInt(input.val()) - 1
+        input.val(months)
         let price = $(this).closest('.action').find('.price').first().val()
-        let amount = $(this).closest('.action').find('.amount').first()
-        let new_quantity = parseInt(input.val()) - 1
-        input.val(new_quantity)
-        amount.val(new_quantity * parseInt(price))
-        if(input.val() < 1){
-            $(this).closest('.action').find('.buy').fadeIn();
-            $(this).closest('.action').find('.buyvalues').hide()
-        }
-        getAmount();
+        let connection = $(this).closest('.action').find('.connections').first().val()
+        let amount = parseInt(price) * parseInt(months) * parseInt(connection)
+        $(this).closest('.action').find('.displayed_price').text(amount)
         
     })
-    function getAmount(){
-        let amount = 0;
-        $('.amount').each(function(index,vals){
-            amount += parseInt(vals.value)
-        })
-        if(amount > 0){
-            $('.total_area').show()
-            $('#grandtotal').text(amount);
-        }else{
-            $('.total_area').hide()
-        }
-        
-    }
+    $(document).on('change','.connections',function(){
+        let connection = $(this).val();
+        let price = $(this).closest('.action').find('.price').first().val()
+        let months = $(this).closest('.action').find('.quantity').first().val()
+        let amount = parseInt(price) * parseInt(months) * parseInt(connection)
+        $(this).closest('.action').find('.displayed_price').text(amount)
+    })
+ 
 </script>
 @endpush

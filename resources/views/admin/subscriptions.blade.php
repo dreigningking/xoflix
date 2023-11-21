@@ -90,78 +90,7 @@
 
                 </div>
                 
-                <div class="card">
-                    <div class="card-header card-header-stretch">
-                        <!--begin::Title-->
-                        <div class="card-title">
-                            <h3 class="m-0 text-gray-800">Pending Subscriptions</h3>
-                        </div>
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                  </svg>
-                            </i>                
-                            <input type="text" id="searchSubscription" class="form-control form-control-solid w-250px ps-12" placeholder="Search">
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <!--begin::Table-->
-                            <table id="datatable" class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
-                                <!--begin::Thead-->
-                                <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
-                                    <tr>
-                                        <th class="min-w-200px ps-9">User</th>
-                                        <th class="min-w-125px text-center">Type</th>
-                                        <th class="min-w-125px text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <!--end::Thead-->
-
-                                <!--begin::Tbody-->
-                                <tbody class="fs-6 fw-semibold text-gray-600">
-                                    @foreach ($pendings as $subscription)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-40px me-3"> 
-                                                    @if($subscription->user->image)
-                                                    <img alt="Pic" src="{{$subscription->user->avatar}}">
-                                                    @else
-                                                    <div class="symbol-label display-6 bg-light-primary text-primary rounded-circle">
-                                                        {{ $subscription->user->name[0] }} 
-                                                    </div>
-                                                    @endif                                              
-                                                                                                      
-                                                </div>
-                                                
-                                                <div class="d-flex justify-content-start flex-column">
-                                                    <a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{$subscription->user->name}}</a>
-                                                    <span class="text-muted fw-semibold d-block fs-7">{{$subscription->user->email}}</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center"> @if($subscription->end_at) Renewal @else New @endif</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details"
-                                                data_subscription="{{$subscription->id}}" data_username="{{$subscription->username}}" 
-                                                data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
-                                                data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
-                                                data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at}}"
-                                                data_expiry="{{$subscription->end_at}}" data_plan="{{$subscription->plan->id}}">View</button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <!--end::Tbody-->
-                            </table>
-                            <!--end::Table-->
-                        </div>
-                        
-                    </div>
-                    
-                </div>
+                
                 
                 <div class="card mt-3">
                     <!--begin::Header-->
@@ -432,7 +361,7 @@
                                         Update
                                     </span>
                                 </button>
-                                <button type="button" class="close btn btn-danger me-3" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close btn btn-danger me-3" data-bs-dismiss="modal" aria-label="Close">
                                         Cancel
                                 </button>
                                 {{-- <button type="submit" name="action" value="delete" id="kt_modal_new_card_cancel" class="btn btn-danger me-3">
@@ -454,10 +383,7 @@
     {{-- <script src="{{ asset('plugins/tempus-dominus.init.js') }}"></script> --}}
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>
-        var subscriptionTable = $("#datatable").DataTable({});
-        $('#searchSubscription').on('keyup',function(){
-            subscriptionTable.search($(this).val()).draw();
-        });
+        
         new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"), {
             //put your config here
         });

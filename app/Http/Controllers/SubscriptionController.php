@@ -91,28 +91,6 @@ class SubscriptionController extends Controller
         return redirect()->back();
     }
 
-    // public function update_subscription(Request $request)
-    // {
-    //     // dd($request->all());
-    //     $subscription = Subscription::where('id', $request->subscription_id)->first();
-    //     // dd($subscription);
-    //     switch($request->action){ 
-    //         case 'update':  
-    //             if($request->username) $subscription->username = $request->username;
-    //             if($request->password) $subscription->password = $request->password;
-    //             if($request->link_id) $subscription->link_id = $request->link_id;
-    //             if($request->panel_id) $subscription->panel_id = $request->panel_id;
-    //             if($request->m3u_link) $subscription->m3u_link = $request->m3u_link;
-    //             $subscription->save();
-    //             return $request->expectsJson() ? response()->json(200) : redirect()->back();
-    //             break;
-    //         case 'delete': 
-    //             $subscription->delete();
-    //             return redirect()->back();
-    //             break;
-    //     }  
-        
-    // }
 
 
     public function trials_store(Request $request)
@@ -164,6 +142,7 @@ class SubscriptionController extends Controller
     public function pricing()
     {
         $plans = Plan::all();
+        // dd($plans);
         return view('pricing', compact('plans'));
     }
 
@@ -174,7 +153,7 @@ class SubscriptionController extends Controller
 
     public function buy(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         
         if(!auth()->check()){
             if(!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -182,22 +161,10 @@ class SubscriptionController extends Controller
             }
         }
         $user = auth()->user();
-        $amount = array_sum($request->premium_amount) + array_sum($request->special_amount);
+        $plan = Plan::find($request->plan_id);
+        $amount = $plan->price * $request->duration * $request->connections;
         $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount ]);
-        if($request->has('premium_quantity')){
-            foreach(array_filter($request->premium_quantity) as $key => $quantity){
-                for($i = 0;$i < $quantity;$i++){
-                    Subscription::create(['plan_id'=> 1,'user_id'=> $user->id,'duration'=> $request->premium_duration[$key], 'payment_id'=> $payment->id]);
-                }
-            }
-        }
-        if($request->has('special_quantity')){
-            foreach(array_filter($request->special_quantity) as $key => $quantity){
-                for($i = 0;$i < $quantity;$i++){
-                    Subscription::create(['plan_id'=> 2,'user_id'=> $user->id,'duration'=> $request->special_duration[$key], 'payment_id'=> $payment->id]);
-                }
-            }
-        }
+        Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id,'duration'=> $request->duration, 'connections'=> $request->connections,'payment_id'=> $payment->id]);
         return redirect()->route('subscription.payment',$payment);
         // $response = $this->initiateFlutterWave($payment);
         // if (!$response)
@@ -207,10 +174,8 @@ class SubscriptionController extends Controller
 
     public function renew(Request $request){
         $subscription = Subscription::find($request->subscription_id);
-        $price = Arr::first($subscription->plan->prices, function ($value, $key) use($subscription) {
-            return intval($value['label']) == $subscription->duration;
-        });
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $price['description'] ]);
+        $plan = Plan::find($subscription->plan_id);
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $plan->price * $subscription->duration * $subscription->connection ]);
         $subscription->payment_id = $payment->id;
         $subscription->save();
         return redirect()->route('subscription.payment',$payment);

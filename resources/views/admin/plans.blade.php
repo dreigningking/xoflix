@@ -60,24 +60,24 @@
                                                 <!--end::Col-->
                                             </div>
                                         @endforeach
-                                        <p>Prices</p>
-                                        @foreach ($plans->firstWhere('name','Premium')->prices as $price)
-                                            <div class="row mb-6">
-                                                <!--begin::Label-->
-                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{$price['label']}}</label>
-                                                <input type="hidden" name="prices_label[]" value="{{$price['label']}}">
-        
-                                                <!--begin::Col-->
-                                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                    <input type="number" value="{{$price['description']}}" name="prices[]" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                                placeholder="" >
-                                                    <div
-                                                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                    </div>
+                                        
+                                        
+                                        <div class="row mb-6">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Price Per Month Per Connection:</label>
+                                            
+    
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                <input type="number" value="{{$plans->firstWhere('name','Premium')->price}}" name="price" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                            placeholder="" >
+                                                <div
+                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                 </div>
-                                                <!--end::Col-->
                                             </div>
-                                        @endforeach
+                                            <!--end::Col-->
+                                        </div>
+                                        
                                         <div class="d-flex justify-content-end py-6 px-9">
                                             <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
                                             <button type="submit" class="btn btn-primary  px-6">Save Changes</button>
@@ -104,24 +104,19 @@
                                                 <!--end::Col-->
                                             </div>
                                         @endforeach
-                                        <p>Prices</p>
-                                        @foreach ($plans->firstWhere('name','Special')->prices as $price)
-                                            <div class="row mb-6">
-                                                <!--begin::Label-->
-                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{$price['label']}}</label>
-                                                <input type="hidden" name="prices_label[]" value="{{$price['label']}}">
-        
-                                                <!--begin::Col-->
-                                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                    <input type="number" value="{{$price['description']}}" name="prices[]" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                                placeholder="" >
-                                                    <div
-                                                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                    </div>
+                                        <div class="row mb-6">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Price Per Month Per Connection:</label>
+                                            
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                <input type="number" value="{{$plans->firstWhere('name','Special')->price}}" name="price" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="" >
+                                                <div
+                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                 </div>
-                                                <!--end::Col-->
                                             </div>
-                                        @endforeach
+                                            <!--end::Col-->
+                                        </div>
                                         <div class="d-flex justify-content-end py-6 px-9">
                                             <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
                                             <button type="submit" class="btn btn-primary  px-6">Save Changes</button>

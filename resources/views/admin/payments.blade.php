@@ -149,22 +149,41 @@
                                 <tr>
                                     <th class="min-w-125px ps-9">Reference</th>
                                     <th class="min-w-125px">Date</th>
-                                    <th class="min-w-125px px-0">User</th>
                                     <th class="min-w-125px ps-0">Amount</th>
-                                    <th class="min-w-125px ps-0">Status</th> 
+                                    <th class="min-w-125px px-0">Subscription Status</th>
+                                    <th class="min-w-125px ps-0">Payment Status</th> 
                                 </tr>
                             </thead>
                             <tbody class="fs-6 fw-semibold text-gray-600">
                                 @forelse ($payments as $payment)
                                     <tr>
                                         <td class="ps-9">
-                                            <a @if($payment->proof) href="{{$payment->proof}}"  target="_blank" @endif>{{ $payment->reference }}</a>
-                                        </td>
-                                        <td>{{ $payment->created_at->format('M d, Y') }}</td>
-                                        <td class="ps-0">
+                                            <a @if($payment->proof) href="{{$payment->proof}}"  target="_blank" @endif>{{ $payment->reference }}</a> <br>
                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#paiduser{{$payment->id}}">{{ $payment->user->name }}</a>
                                         </td>
+                                        <td>
+                                            {{ $payment->created_at->format('M d, Y') }} <br>
+                                            @if($payment->subscription->end_at) Renewal @else New @endif
+                                            
+                                        </td>
+                                        
                                         <td> ₦{{ $payment->amount }}</td>
+                                        <td class="ps-0">
+                                            @if($payment->status == 'success')
+                                                @if(!$payment->subscription->start_at)
+                                                    Pending 
+                                                    <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details"
+                                                        data_subscription="{{$payment->subscription->id}}" data_username="{{$payment->subscription->username}}" 
+                                                        data_password="{{$payment->subscription->password}}" data_link_id="{{$payment->subscription->link_id}}" 
+                                                        data_m3u_link="{{$payment->subscription->m3u_link}}" data_panel_id="{{$payment->subscription->panel_id}}" 
+                                                        data_user_id="{{$payment->subscription->user_id}}" data_start="{{$payment->subscription->start_at}}"
+                                                        data_expiry="{{$payment->subscription->end_at}}" data_plan="{{$payment->subscription->plan->id}}">View
+                                                    </button>
+                                                @else 
+                                                    Completed
+                                                @endif
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @if ($payment->status == 'success') 
@@ -265,12 +284,12 @@
                                                                 <div class="border p-2 w-50"> Subscription </div>
                                                                 <div class="border p-2 w-50"> Duration </div>
                                                             </div>
-                                                            @foreach ($payment->subscriptions as $subscription)
+                                                            
                                                             <div class="d-flex w-100">
-                                                                <div  class="border p-2 w-50"> {{$subscription->plan->name}} </div>
-                                                                <div  class="border p-2 w-50"> {{$subscription->duration}} Month</div>
+                                                                <div  class="border p-2 w-50"> {{$payment->subscription->plan->name}} </div>
+                                                                <div  class="border p-2 w-50"> {{$payment->subscription->duration}} Month</div>
                                                             </div>
-                                                            @endforeach
+                                                            
                                                             
                                                         </div>   
                                                     </div>
@@ -306,3 +325,177 @@
         <!--end::Layout - Activity-->
     </div>
 @endsection
+@section('modals')
+    <div class="modal fade" id="sub_details" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="kt_selectuser_form" method="POST" action="{{route('admin.subscription')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+
+                            <input type="hidden" name="subscription_id" value="" id="subscription_id">
+                            
+                            <div class="mb-10 row">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Username</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" value="" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Password</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" placeholder="password" value="" id="edit_password" name="password" class="form-control form-control-solid clipboard_value" placeholder="Password" aria-label="Sizing example input" aria-describedby="Password"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">URL</span>
+                                        </label>
+
+                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL" required>
+                                            <option value=""></option>
+                                            @foreach ($links as $link)
+                                                <option value="{{$link->id}}">{{$link->url}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Panel</span>
+                                        </label>
+
+                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
+                                            <option value=""></option>
+                                            @foreach ($panels as $panel)
+                                                <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-2 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Smart TV Link</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="input-group input-group-lg">
+                                            <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Start</label>
+
+                                        <div class="input-group" id="kt_td_picker_basic" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                            <input id="kt_td_picker_basic_input" type="text" name="start_at" class="form-control" data-td-target="#kt_td_picker_basic" required/>
+                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker">
+                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Expiry</label>
+
+                                        <div class="input-group" id="kt_td_picker_basic2" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                            <input id="kt_td_picker_basic_input2" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic2" required/>
+                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic2" data-td-toggle="datetimepicker">
+                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Plan</span>
+                                        </label>
+
+                                        <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
+                                            <option value=""></option>
+                                            <option value="1">Premium Plan</option>
+                                            <option value="2">Special Plan</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            
+                            
+                            <!--begin::Actions-->
+                            <div class="text-center pt-15">
+                                <button type="submit" name="action" value="update" class="btn btn-primary me-4">
+                                    <span class="indicator-label">
+                                        Update
+                                    </span>
+                                </button>
+                                <button type="button" class="close btn btn-danger me-3" data-bs-dismiss="modal" aria-label="Close">
+                                        Cancel
+                                </button>
+                                
+
+                                
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+@endsection
+@push('scripts')
+    <script>
+        $(document).on('click','.sub_details',function(e){
+            
+            $('#subscription_id').val($(this).attr('data_subscription'))
+            $('#edit_username').val($(this).attr('data_username'))
+            $('#edit_password').val($(this).attr('data_password'))
+            $('#edit_link_id').val($(this).attr('data_link_id')).trigger("change")
+            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
+            $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
+            $('#edit_user_id').val($(this).attr('data_user_id'))
+            
+            $('#kt_td_picker_basic_input').val($(this).attr('data_start'))
+            $('#kt_td_picker_basic_input2').val($(this).attr('data_expiry'))
+            $('#edit_plan').val($(this).attr('data_plan')).trigger("change")
+            
+
+            $('#sub_details').modal('show')
+            
+        })
+    </script>
+@endpush

@@ -28,8 +28,8 @@ class Payment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function subscriptions(){
-        return $this->hasMany(Subscription::class);
+    public function subscription(){
+        return $this->hasOne(Subscription::class);
     }
 
     public function getRouteKeyName(){

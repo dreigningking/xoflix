@@ -38,27 +38,23 @@ class PaymentObserver
                 if($user->payments->where('status','success')->count() == 1 && $user->referred_by){
                     $setting = Setting::where('name','referral_bonus_percentage')->first()->value;
                     $referrer = User::find($user->referred_by);
-                    $price = Arr::first($payment->subscriptions->first()->plan->prices, function ($value, $key) use($payment) {
-                        return intval($value['label']) == $payment->subscriptions->first()->duration;
-                    });
-                    $bonus = $setting * $price['description'] / 100;
+                    $price = $payment->subscription->plan->price;
+                    $bonus = $setting * $price / 100;
                     $referrer->balance += $bonus;
                     $referrer->save();
                     $earning = Earning::create(['user_id'=> $user->referred_by,'referred_id' => $user->id,'amount'=> $bonus]);
                     Activity::create(['user_id'=> $user->referred_by,'description'=> 'User earned bonus']);
                     $referrer->notify(new ReferralEarningNotification($earning));
                 }
-                foreach($payment->subscriptions as $subscription){
-                    if($subscription->end_at){
-                        $subscription->start_at = null;
-                        $subscription->save();
-                    }    
+                if($payment->subscription->end_at){
+                    $payment->subscription->start_at = null;
+                    $payment->subscription->save();
                 }
             }
             $payment->user->notify(new SubscriptionPaymentNotification($payment));
         }
         if($payment->isDirty('status') && $payment->status == 'failed'){
-            $payment->subscriptions()->delete();
+            $payment->subscription()->delete();
         }
     }
 

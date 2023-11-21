@@ -262,7 +262,7 @@
                                             <!--begin::Title-->
                                             <div class="ps-1 mb-1">
                                                 <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-boldest">{{$payment->user->name}}</a>
-                                                <div class="text-gray-400 fw-bold">{{$payment->subscriptions->count()}} Subscriptions</div>
+                                                {{-- <div class="text-gray-400 fw-bold">{{$payment->subscription->count()}} Subscriptions</div> --}}
                                             </div>
                                             <!--end::Title-->
                                         </div>

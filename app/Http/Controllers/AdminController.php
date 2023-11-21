@@ -106,11 +106,8 @@ class AdminController extends Controller
         foreach($request->features as $key => $feat){
             $features[] = ['label'=> $request->features_label[$key],'description'=> $feat];
         }
-        $prices = [];
-        foreach($request->prices as $key => $pric){
-            $prices[] = ['label'=> $request->prices_label[$key],'description'=> $pric];
-        }
-        $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'prices'=> $prices]);
+
+        $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'price'=> $request->price]);
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Plans','objectable_id'=> $request->plan_id,'objectable_type'=> 'App\Models\Plan']);
         return redirect()->back();
     }

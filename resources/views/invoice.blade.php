@@ -82,7 +82,38 @@
 									<!--end::Col-->
 								</div>
 								<div class="mb-6 text-left">
-									<button type="submit" class="btn  btn-primary btn-block">SUBMIT </button>
+									<button type="button" data-bs-toggle="modal" data-bs-target="#premium_details" class="btn  btn-primary btn-block">SUBMIT </button>
+								</div>
+								<div class="modal fade" id="premium_details" tabindex="-1" aria-hidden="true">
+									<!--begin::Modal dialog-->
+									<div class="modal-dialog modal-dialog-centered mw-650px">
+										<!--begin::Modal content-->
+										
+										<div class="modal-content">
+											<div class="modal-header">
+												<!--begin::Modal title-->
+												<h2 class="fw-bolder" data-kt-calendar="title">Important Info</h2>
+												
+											</div>
+											<div class="modal-body">
+												<p>Your payment is currently under verification. If approved, subscription details will be
+													uploaded to your dashboard in 30 minutes. Thank you for your understanding.</p>
+												
+											</div>
+											<div class="modal-footer flex-center">
+												<!--begin::Button-->
+												<button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger me-3">Cancel</button>
+												<!--end::Button-->
+												<!--begin::Button-->
+												<button type="submit" class="btn btn-primary">
+													<span class="indicator-label">I Understand</span>
+												</button>
+												<!--end::Button-->
+											</div>
+											
+										</div>
+										
+									</div>
 								</div>
 							</form>
 							<!--end::Item-->
@@ -169,29 +200,22 @@
 											<tr class="border-bottom fs-6 fw-bolder text-gray-400">
 												<th class="min-w-175px pb-2">Description</th>
 												<th class="min-w-70px text-end pb-2">Duration</th>
-												{{-- <th class="min-w-80px text-end pb-2">Rate</th> --}}
+												<th class="min-w-80px text-end pb-2">Connections</th>
 												<th class="min-w-100px text-end pb-2">Amount</th>
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($payment->subscriptions as $subscription)
-												
-											@php
-												$price = Arr::first($subscription->plan->prices, function ($value, $key) use($subscription) {
-													return intval($value['label']) == $subscription->duration;
-												});	
-
-											@endphp
+											
 											<tr class="fw-bolder text-gray-700 fs-5 text-end">
 												<td class="d-flex align-items-center pt-6">
 													<i
-														class="fa fa-genderless text-danger fs-2 me-2"></i>{{$subscription->plan->name}} Subscription
+														class="fa fa-genderless text-danger fs-2 me-2"></i>{{$payment->subscription->plan->name}} Subscription
 												</td>
-												<td class="pt-6">{{$subscription->duration}} Month</td>
-												{{-- <td class="pt-6">$40.00</td> --}}
-												<td class="pt-6 text-dark fw-boldest">₦{{$price['description']}}</td>
+												<td class="pt-6">{{$payment->subscription->duration}} Month</td>
+												<td class="pt-6">{{$payment->subscription->connections}} Device(s)</td>
+												<td class="pt-6 text-dark fw-boldest">₦{{$payment->amount}}</td>
 											</tr>
-											@endforeach
+											
 											
 										</tbody>
 									</table>

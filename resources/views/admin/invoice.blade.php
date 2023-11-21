@@ -89,27 +89,20 @@
 											<tr class="border-bottom fs-6 fw-bolder text-gray-400">
 												<th class="min-w-175px pb-2">Description</th>
 												<th class="min-w-70px text-end pb-2">Duration</th>
-												{{-- <th class="min-w-80px text-end pb-2">Rate</th> --}}
+												<th class="min-w-80px text-end pb-2">Connections</th>
 												<th class="min-w-100px text-end pb-2">Amount</th>
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($payment->subscriptions as $subscription)
-												
-											@php
-												$price = Arr::first($subscription->plan->prices, function ($value, $key) use($subscription) {
-													return intval($value['label']) == $subscription->duration;
-												});	
-
-											@endphp
+											
 											<tr class="fw-bolder text-gray-700 fs-5 text-end">
 												<td class="d-flex align-items-center pt-6">
 													<i
-														class="fa fa-genderless text-danger fs-2 me-2"></i>{{$subscription->plan->name}} Subscription
+														class="fa fa-genderless text-danger fs-2 me-2"></i>{{$payment->subscription->plan->name}} Subscription
 												</td>
-												<td class="pt-6">{{$subscription->duration}} Month</td>
-												{{-- <td class="pt-6">$40.00</td> --}}
-												<td class="pt-6 text-dark fw-boldest">₦{{$price['description']}}</td>
+												<td class="pt-6">{{$payment->subscription->duration}} Month</td>
+												<td class="pt-6">{{$payment->subscription->connections}} Devices</td>
+												<td class="pt-6 text-dark fw-boldest">₦{{$payment->amount}}</td>
 											</tr>
 											@endforeach
 											
