@@ -211,7 +211,7 @@
 													<i
 														class="fa fa-genderless text-danger fs-2 me-2"></i>{{$payment->subscription->plan->name}} Subscription
 												</td>
-												<td class="pt-6">{{$payment->subscription->duration}} Month</td>
+												<td class="pt-6">{{$payment->duration}} Month</td>
 												<td class="pt-6">{{$payment->subscription->connections}} Device(s)</td>
 												<td class="pt-6 text-dark fw-boldest">₦{{$payment->amount}}</td>
 											</tr>

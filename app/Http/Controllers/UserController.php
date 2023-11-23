@@ -27,13 +27,13 @@ class UserController extends Controller
     }
 
     
-    public function paid_users()
-    {
-        // $payments = Payment::where('status','success')->doesntHave('subscriptions')->with('user')->get();
-        $subscriptions = Subscription::whereHas('payment',function($query){
-            $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
-        return response()->json(['data'=> $subscriptions],200);
-    }
+    // public function paid_users()
+    // {
+    //     // $payments = Payment::where('status','success')->doesntHave('subscriptions')->with('user')->get();
+    //     $subscriptions = Subscription::whereHas('payment',function($query){
+    //         $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
+    //     return response()->json(['data'=> $subscriptions],200);
+    // }
 
     /**
      * Store a newly created resource in storage.

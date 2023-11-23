@@ -13,7 +13,7 @@ class Payment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['reference','user_id','amount','method','status'];
+    protected $fillable = ['reference','user_id','amount','method','status','description','duration','sub_status','subscription_id'];
 
     public static function boot(){
         parent::boot();
@@ -29,7 +29,7 @@ class Payment extends Model
     }
 
     public function subscription(){
-        return $this->hasOne(Subscription::class);
+        return $this->belongsTo(Subscription::class);
     }
 
     public function getRouteKeyName(){

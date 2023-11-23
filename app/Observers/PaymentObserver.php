@@ -46,10 +46,7 @@ class PaymentObserver
                     Activity::create(['user_id'=> $user->referred_by,'description'=> 'User earned bonus']);
                     $referrer->notify(new ReferralEarningNotification($earning));
                 }
-                if($payment->subscription->end_at){
-                    $payment->subscription->start_at = null;
-                    $payment->subscription->save();
-                }
+                
             }
             $payment->user->notify(new SubscriptionPaymentNotification($payment));
         }

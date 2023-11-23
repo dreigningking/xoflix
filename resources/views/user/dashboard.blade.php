@@ -74,508 +74,46 @@
     <!--begin::Referral program-->
     <div class="tab-content">
         <div id="dashboard" class="tab-pane fade @if(Route::is('dashboard')) active show @endif" role="tabpanel" aria-labelledby="dashboard_tab">
+           @if(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7))->isNotEmpty())
             <div class="card mb-5 mb-xl-10">
-                <!--begin::Body-->
                 <div class="card-body">
                     <div class="row gy-5 g-xl-8">
-
                         <div class="col-xxl-12">
                             <!--begin::Table Widget 1-->
                             <div class="card card-xxl-stretch">
                                 <!--begin::Header-->
                                 <div class="card-header border-0 pt-5 pb-3">
                                     <!--begin::Card title-->
-                                    <h3 class="card-title fw-bolder text-gray-800 fs-2">Current Subscription Summary</h3>
-                                    <div class="card-toolbar">
-                                        <a href="{{route('subscription.purchase')}}" class="btn btn-primary">Purchase Subscription</a>
-                                    </div>
+                                    <h3 class="card-title fw-bolder text-gray-800 fs-2">Subscription Expiry</h3>
+                                    
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body px-0 px-md-9">
                                     <!--begin::Table-->
                                     <div class=" pe-md-10 mb-10 mb-md-0">
-                                        @if($user->activeSubscriptions->isNotEmpty())
-                                            @foreach ($user->activeSubscriptions as $subscription)
-                                            <div class="m-0">
-                                                <!--begin::Heading-->
-                                                <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_{{$subscription->id}}">
-                                                    <!--begin::Icon-->
-                                                    <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
-                                                        <span class="svg-icon toggle-on svg-icon-primary svg-icon-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                                                <rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                                                        <span class="svg-icon toggle-off svg-icon-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
-                                                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                    </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Title-->
-                                                    <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Subscription: {{$subscription->username}}</h4>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Body-->
-                                                <div id="kt_job_{{$subscription->id}}" class="collapse fs-6 ms-1">
-                                                    <!--begin::Text-->
-                                                    <div class="mb-4 text-gray-600 fw-bold fs-6">
-                                                        {{-- <p class="fw-bold text-primary text-center mt-3">LINK: </p>
-                                                        <p class="d-flex justify-content-between border-bottom border-dark pb-2">
-                                                            <span class="clipboard_value">{{$subscription->link->url}}</span>
-                                                            <button class="copy_button ms-1 px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                            
-                                                        </p> --}}
-                                                        <p class="fw-bold text-primary text-center mt-3">NAME: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="XOFLIX" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">XOFLIX</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">USERNAME: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$subscription->username}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->username}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">PASSWORD: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$subscription->password}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->password}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                    
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">XTREAM URL: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$subscription->link->url}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->link->url}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$subscription->m3u_link}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->m3u_link}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-bold text-primary">EXPIRY: </span> 
-                                                                </td>
-                                                                <td class="text-end">
-                                                                    @if($subscription->end_at->diffInDays(now()) > 7 )
-                                                                    <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
-                                                                    @else 
-                                                                    <form action="{{route('subscription.renew')}}" method="post">@csrf
-                                                                        <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
-                                                                        <button type="submit" class="btn btn-sm btn-primary">Renew</button>
-                                                                    </form>
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-bold text-primary">REMAINING: </span> 
-                                                                </td>
-                                                                <td class="text-end">
-                                                                    <span>{{$subscription->end_at->diffInDays(now())}} days</span>
-                                                                </td>
-                                                            </tr>
-                                                            
-                                                        </table>
-                                                    </div>
-                                                    <!--end::Text-->
-                                                </div>
-                                                <div class="separator separator-dashed"></div>
-                                            </div>
-                                            @endforeach
-                                        @endif
-                                        @if($user->activeTrials->isNotEmpty())
-                                            @foreach ($user->activeTrials as $trial)
-                                            <div class="m-0">
-                                                <!--begin::Heading-->
-                                                <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_trial_{{$trial->id}}">
-                                                    <!--begin::Icon-->
-                                                    <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
-                                                        <span class="svg-icon toggle-on svg-icon-primary svg-icon-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                                                <rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                                                        <span class="svg-icon toggle-off svg-icon-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
-                                                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
-                                                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                    </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Title-->
-                                                    <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Trial</h4>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Body-->
-                                                <div id="kt_trial_{{$trial->id}}" class="collapse fs-6 ms-1">
-                                                    <!--begin::Text-->
-                                                    <div class="mb-4 text-gray-600 fw-bold fs-6 ps-10">
-                                                        
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">NAME: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="XOFLIX" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">XOFLIX</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">USERNAME: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$trial->username}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$trial->username}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <p class="fw-bold text-primary text-center mt-3">PASSWORD: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$trial->password}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$trial->password}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-
-                                                        <p class="fw-bold text-primary text-center mt-3">XTREAM URL: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$trial->link->url}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->link->url}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-
-                                                        <p class="fw-bold text-primary text-center mt-3">SMART TV URL: </p>
-                                                        <div class="input-group input-group-lg">
-                                                            <input type="text" value="{{$trial->m3u_link}}" class="form-control form-control-solid"/>
-                                                            <span class="clipboard_value" style="display: none">{{$subscription->m3u_link}}</span>
-                                                            <button type="button" class="copy_button px-2 py-1 btn btn-primary btn-sm">
-                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                    Copy
-                                                                </span> 
-                                                                <i class="bi bi-check p-0  check_icon" style="display: none" ></i>    
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-bold text-primary">EXPIRY: </span> 
-                                                                </td>
-                                                                <td class="text-end">
-                                                                    <span>{{$trial->created_at->addHours(6)->format('d M Y h:i A')}}</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-bold text-primary">REMAINING: </span> 
-                                                                </td>
-                                                                <td class="text-end">
-                                                                    <span>{{$trial->created_at->addHours(6)->diffInHours(now())}} hours</span>
-                                                                </td>
-                                                                
-                                                            
-                                                            </tr>
-                                                            
-                                                        </table>
-                                                    </div>
-                                                    <!--end::Text-->
-                                                </div>
-                                                <div class="separator separator-dashed"></div>
-                                            </div>
-                                            @endforeach
-                                        @endif
-                                        @if($user->activeSubscriptions->isEmpty() && $user->activeTrials->isEmpty()) 
-                                            <p class="text-center fw-bold">No Subscription</p>
-                                        @endif
-                                        
+                                        You have subscriptions that are expiring within 7 days or less. Renew your subscriptions or purchase new subscriptions to continue to have access to Xoflix TV
                                     </div>
-                                    
-
-                                    {{-- <div class="table-responsive d-none d-md-block">
-                                        <table class="table align-middle table-bordered table-row-dashed gy-5" id="kt_table_widget_1">
-                                            <!--begin::Table body-->
-                                            <tbody>
-                                                <!--begin::Table row-->
-                                                <tr class="text-start text-gray-400 fw-boldest fs-7 text-uppercase">
-                                                    <th class="min-w-150px">DETAILS</th>
-                                                    
-                                                    <th class="min-w-150px">Start</th>
-                                                    <th class="min-w-150px">Expiry</th> 
-                                                </tr>
-                                                @foreach ($user->activeSubscriptions as $subscription)
-                                                    <tr>
-                                                        <!--begin::Author=-->
-                                                        <td class="">
-                                                            <div class="d-flex flex-column">
-                                                                <div class="d-flex align-items-top">
-                                                                    <!--begin::Logo-->
-                                                                    <div class="symbol symbol-50px me-2">
-                                                                        <span class="symbol-label">
-                                                                            <img alt="" class="w-25px" src="{{asset('media/svg/brand-logos/aven.svg')}}" />
-                                                                        </span>
-                                                                    </div>
-                                                                    <!--end::Logo-->
-                                                                    <div class="ps-3">
-                                                                        <span class="text-primary text-center fw-bold fs-5">NAME: </span> 
-                                                                        <p class="ps-3 mb-0 d-flex justify-content-between">
-                                                                                <span class="text-gray-400 fw-bold clipboard_value">XOFLIX</span>
-                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                        Copy
-                                                                                    </span> 
-                                                                                    <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                                                </button>
-                                                                            
-                                                                        </p>
-                                                                        <span class="text-primary fw-bold fs-5">USERNAME: </span> 
-                                                                        <p class="ps-3 mb-0 d-flex justify-content-between">
-                                                                            
-                                                                                <span class="text-gray-400 fw-bold clipboard_value">{{$subscription->username}}</span>
-                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                        Copy
-                                                                                    </span> 
-                                                                                    <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                                                </button>
-                                                                            
-                                                                        </p>
-                                                                        <span class="text-primary fw-bold fs-5"> PASSWORD: </span> 
-                                                                        <p class="ps-3 mb-0 d-flex justify-content-between">
-                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->password}}</span>
-                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                        Copy
-                                                                                    </span>  
-                                                                                    <i class="bi bi-check p-0 check_icon" style="display: none"></i>   
-                                                                                </button>
-                                                                        </p>
-
-                                                                            <span class="text-primary fw-bold fs-5">Smart TV Url:</span>
-                                                                        <p class="ps-3 mb-0 d-flex justify-content-between">
-                                                                                <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$subscription->link->url}} </span> 
-                                                                                <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                                    <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                        Copy
-                                                                                    </span>     
-                                                                                </button>
-                                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>
-                                                                            
-                                                                        </p>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex align-items-center my-5">
-                                                                    <div class="symbol symbol-50px me-2">
-                                                                        <span class="symbol-label">
-                                                                            <img alt="" class="w-25px" src="{{asset('media/svg/brand-logos/atica.svg')}}" />
-                                                                        </span>
-                                                                    </div>
-                                                                    
-                                                                    <div class="ps-3">
-                                                                        <span class="text-primary fw-bold fs-5">Smart Tv Url:
-                                                                            <span class="text-gray-400 fw-bold d-inline clipboard_value"> {{$subscription->m3u_link}}</span>
-                                                                            <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                                <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                    Copy
-                                                                                </span>   
-                                                                                <i class="bi bi-check p-0 check_icon" style="display: none"></i>  
-                                                                            </button>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            <div>
-
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            
-                                                        </td>
-                                                        <!--end::Author=-->
-                                                        <!--begin::Progress=-->
-                                                        <td>
-                                                            <div class="d-flex flex-column me-2 mt-2">
-                                                                <span class="me-2 fw-boldest mb-2">{{$subscription->start_at->format('d M Y h:i A')}}  </span>
-                                                                
-                                                                
-                                                            </div>
-                                                        </td>
-                                                        <td class="pe-0">
-                                                            <span class="me-2 fw-boldest mb-2">{{$subscription->end_at->format('d M Y h:i A')}}</span>
-                                                            <span class="me-2 fw-lightest d-block">{{$subscription->end_at->diffInDays(now())}} days remaining</span>  
-                                                        </td>
-                                                        
-                                                        
-                                                    </tr> 
-                                                    <!--end::Table row-->
-                                                @endforeach
-                                                @foreach ($user->activeTrials as $trial)
-                                                    <tr>
-                                                        <!--begin::Author=-->
-                                                        <td class="">
-                                                            
-                                                            <div class="d-flex flex-column">
-                                                                
-                                                                <p class="ps-3 mb-0 d-flex flex-nowrap">
-                                                                    <span class="text-primary fw-bold fs-5">NAME: 
-                                                                        <span class="text-gray-400 fw-bold clipboard_value">XOFLIX</span>
-                                                                        <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                            <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                Copy
-                                                                            </span> 
-                                                                            <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                                        </button>
-                                                                    </span> 
-                                                                    <span class="text-primary fw-bold fs-5">USERNAME: 
-                                                                        <span class="text-gray-400 fw-bold clipboard_value">{{$trial->username}}</span>
-                                                                        <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                            <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                Copy
-                                                                            </span> 
-                                                                            <i class="bi bi-check p-0 check_icon" style="display: none"></i>     
-                                                                        </button>
-                                                                    </span> 
-                                                                    <span class="text-primary fw-bold fs-5">PASSWORD: 
-                                                                        <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->password}}</span>
-                                                                        <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                            <span class="svg-icon svg-icon-2 copy_icon">
-                                                                                Copy
-                                                                            </span>  
-                                                                            <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                                        </button>
-                                                                    </span> 
-                                                                </p>
-                                                                
-                                                                <p class="ps-3 mb-0">
-                                                                    <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
-                                                                    <span class="text-gray-400 fw-bold d-inline clipboard_value">{{$trial->link->url}}</span>
-                                                                    <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
-                                                                        <span class="svg-icon svg-icon-2 copy_icon">
-                                                                            Copy
-                                                                        </span>  
-                                                                        <i class="bi bi-check p-0 check_icon" style="display: none"></i>    
-                                                                    </button>
-                                                                </p>
-                                                            </div>
-                                                        </td>
-                                                        <!--end::Author=-->
-                                                        <!--begin::Progress=-->
-                                                        <td>
-                                                            <div class="d-flex flex-column me-2 mt-2">
-                                                                <span class="me-2 fw-boldest mb-2">{{$trial->created_at->format('d M Y h:i A')}}  </span>
-                                                                
-                                                                
-                                                            </div>
-                                                        </td>
-                                                        <td class="pe-0">
-                                                            <span class="me-2 fw-boldest mb-2">{{$trial->created_at->addHours(6)->format('d M Y h:i A')}}</span>
-                                                            <span class="me-2 fw-lightest d-block">{{$trial->created_at->addHours(6)->diffInHours(now())}} hours remaining</span>
-                                                            
-                                                        </td>
-                                                    
-                                                    </tr>
-                                                @endforeach
-                                                
-                                                
-                                            </tbody>
-                                            <!--end::Table body-->
-                                        </table>
-                                    </div> --}}
-                                    
                                 </div>
                                 
                                 <!--end::Body-->
                             </div>
                             <!--end::Table Widget 1-->
                         </div>
-                        <!--end::Col-->
-                        <!--begin::Col-->
-                        
-                        <!--end::Col-->
-                    </div>
-                    
-        
-                    
+                    </div>  
                 </div>
-                <!--end::Body-->
+            </div>   
+           @endif
+            <div class="card mb-5 mb-xl-10">
+                <div class="card-body">
+                    <div class="row gy-5 g-xl-8">
+                        <div class="col-xxl-12">
+                            <!--begin::Table Widget 1-->
+                            @include('layouts.current_subscription')
+                            <!--end::Table Widget 1-->
+                        </div>
+                    </div>  
+                </div>
             </div>   
         </div>
 
@@ -1200,6 +738,68 @@
                                 @endforeach
                             </select>
                         </div>
+                        
+                        <!--begin::Actions-->
+                        <div class="text-center pt-15">
+                            <button type="reset"  class="btn btn-light me-3">
+                                Discard
+                            </button>
+
+                            <button type="submit" name="action" value="update" class="btn btn-primary">
+                                <span class="indicator-label">
+                                    Submit
+                                </span>
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Modal body-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+
+    <div class="modal fade" id="extendSubscription" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Modal header-->
+                <div class="modal-header">
+                    <!--begin::Modal title-->
+                    <h2>Extend Subscription</h2>
+                    <!--end::Modal title-->
+
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                    rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+
+                <!--begin::Modal body-->
+                <div class="modal-body mx-5 mx-xl-15">
+                    <!--begin::Form-->
+                    <form id="kt_selectuser_form" method="POST" action="{{route('update_trial')}}" class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
+
+                        <input type="hidden" name="subscription_id" id="extend_subscription_id">
+                        <div class="form-group">
+                            <label for="">Number of Months</label>
+                            <input type="text" name="months" class="form-control">
+                        </div>
+                        
                         
                         <!--begin::Actions-->
                         <div class="text-center pt-15">

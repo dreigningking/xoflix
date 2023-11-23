@@ -7,3 +7,6 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzg3NzRiYWJiYmQzNGI
 * * * * * cd /home/xoflezyd/dashboard.xoflix.tv/ && php artisan schedule:run >> /dev/null 2>&1
 
 /usr/local/bin/php /home/xoflezyd/dashboard.xoflix.tv/artisan schedule:run >> /dev/null 2>&1
+
+customer renew & extend
+admin update new, renew, extend

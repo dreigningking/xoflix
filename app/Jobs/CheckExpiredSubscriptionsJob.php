@@ -34,8 +34,8 @@ class CheckExpiredSubscriptionsJob implements ShouldQueue
     public function handle()
     {
     
-        $expireds = Subscription::whereIn('plan_id',['1','2'])->whereNotNull('end_at')->where('end_at','<',now())->where('end_at','>',now()->subDay())->get();
-        $expirings = Subscription::whereIn('plan_id',['1','2'])->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7))->get();
+        $expireds = Subscription::whereIn('plan_id',['1','2'])->expired()->get();
+        $expirings = Subscription::whereIn('plan_id',['1','2'])->expiring()->get();
         foreach($expireds as $expired){
             $expired->user->notify(new SubscriptionExpiredNotification($expired));
         }

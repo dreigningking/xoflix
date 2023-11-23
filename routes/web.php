@@ -38,7 +38,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('payments/confirmation',[PaymentController::class, 'confirmation'])->name('payments.confirmation');
     Route::post('payments/delete',[PaymentController::class, 'destroy'])->name('payments.delete');
     Route::get('users',[UserController::class, 'index'])->name('users');
-    Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
+    // Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
     Route::get('withdrawals',[WithdrawalController::class, 'index'])->name('withdrawals');
     Route::post('withdrawals/store',[WithdrawalController::class, 'pay'])->name('withdrawals.pay');
     Route::get('support',[SupportController::class, 'index'])->name('support');
@@ -82,9 +82,17 @@ Route::post('support',[SupportController::class, 'send'])->name('support');
 Route::get('check',function(){
    $subscriptions = \App\Models\Subscription::all();
    foreach($subscriptions as $subscription){
-        $link = \App\Models\Link::create(['url' => $subscription->link->url]);
-        $subscription->link_id = $link->id;
-        $subscription->save();
+        $payment = $subscription->oldPayment;
+        if(!$payment) continue;
+        $payment->subscription_id = $subscription->id;
+        $payment->duration = $subscription->duration;
+        if(!$subscription->start_at) {
+            if(!$subscription->end_at) $payment->description = 'new';
+            else $payment->description = 'renew';
+        }else{
+            $payment->sub_status = true;
+        }
+        $payment->save();
    }
    return 'ok';
 });

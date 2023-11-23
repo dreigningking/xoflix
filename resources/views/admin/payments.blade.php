@@ -80,10 +80,12 @@
                 <div class="card">
                     <div class="card-header card-header-stretch">
                         <div class="card-title">
-                            <h3>Payments</h3>
+                            <h3>Payments </h3>
                         </div>
                         <div class="card-toolbar m-0">
+                            
                             <div class="">
+                                <span class="fw-bold">{{$payments->where('status','paid')->count()}} Pending Confirmation, {{$payments->where('sub_status',false)->count()}} Pending Subscription</span>
                                 <button type="button" class="btn btn-light-primary me-3 mt-4" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                     Filter
                                 </button>
@@ -148,7 +150,7 @@
                             <thead class="border-bottom border-gray-200 fs-6 fw-bold bg-lighten">
                                 <tr>
                                     <th class="min-w-125px ps-9">Reference</th>
-                                    <th class="min-w-125px">Date</th>
+                                    <th class="min-w-125px">User</th>
                                     <th class="min-w-125px ps-0">Amount</th>
                                     <th class="min-w-125px px-0">Subscription Status</th>
                                     <th class="min-w-125px ps-0">Payment Status</th> 
@@ -159,29 +161,32 @@
                                     <tr>
                                         <td class="ps-9">
                                             <a @if($payment->proof) href="{{$payment->proof}}"  target="_blank" @endif>{{ $payment->reference }}</a> <br>
-                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#paiduser{{$payment->id}}">{{ $payment->user->name }}</a>
+                                            {{ $payment->created_at->format('M d, Y') }}
+                                            
                                         </td>
                                         <td>
-                                            {{ $payment->created_at->format('M d, Y') }} <br>
-                                            @if($payment->subscription->end_at) Renewal @else New @endif
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#paiduser{{$payment->id}}">{{ $payment->user->name }}</a>
                                             
                                         </td>
                                         
                                         <td> ₦{{ $payment->amount }}</td>
                                         <td class="ps-0">
+                                            
                                             @if($payment->status == 'success')
-                                                @if(!$payment->subscription->start_at)
-                                                    Pending 
-                                                    <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details"
-                                                        data_subscription="{{$payment->subscription->id}}" data_username="{{$payment->subscription->username}}" 
+                                                @if(!$payment->sub_status)
+                                                     
+                                                    <button type="button" class="btn btn-info btn-sm sub_details"
+                                                        data_subscription="{{$payment->subscription_id}}" data_username="{{$payment->subscription->username}}" 
                                                         data_password="{{$payment->subscription->password}}" data_link_id="{{$payment->subscription->link_id}}" 
                                                         data_m3u_link="{{$payment->subscription->m3u_link}}" data_panel_id="{{$payment->subscription->panel_id}}" 
                                                         data_user_id="{{$payment->subscription->user_id}}" data_start="{{$payment->subscription->start_at}}"
-                                                        data_expiry="{{$payment->subscription->end_at}}" data_plan="{{$payment->subscription->plan->id}}">View
+                                                        data_expiry="{{$payment->subscription->end_at}}" data_plan="{{$payment->subscription->plan->id}}">{{ucwords($payment->description)}} <i class="fa fa-arrow-right"></i> Pending
                                                     </button>
                                                 @else 
-                                                    Completed
+                                                {{ucwords($payment->description)}} <i class="fa fa-arrow-right"></i> Completed
                                                 @endif
+                                            @else
+                                                Awaiting Confirmation
                                             @endif
                                         </td>
                                         <td>
@@ -287,7 +292,7 @@
                                                             
                                                             <div class="d-flex w-100">
                                                                 <div  class="border p-2 w-50"> {{$payment->subscription->plan->name}} </div>
-                                                                <div  class="border p-2 w-50"> {{$payment->subscription->duration}} Month</div>
+                                                                <div  class="border p-2 w-50"> {{$payment->duration}} Month</div>
                                                             </div>
                                                             
                                                             
@@ -411,32 +416,17 @@
                             
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-semibold form-label mb-2">Start</label>
-
-                                        <div class="input-group" id="kt_td_picker_basic" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_input" type="text" name="start_at" class="form-control" data-td-target="#kt_td_picker_basic" required/>
-                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker">
-                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                            </span>
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Days</label>
+                                        <input type="number" value="" name="days" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="" >
+                                        <div
+                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                         </div>
 
                                     </div>
                                     
                                 </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-semibold form-label mb-2">Expiry</label>
-
-                                        <div class="input-group" id="kt_td_picker_basic2" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_input2" type="text" name="end_at" class="form-control" data-td-target="#kt_td_picker_basic2" required/>
-                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic2" data-td-toggle="datetimepicker">
-                                                <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                            </span>
-                                        </div>
-
-                                    </div>
-                                    
-                                </div>
+                                
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->

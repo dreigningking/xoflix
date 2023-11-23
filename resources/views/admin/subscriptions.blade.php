@@ -62,9 +62,9 @@
                                         <!--begin::Col-->
                                         <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-2 me-md-6">
                                             <span class="fs-2x fw-bold text-gray-800 lh-1">
-                                                <span data-kt-countup="true" data-kt-countup-value="{{number_format($ongoing)}}"
+                                                <span data-kt-countup="true" data-kt-countup-value="{{number_format($total - $expired)}}"
                                                     data-kt-countup-prefix="$" class="counted"
-                                                    data-kt-initialized="1">{{number_format($ongoing)}}</span>
+                                                    data-kt-initialized="1">{{number_format($total - $expired)}}</span>
                                             </span>
                                             <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">Ongoing</span>
                                         </div>

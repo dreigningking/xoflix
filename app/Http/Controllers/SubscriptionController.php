@@ -27,9 +27,8 @@ class SubscriptionController extends Controller
         $name = false;
 
         $total = Subscription::whereNotNull('start_at')->count();
-        $expired = Subscription::whereNotNull('start_at')->where('end_at', '<', now())->count();
-        $ongoing = Subscription::whereNotNull('start_at')->where('end_at', '>', now())->count();
-        $subscriptions = Subscription::whereNotNull('start_at')->where('user_id', '!=', null);
+        $expired = Subscription::expired()->count();
+        $subscriptions = Subscription::whereNotNull('start_at')->whereNotNull('user_id');
         if ($hide_expired = request()->expired) {
             $subscriptions = $subscriptions->where('end_at', '>', now());
         }
@@ -45,7 +44,7 @@ class SubscriptionController extends Controller
         $panels = Panel::all();
         $pendings = Subscription::whereHas('payment',function($query){
             $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
-        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired', 'ongoing', 'pendings'));
+        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired','pendings'));
     }
 
     public function trials()
@@ -82,10 +81,12 @@ class SubscriptionController extends Controller
         $subscription->m3u_link = $request->m3u_link;
         $subscription->link_id = $request->link_id;
         $subscription->panel_id = $request->panel_id;
-        $subscription->start_at = Carbon::parse($request->start_at);
-        $subscription->end_at = Carbon::parse($request->end_at);
+        if(!$subscription->start_at) $subscription->start_at =  now();
+        $subscription->end_at = $subscription->end_at ? $subscription->end_at->addDays($request->days) : now()->addDays($request->days);
         $subscription->plan_id = $request->plan_id;
         $subscription->save();
+        $subscription->payment->sub_status = true;
+        $subscription->payment->save();
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin updated subscription']);
         $subscription->user->notify(new SubscriptionActiveNotification($subscription));
         return redirect()->back();
@@ -163,8 +164,9 @@ class SubscriptionController extends Controller
         $user = auth()->user();
         $plan = Plan::find($request->plan_id);
         $amount = $plan->price * $request->duration * $request->connections;
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount ]);
-        Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id,'duration'=> $request->duration, 'connections'=> $request->connections,'payment_id'=> $payment->id]);
+        $subscription = Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id, 'connections'=> $request->connections]);
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount,'duration'=> $request->duration,'description'=> 'new','subscription_id'=> $subscription->id]);
+        
         return redirect()->route('subscription.payment',$payment);
         // $response = $this->initiateFlutterWave($payment);
         // if (!$response)
@@ -175,16 +177,12 @@ class SubscriptionController extends Controller
     public function renew(Request $request){
         $subscription = Subscription::find($request->subscription_id);
         $plan = Plan::find($subscription->plan_id);
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $plan->price * $subscription->duration * $subscription->connection ]);
-        $subscription->payment_id = $payment->id;
-        $subscription->save();
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $plan->price * $request->duration * $subscription->connections,'duration'=> $request->duration,'description'=> $request->description,'subscription_id'=> $subscription->id ]);
         return redirect()->route('subscription.payment',$payment);
-        // $response = $this->initiateFlutterWave($payment);
-        // if (!$response)
-        //     return redirect()->back()->with(['flash_message' => 'Service Unavailable, Please Try Again Shortly', 'flash_type' => 'danger']);
-        // else return redirect()->to($response);
+        
     }
 
+    
     public function payment(Payment $payment){
         $settings = Setting::all();
         $bank = $settings->firstWhere('name','bank_name')->value;

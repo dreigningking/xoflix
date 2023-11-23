@@ -468,30 +468,30 @@
                 }
             }
         })
-        $('.subscriber-remote').select2({
-            width: 'resolve',
-            ajax: {
-                url: "{{ route('admin.users.paid') }}",
-                dataType: 'json',
-                cache: true,
-                data: function(params) {
-                    var query = {
-                        search: params.term,
-                    }
-                    return query;
-                },
-                processResults: function(data) {
-                    var data = $.map(data.data, function(obj) {
-                        obj.text = obj.plan.name +':' + obj.duration +' Months:'+ obj.user.name;
-                             // replace name with the property used for the text
-                        return obj;
-                    });
-                    return {
-                        results: data
-                    };
-                }
-            }
-        })
+        // $('.subscriber-remote').select2({
+        //     width: 'resolve',
+        //     ajax: {
+        //         url: "",
+        //         dataType: 'json',
+        //         cache: true,
+        //         data: function(params) {
+        //             var query = {
+        //                 search: params.term,
+        //             }
+        //             return query;
+        //         },
+        //         processResults: function(data) {
+        //             var data = $.map(data.data, function(obj) {
+        //                 obj.text = obj.plan.name +':' + obj.duration +' Months:'+ obj.user.name;
+        //                      // replace name with the property used for the text
+        //                 return obj;
+        //             });
+        //             return {
+        //                 results: data
+        //             };
+        //         }
+        //     }
+        // })
 
         // $('.copy_button').on('click', function() {
 

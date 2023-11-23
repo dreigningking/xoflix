@@ -14,8 +14,12 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','plan_id','duration','payment_id','m3u_link','username','password','link_id','panel_id','connections','start_at','end_at'];
+    protected $fillable = ['user_id','plan_id','m3u_link','username','password','link_id','panel_id','connections','start_at','end_at'];
     protected $casts = ['start_at'=> 'datetime','end_at'=> 'datetime'];
+
+    public function getDurationAttribute(){
+        return $this->payment->duration ?? 1;
+    }
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -25,8 +29,12 @@ class Subscription extends Model
         return $this->belongsTo(Plan::class);
     }
 
+    public function oldPayment(){
+        return $this->belongsTo(Payment::class,'payment_id');
+    }
+
     public function payment(){
-        return $this->belongsTo(Payment::class);
+        return $this->hasOne(Payment::class)->latestOfMany();
     }
 
     public function link(){
@@ -34,5 +42,12 @@ class Subscription extends Model
     }
     public function panel(){
         return $this->belongsTo(Panel::class);
+    }
+
+    public function scopeExpired($query){
+        return $query->whereNotNull('end_at')->where('end_at','<',now())->where('end_at','>',now()->subDay());
+    }
+    public function scopeExpiring($query){
+        return $query->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7));
     }
 }

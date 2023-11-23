@@ -20,11 +20,11 @@
                             <!--begin::Row-->
                             <div class="row g-5 g-xl-8">
                                 <!--begin::Col-->
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-2">
                                     <!--begin::Statistics Widget 1-->
                                     <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
                                         <!--begin::Body-->
-                                        <div class="card-body border border-4 rounded border-primary ">
+                                        <div class="card-body border border-4 rounded border-primary px-md-0">
                                             <!--begin::Hidden-->
                                             <div class="d-flex flex-column p-3">
                                                 <!--begin::Number-->
@@ -40,35 +40,15 @@
                                         <!--end::Body-->
                                     </div>
                                 </div>
-                                <div class="col-xxl-3">
-                                    <!--end::Statistics Widget 1-->
-                                    <!--begin::Mixed Widget 1-->
-                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
-                                        <!--begin::Body-->
-                                        <div class="card-body rounded bg-primary">
-                                            <!--begin::Hidden-->
-                                            <div class="d-flex flex-column p-3">
-                                                <!--begin::Number-->
-                                                <div class="text-white fw-boldest fs-2hx">{{$thisMonthSubscriptions}}</div>
-                                                <!--end::Number-->
-                                                <!--begin::Description-->
-                                                <span class="text-white fw-bold fs-6">Subscriptions</span>
-                                                <span class="text-light fw-light fs-6">This Month</span>
-                                            </div>
-                                            
-                                        </div>
-                                        <!--end::Body-->
-                                    </div>
-                                </div>
-                                <div class="col-xxl-3">
+                                <div class="col-xxl-2">
                                     <!--end::Mixed Widget 1-->
                                     <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
                                         <!--begin::Body-->
-                                        <div class="card-body border border-4 rounded border-success">
+                                        <div class="card-body border border-4 rounded border-success  px-md-0">
                                             <!--begin::Hidden-->
                                             <div class="d-flex flex-column p-3">
                                                 <!--begin::Number-->
-                                                <span class="text-success fw-boldest fs-2hx">{{$thisMonthPayments}}</span>
+                                                <span class="text-success fw-boldest fs-2hx">{{$thisMonthPayments->where('status','success')->count()}}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Description-->
                                                 <span class="text-gray-400 fw-bold fs-6">Payments</span>
@@ -79,16 +59,75 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xxl-3">
-                                    
-                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8" >
-                                        <div class="card-body rounded bg-success bg-gradient">
+                                <div class="col-xxl-2">
+                                    <!--end::Mixed Widget 1-->
+                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
+                                        <!--begin::Body-->
+                                        <div class="card-body border border-4 rounded border-info px-md-0">
+                                            <!--begin::Hidden-->
                                             <div class="d-flex flex-column p-3">
-                                                <!--begin::Number-->
-                                                <span class="text-white fw-boldest fs-2hx">{{$thisMonthWithdrawals}}</span>
+                                                <span class="text-info fw-boldest fs-2hx">{{$withdrawals->where('status','paid')->whereBetween('created_at',[today()->startOfMonth(),today()->endOfMonth()])->count()}}</span>
                                                 <!--end::Number-->
                                                 <!--begin::Description-->
-                                                <span class="text-white fw-bold fs-6">Withdrawals</span>
+                                                <span class="text-gray-400 fw-bold fs-6">Withdrawals</span>
+                                                <span class="text-muted fw-light fs-6">This Month</span>
+
+                                                
+                                            </div>
+                                            <!--end::Hidden-->
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-2">
+                                    <!--end::Statistics Widget 1-->
+                                    <!--begin::Mixed Widget 1-->
+                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
+                                        <!--begin::Body-->
+                                        <div class="card-body rounded bg-primary  px-md-0">
+                                            <!--begin::Hidden-->
+                                            <div class="d-flex flex-column p-3">
+                                                <!--begin::Number-->
+                                                <div class="text-white fw-boldest fs-2hx">{{$thisMonthPayments->where('status','success')->where('description','new')->count()}}</div>
+                                                <!--end::Number-->
+                                                <!--begin::Description-->
+                                                <span class="text-white fw-bold fs-6">Subscriptions</span>
+                                                <span class="text-light fw-light fs-6">This Month</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <!--end::Body-->
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xxl-2">
+                                    
+                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8" >
+                                        <div class="card-body rounded bg-success bg-gradient  px-md-0">
+                                            <div class="d-flex flex-column p-3">
+                                                <div class="text-white fw-boldest fs-2hx">{{$thisMonthPayments->where('status','success')->where('description','renew')->count()}}</div>
+                                                <!--end::Number-->
+                                                <!--begin::Description-->
+                                                <span class="text-white fw-bold fs-6">Renewals</span>
+                                                <span class="text-light fw-light fs-6">This Month</span>
+                                                
+                                            </div>
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Engage widget 1-->
+                                </div>
+                                
+                                <div class="col-xxl-2">
+                                    
+                                    <div class="card card-xxl-stretch-50 mb-5 mb-xl-8" >
+                                        <div class="card-body rounded bg-info bg-gradient px-md-0">
+                                            <div class="d-flex flex-column p-3">
+                                                <!--begin::Number-->
+                                                <span class="text-white fw-boldest fs-2hx">{{$thisMonthPayments->where('status','success')->where('description','extend')->count()}}</span>
+                                                <!--end::Number-->
+                                                <!--begin::Description-->
+                                                <span class="text-white fw-bold fs-6">Extension</span>
                                                 <span class="text-light fw-light fs-6">This Month</span>
                                             </div>
                                         </div>
@@ -96,7 +135,7 @@
                                     </div>
                                     <!--end::Engage widget 1-->
                                 </div>
-                                <!--end::Col-->
+                                
                                 
                             </div>
                             <!--end::Row-->
@@ -234,7 +273,7 @@
                                 <div class="card-header align-items-center border-0 mt-5">
                                     <h3 class="card-title align-items-start flex-column">
                                         <span class="fw-bolder text-dark fs-2">Payments</span>
-                                        <span class="text-gray-400 mt-2 fw-bold fs-6">{{$recentPayments->count()}} Since Yesterday</span>
+                                        <span class="text-gray-400 mt-2 fw-bold fs-6">{{$thisMonthPayments->where('status','paid')->whereBetween('created_at',[today()->subDay(),now()])->count()}} Since Yesterday</span>
                                     </h3>
                                     <div class="card-toolbar">
                                         <a class="btn btn-sm btn-outline-primary text-hover-white" href="{{route('admin.payments')}}"> View All </a>
@@ -243,7 +282,7 @@
                                 <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body pt-1">
-                                    @forelse ($recentPayments as $payment)
+                                    @forelse ($thisMonthPayments->where('status','paid')->whereBetween('created_at',[today()->subDay(),now()]) as $payment)
                                     <div class="d-flex flex-stack item-border-hover px-3 py-2 ms-n4 mb-3">
                                         <!--begin::Section-->
                                         <div class="d-flex align-items-center">
@@ -290,7 +329,7 @@
                                 <div class="card-header border-0 pt-5">
                                     <h3 class="card-title align-items-start flex-column">
                                         <span class="card-label fw-bolder text-dark">Withdrawal Requests</span>
-                                        <span class="text-muted mt-1 fw-bold fs-7">{{$recentWithdrawal->count()}} unattended</span>
+                                        <span class="text-muted mt-1 fw-bold fs-7">{{$withdrawals->where('status','pending')->count()}} unattended</span>
                                     </h3>
                                     <div class="card-toolbar">
                                         <a class="btn btn-sm btn-outline-primary text-hover-white" href="{{route('admin.withdrawals')}}"> View All </a>
@@ -299,7 +338,7 @@
                                 <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body pt-5">
-                                    @forelse ($recentWithdrawal as $withdrawal)
+                                    @forelse ($withdrawals->where('status','pending') as $withdrawal)
                                         <div class="d-flex align-items-sm-center mb-7">
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-circle symbol-50px me-5">

@@ -9,13 +9,9 @@ use App\Models\Payment;
 use App\Models\Setting;
 use App\Models\Webhook;
 use App\Models\Activity;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Laravel\Ui\Presets\React;
-use App\Jobs\WebhookExecutionJob;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Support\Facades\Storage;
-use App\Notifications\SubscriptionPaymentNotification;
 
 class PaymentController extends Controller
 {
