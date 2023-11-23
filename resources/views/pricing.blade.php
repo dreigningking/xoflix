@@ -7,6 +7,15 @@
 @push('scripts')
 <script>
     
+    $(document).on('click','.changeDuration',function(){
+        let months = $(this).attr('data-months');
+        // alert(months)
+        $(this).closest('.action').find('.quantity').val(months)
+        let price = $(this).closest('.action').find('.price').first().val()
+        let connection = $(this).closest('.action').find('.connections').first().val()
+        let amount = parseInt(price) * parseInt(months) * parseInt(connection)
+        $(this).closest('.action').find('.displayed_price').text(amount)
+    })
     $(document).on('input change','.quantity',function(){
         let months = $(this).val();
         let price = $(this).closest('.action').find('.price').first().val()

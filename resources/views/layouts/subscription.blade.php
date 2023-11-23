@@ -80,6 +80,11 @@
                                                 <input type="number" class="form-control quantity" value="1" name="duration" />
                                                 <button class="btn btn-secondary buy_plus" type="button">+</button>
                                             </div>
+                                            <div class="d-flex flex-column flex-md-row justify-content-center my-5">
+                                                <button type="button" class="btn btn-sm btn-light m-1 changeDuration" data-months="3">3 months</button>
+                                                <button type="button" class="btn btn-sm btn-secondary m-1 changeDuration" data-months="6">6 month</button>
+                                                <button type="button" class="btn btn-sm btn-dark m-1 changeDuration" data-months="12">1 year</button>
+                                            </div>
                                             <div class="text-white text-center container">Connections</div>
                                             <div class="px-8 mb-3">
                                                 <select name="connections" id="" class="connections form-control pt-3 ">
@@ -194,6 +199,11 @@
                                                 <button class="btn btn-secondary buy_minus" type="button">-</button>
                                                 <input type="number" class="form-control quantity" value="1" name="duration" />
                                                 <button class="btn btn-secondary buy_plus" type="button">+</button>
+                                            </div>
+                                            <div class="d-flex flex-column flex-md-row justify-content-center my-5">
+                                                <button type="button" class="btn btn-sm btn-light m-1 changeDuration" data-months="3">3 months</button>
+                                                <button type="button" class="btn btn-sm btn-secondary m-1 changeDuration" data-months="6">6 month</button>
+                                                <button type="button" class="btn btn-sm btn-dark m-1 changeDuration" data-months="12">1 year</button>
                                             </div>
                                             <div class="text-white text-center container">Connections</div>
                                             <div class="px-8 mb-3">
