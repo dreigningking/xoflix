@@ -29,9 +29,6 @@ class Subscription extends Model
         return $this->belongsTo(Plan::class);
     }
 
-    public function oldPayment(){
-        return $this->belongsTo(Payment::class,'payment_id');
-    }
 
     public function payment(){
         return $this->hasOne(Payment::class)->latestOfMany();

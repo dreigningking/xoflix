@@ -80,19 +80,6 @@ Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
 
 Route::get('check',function(){
-   $subscriptions = \App\Models\Subscription::all();
-   foreach($subscriptions as $subscription){
-        $payment = $subscription->oldPayment;
-        if(!$payment) continue;
-        $payment->subscription_id = $subscription->id;
-        $payment->duration = $subscription->duration;
-        if(!$subscription->start_at) {
-            if(!$subscription->end_at) $payment->description = 'new';
-            else $payment->description = 'renew';
-        }else{
-            $payment->sub_status = true;
-        }
-        $payment->save();
-   }
-   return 'ok';
+   $payments = App\Models\Payment::whereDoesntHave('subscription')->get();
+   dd($payments);
 });
