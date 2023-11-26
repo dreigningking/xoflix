@@ -50,9 +50,7 @@ class PaymentObserver
             }
             $payment->user->notify(new SubscriptionPaymentNotification($payment));
         }
-        if($payment->isDirty('status') && $payment->status == 'failed'){
-            $payment->subscription()->delete();
-        }
+        
     }
 
     /**

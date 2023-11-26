@@ -37,8 +37,8 @@ class CheckFailedPaymentsJob implements ShouldQueue
         foreach($payments as $payment){
             $details = $this->verifyFlutterWavePayment($payment->reference);
             if(!$details || !$details->status || $details->status != 'success' || !$details->data || $details->data->status != 'successful' || $details->data->amount < $payment->amount){
-                $payment->status = 'failed';
-                $payment->save();
+                $payment->subscription()->delete();
+                $payment->delete();
             }else{
                 $payment->status = 'success';
                 $payment->method = $details->data->payment_type;

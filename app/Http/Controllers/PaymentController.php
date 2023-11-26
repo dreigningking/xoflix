@@ -48,7 +48,7 @@ class PaymentController extends Controller
         $payments = $payments->paginate(50);
         $links = Link::all();
         $panels = Panel::all();
-        $thisToday = Payment::where('status','success')->whereDay('created_at',now()->format('d'))->sum('amount');
+        $thisToday = Payment::where('status','success')->whereDate('created_at',now()->format('Y-m-d'))->sum('amount');
         $thisWeek = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('amount');
         $thisMonth = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth()])->sum('amount');
         $thisYear = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfYear(),Carbon::now()->endOfYear()])->sum('amount');
