@@ -32,7 +32,7 @@
                         <div class="rounded border p-10">
                             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1" aria-selected="true" role="tab">Premium</a>
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1" aria-selected="true" role="tab">Regular</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2" aria-selected="false" role="tab" tabindex="-1">Special</a>
@@ -43,7 +43,7 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active show" id="kt_tab_pane_1" role="tabpanel">
                                     <form action="{{route('admin.plans')}}" method="post">@csrf
-                                        @foreach ($plans->firstWhere('name','Premium')->features as $feature)
+                                        @foreach ($plans->firstWhere('name','Regular')->features as $feature)
                                             <input type="hidden" name="plan_id" value="1">
                                             <div class="row mb-6">
                                                 <!--begin::Label-->
@@ -69,7 +69,7 @@
     
                                             <!--begin::Col-->
                                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                <input type="number" value="{{$plans->firstWhere('name','Premium')->price}}" name="price" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                <input type="number" value="{{$plans->firstWhere('name','Regular')->price}}" name="price" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                             placeholder="" >
                                                 <div
                                                     class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">

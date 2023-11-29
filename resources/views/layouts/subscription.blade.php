@@ -11,7 +11,7 @@
                             <a class="nav-link w-100  btn btn-flex btn-active-light-success active" data-bs-toggle="tab" href="#kt_vtab_pane_4" aria-selected="false" role="tab" tabindex="-1">
                                 <i class="ki-duotone ki-icons/duotune/general/gen001.svg fs-2 text-primary me-3"></i>                        
                                 <span class="d-flex flex-column align-items-start">
-                                    <span class="fs-4 fw-bold">Premium</span>
+                                    <span class="fs-4 fw-bold">Regular</span>
                                 </span>
                             </a>
                         </li>
@@ -30,10 +30,10 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show px-3" id="kt_vtab_pane_4" role="tabpanel">
                         <div class="text-center mt-5">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#premium_details">View Details</a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#regular_details">View Details</a>
                         </div>
 
-                        <div class="modal fade" id="premium_details" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="regular_details" tabindex="-1" aria-hidden="true">
                             <!--begin::Modal dialog-->
                             <div class="modal-dialog modal-dialog-centered">
                                 <!--begin::Modal content-->
@@ -42,11 +42,11 @@
                                         <tr>
                                             <td class="text-center p-2">
                                                 <div class="d-flex flex-column">
-                                                    <h1 class="">Premium Details</h1>
+                                                    <h1 class="">Regular Details</h1>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @foreach ($plans->firstWhere('name','Premium')->features as $feature)
+                                        @foreach ($plans->firstWhere('name','Regular')->features as $feature)
                                         <tr>
                                             <td class="text-center p-2">
                                                 <div class="d-flex flex-column">

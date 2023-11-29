@@ -436,7 +436,7 @@
 
                                         <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
                                             <option value=""></option>
-                                            <option value="1">Premium Plan</option>
+                                            <option value="1">Regular Plan</option>
                                             <option value="2">Special Plan</option>
                                         </select>
                                         

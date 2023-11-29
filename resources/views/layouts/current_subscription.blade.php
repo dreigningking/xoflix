@@ -123,8 +123,8 @@
                                     <td class="">
                                         @if($subscription->end_at->diffInDays(now()) > 7 )
                                         <span>{{$subscription->end_at->format('d M Y h:i A')}}</span> 
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#premium_details" class="btn btn-sm btn-primary ml-2">Extend</button>
-                                        <div class="modal fade" id="premium_details" tabindex="-1" aria-hidden="true">
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#regular_details" class="btn btn-sm btn-primary ml-2">Extend</button>
+                                        <div class="modal fade" id="regular_details" tabindex="-1" aria-hidden="true">
                                             <!--begin::Modal dialog-->
                                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                                 <!--begin::Modal content-->

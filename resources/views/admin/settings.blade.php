@@ -78,7 +78,7 @@
                 
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="number" value="{{$settings->firstWhere('name','discount3')->value}}" name="discount3" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                        <input type="number" step="0.1" value="{{$settings->firstWhere('name','discount3')->value}}" name="discount3" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                                     placeholder="" >
                                                             <div class="form-text">
                                                                 Discount Percentage Applied to Payment for 3 to 5 months duration
@@ -98,7 +98,7 @@
                 
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="number" value="{{$settings->firstWhere('name','discount6')->value}}" name="discount6" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                        <input type="number" step="0.1"  value="{{$settings->firstWhere('name','discount6')->value}}" name="discount6" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                                     placeholder="" >
                                                             <div class="form-text">
                                                                 Discount Percentage Applied to Payment for 6 to 11 months duration
@@ -118,7 +118,7 @@
                 
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="number" value="{{$settings->firstWhere('name','discount12')->value}}" name="discount12" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                        <input type="number" step="0.1"  value="{{$settings->firstWhere('name','discount12')->value}}" name="discount12" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                                     placeholder="" >
                                                             <div class="form-text">
                                                                 Discount Percentage Applied to Payment for 12months and above duration

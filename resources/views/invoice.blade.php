@@ -82,9 +82,9 @@
 									<!--end::Col-->
 								</div>
 								<div class="mb-6 text-left">
-									<button type="button" data-bs-toggle="modal" data-bs-target="#premium_details" class="btn  btn-primary btn-block">SUBMIT </button>
+									<button type="button" data-bs-toggle="modal" data-bs-target="#regular_details" class="btn  btn-primary btn-block">SUBMIT </button>
 								</div>
-								<div class="modal fade" id="premium_details" tabindex="-1" aria-hidden="true">
+								<div class="modal fade" id="regular_details" tabindex="-1" aria-hidden="true">
 									<!--begin::Modal dialog-->
 									<div class="modal-dialog modal-dialog-centered mw-650px">
 										<!--begin::Modal content-->
