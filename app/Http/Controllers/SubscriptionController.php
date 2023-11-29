@@ -143,8 +143,8 @@ class SubscriptionController extends Controller
     public function pricing()
     {
         $plans = Plan::all();
-        // dd($plans);
-        return view('pricing', compact('plans'));
+        $discounts = Setting::whereIn('name',['discount3','discount6','discount12'])->select('name','value')->get();
+        return view('pricing', compact('plans','discounts'));
     }
 
     public function subscriptions(){
@@ -164,8 +164,9 @@ class SubscriptionController extends Controller
         $user = auth()->user();
         $plan = Plan::find($request->plan_id);
         $amount = $plan->price * $request->duration * $request->connections;
+        $discountedAmount = $this->getDiscountedAmount($request->duration,$amount);
         $subscription = Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id, 'connections'=> $request->connections]);
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $amount,'duration'=> $request->duration,'description'=> 'new','subscription_id'=> $subscription->id]);
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $discountedAmount,'duration'=> $request->duration,'description'=> 'new','subscription_id'=> $subscription->id]);
         
         return redirect()->route('subscription.payment',$payment);
         // $response = $this->initiateFlutterWave($payment);
@@ -177,7 +178,9 @@ class SubscriptionController extends Controller
     public function renew(Request $request){
         $subscription = Subscription::find($request->subscription_id);
         $plan = Plan::find($subscription->plan_id);
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $plan->price * $request->duration * $subscription->connections,'duration'=> $request->duration,'description'=> $request->description,'subscription_id'=> $subscription->id ]);
+        $amount = $plan->price * $request->duration * $subscription->connections;
+        $discountedAmount = $this->getDiscountedAmount($request->duration,$amount);
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $subscription->user_id, 'amount' => $discountedAmount,'duration'=> $request->duration,'description'=> $request->description,'subscription_id'=> $subscription->id ]);
         return redirect()->route('subscription.payment',$payment);
         
     }
@@ -189,5 +192,21 @@ class SubscriptionController extends Controller
         $account_number = $settings->firstWhere('name','account_number')->value;
         $account_name = $settings->firstWhere('name','account_name')->value;
         return view('invoice',compact('payment','bank','account_number','account_name'));
+    }
+
+    public function getDiscountedAmount($duration,$amount){
+        $discounts = Setting::whereIn('name',['discount3','discount6','discount12'])->select('name','value')->get();
+        if($duration >= 12){
+            $discount = $discounts->firstWhere('name','discount12')->value;
+            return (100 - $discount) * $amount / 100;
+        }else if($duration >= 6){
+            $discount = $discounts->firstWhere('name','discount6')->value;
+            return (100 - $discount) * $amount / 100;
+        }else if($duration >=3){
+            $discount = $discounts->firstWhere('name','discount3')->value;
+            return (100 - $discount) * $amount / 100;
+        }else{
+            return $amount;
+        }
     }
 }

@@ -83,7 +83,7 @@
                                                             </button>
                                                         </span>
                                                         <span class="text-muted fw-semibold d-block fs-7">
-                                                            <span class="clipboard_value">{{$user->whatsapp}}</span>
+                                                            <span class="clipboard_value">{{$user->phone}}</span>
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
                                                                     Copy

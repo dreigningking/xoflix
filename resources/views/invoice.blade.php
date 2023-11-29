@@ -67,7 +67,7 @@
 							<form action="{{route('payment.upload')}}" method="post" enctype="multipart/form-data">@csrf
 							<!--begin::Item-->
 								<input type="hidden" name="payment_id" value="{{$payment->id}}">
-								<div class=" mb-6">
+								<div class="mb-6 px-3 pb-6 bg-primary">
 									<!--begin::Label-->
 									<label class="col-form-label required fw-semibold fs-6">Upload</label>
 									<!--end::Label-->
@@ -169,7 +169,7 @@
 									<!--end::Text-->
 									<!--end::Description-->
 									<div class="fw-bold fs-7 text-gray-600">{{$payment->user->email}}
-										<br />{{$payment->user->whatsapp}}
+										<br />{{$payment->user->phone}}
 									</div>
 									<!--end::Description-->
 								</div>

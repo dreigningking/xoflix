@@ -274,8 +274,8 @@
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold mb-2">User Phone</label>
                                                             <div class="input-group input-group-lg">
-                                                                <input type="text" value="{{$payment->user->whatsapp ? $payment->user->whatsapp : $payment->user->phone }}" class="form-control form-control-solid"/>
-                                                                <span class="clipboard_value" style="display: none">{{$payment->user->whatsapp ? $payment->user->whatsapp : $payment->user->phone }}</span>
+                                                                <input type="text" value="{{$payment->user->phone }}" class="form-control form-control-solid"/>
+                                                                <span class="clipboard_value" style="display: none">{{$payment->user->phone }}</span>
                                                                 <button type="button" class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                     <span class="svg-icon svg-icon-2 copy_icon">
                                                                         Copy

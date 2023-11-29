@@ -170,9 +170,9 @@
             <!--end::Input group-->
             <div class="fv-row mb-7 fv-plugins-icon-container">
                 <label class="form-label fw-bold text-dark fs-6">Whatsapp Number</label>
-                <input class="form-control form-control-lg " type="text" value="{{ old('whatsapp') }}"
-                    name="whatsapp" autocomplete="off">
-                @error('whatsapp')
+                <input class="form-control form-control-lg " type="text" value="{{ old('phone') }}"
+                    name="phone" autocomplete="off">
+                @error('phone')
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback d-block">
                         <strong>{{ $message }}</strong>
                     </div>

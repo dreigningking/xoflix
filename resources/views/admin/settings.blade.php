@@ -44,11 +44,13 @@
                                 <div class="tab-pane fade active show" id="global" role="tabpanel">
                                     <form action="{{route('admin.settings')}}" method="post">@csrf
                                         <div class="card">
+                                            
                                             <div class="card-header border-0">
                                                 <div class="card-title m-0">
                                                     <h3 class="fw-bold m-0">Global Settings</h3>
                                                 </div>
                                             </div>
+
                                             <div class="card-body py-0 px-9">
                                     
                                                 <!--begin::Input group-->
@@ -61,6 +63,66 @@
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                                         <input type="number" value="{{$settings->firstWhere('name','referral_bonus_percentage')->value}}" name="referral_bonus_percentage" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                                     placeholder="" >
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+
+                                                <!--begin::Input group-->
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">3 Months Payment Discount %</label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" value="{{$settings->firstWhere('name','discount3')->value}}" name="discount3" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="" >
+                                                            <div class="form-text">
+                                                                Discount Percentage Applied to Payment for 3 to 5 months duration
+                                                            </div>
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+
+                                                <!--begin::Input group-->
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">6 Months Payment Discount %</label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" value="{{$settings->firstWhere('name','discount6')->value}}" name="discount6" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="" >
+                                                            <div class="form-text">
+                                                                Discount Percentage Applied to Payment for 6 to 11 months duration
+                                                            </div>
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+
+                                                <!--begin::Input group-->
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">12 Months Payment Discount %</label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="number" value="{{$settings->firstWhere('name','discount12')->value}}" name="discount12" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="" >
+                                                            <div class="form-text">
+                                                                Discount Percentage Applied to Payment for 12months and above duration
+                                                            </div>
                                                         <div
                                                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                         </div>
@@ -136,6 +198,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
                                                 <div class="row mb-6">
                                                     <!--begin::Label-->
                                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Bank Account Number </label>
@@ -150,6 +213,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
                                                 <div class="row mb-6">
                                                     <!--begin::Label-->
                                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Account Name </label>
@@ -164,6 +228,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
                                                 <div class="row mb-6">
                                                     <!--begin::Label-->
                                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Payment Redirection</label>
@@ -178,6 +243,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
                                             </div>
                                             <div class="card-header border-0">
                                                 <div class="card-title m-0">

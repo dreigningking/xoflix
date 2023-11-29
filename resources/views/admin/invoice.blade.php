@@ -58,7 +58,7 @@
 									<!--end::Text-->
 									<!--end::Description-->
 									<div class="fw-bold fs-7 text-gray-600">{{$payment->user->email}}
-										<br />{{$payment->user->whatsapp}}
+										<br />{{$payment->user->phone}}
 									</div>
 									<!--end::Description-->
 								</div>
