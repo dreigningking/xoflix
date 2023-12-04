@@ -125,8 +125,8 @@
                                 
                             </td>
                             <td>
-                                    <span>USERNAME:{{$subscription->username}} | PASSWORD: {{$subscription->password}}</span>
-                                    <span class="d-block"> {{$subscription->link->url}}</span>
+                                <span>USERNAME:{{$subscription->username}} | PASSWORD: {{$subscription->password}}</span>
+                                <span class="d-block"> {{$subscription->link->url}}</span>
                             </td>
                             <td>{{$subscription->m3u_link}}</td>
                         </tr>

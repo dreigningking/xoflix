@@ -167,7 +167,6 @@ class SubscriptionController extends Controller
         $discountedAmount = $this->getDiscountedAmount($request->duration,$amount);
         $subscription = Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id, 'connections'=> $request->connections]);
         $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $discountedAmount,'duration'=> $request->duration,'description'=> 'new','subscription_id'=> $subscription->id]);
-        
         return redirect()->route('subscription.payment',$payment);
         // $response = $this->initiateFlutterWave($payment);
         // if (!$response)

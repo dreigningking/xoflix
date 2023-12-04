@@ -69,6 +69,26 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div class="col">
+                                <div class="card card-dashed flex-center min-w-175px my-3 p-6">
+                                    <span class="fs-4 fw-semibold text-danger pb-1 px-2">Last Week</span>
+                                    <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
+                                        ₦<span data-kt-countup="true"
+                                            data-kt-countup-value="{{ number_format($lastWeek) }}">0</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="card card-dashed flex-center min-w-175px my-3 p-6">
+                                    <span class="fs-4 fw-semibold text-danger pb-1 px-2">Last Month</span>
+                                    <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
+                                        ₦<span data-kt-countup="true"
+                                            data-kt-countup-value="{{ number_format($lastMonth) }}">0</span>
+                                    </span>
+                                </div>
+                            </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Stats-->
@@ -488,4 +508,11 @@
             
         })
     </script>
+    {{-- <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script>
+        var urlTable = $("#urlTable").DataTable({});
+        $('#searchlinks').on('keyup',function(){
+            urlTable.search($(this).val()).draw();
+        });
+    </script> --}}
 @endpush
