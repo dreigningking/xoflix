@@ -105,6 +105,9 @@ class PaymentController extends Controller
     {
         $link = Setting::where('name','payment_redirection')->first();
         $payment = Payment::find($request->payment_id);
+        if(!$payment){
+            return redirect()->back();
+        }
         if($payment->upload) Storage::delete('public/payments',$payment->upload);
         $image = time().'.'.$request->file('upload')->getClientOriginalExtension();
         $request->file('upload')->storeAs('public/payments',$image);
