@@ -252,7 +252,7 @@
                                         </div>
                                         <!--begin::Input group-->
                                         <!--begin::Input group-->
-                                        <div class="row mb-6">
+                                        <div class="row mb-5">
                                             <!--begin::Label-->
                                             <label class="col-lg-4 col-form-label fw-semibold fs-6">Account Name</label>
                                             <!--end::Label-->
@@ -268,7 +268,26 @@
                                             <!--end::Col-->
                                         </div>
                                         <!--end::Input group-->
-
+                                        <div class="row mb-5">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Notification of Subscription Expiry</label>
+                                            <!--begin::Label-->
+                                        
+                                            <!--begin::Label-->
+                                            <div class="col-lg-8 d-flex align-items-center">
+                                                <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                                    <input name="email_notify" value="0" type="hidden">
+                                                    <input class="form-check-input w-45px h-30px" name="email_notify" value="1" type="checkbox" id="email_notify" @if($user->email_notify) checked @endif>
+                                                    <label class="form-check-label" for="status"></label>
+                                                </div>
+                                                @error('email_notify')
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"> 
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <!--begin::Label-->
+                                        </div>
                                         
                                        
 
@@ -345,21 +364,21 @@
                                                 <!--end::Input wrapper-->
 
                                                 <!--begin::Meter-->
-                                                <div class="d-flex align-items-center mb-3">
+                                                {{-- <div class="d-flex align-items-center mb-3">
                                                     <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                                                     <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                                                     <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                                                     <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                                                     <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px meter"></div>
-                                                </div>
+                                                </div> --}}
                                                 <!--end::Meter-->
                                             </div>
                                             <!--end::Wrapper-->
 
                                             <!--begin::Hint-->
-                                            <div class="text-muted">
+                                            {{-- <div class="text-muted">
                                                 Use 8 or more characters having atleast a capital letter, small letter, numbers &amp; symbols.
-                                            </div>
+                                            </div> --}}
                                             <!--end::Hint-->
                                             @error('password')
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback d-block">
@@ -430,10 +449,10 @@
         }
     });
 
-    var code = document.getElementById("password");
-    code.addEventListener("keyup", function() {
-    checkpassword(code.value);
-    });
+    // var code = document.getElementById("password");
+    // code.addEventListener("keyup", function() {
+    //     checkpassword(code.value);
+    // });
     function checkpassword(password) {
         var strength = 0;
         if (password.match(/[a-z]+/)) {

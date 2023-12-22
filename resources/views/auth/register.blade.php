@@ -214,21 +214,21 @@
                     <!--end::Input wrapper-->
 
                     <!--begin::Meter-->
-                    <div class="d-flex align-items-center mb-3">
+                    {{-- <div class="d-flex align-items-center mb-3">
                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2 meter"></div>
                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px meter"></div>
-                    </div>
+                    </div> --}}
                     <!--end::Meter-->
                 </div>
                 <!--end::Wrapper-->
 
                 <!--begin::Hint-->
-                <div class="text-muted">
+                {{-- <div class="text-muted">
                     Use 8 or more characters having atleast a capital letter, small letter, numbers &amp; symbols.
-                </div>
+                </div> --}}
                 <!--end::Hint-->
                 @error('password')
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback d-block">
@@ -305,10 +305,10 @@
         });
     </script>
     <script>
-        var code = document.getElementById("password");
-        code.addEventListener("keyup", function() {
-            checkpassword(code.value);
-        });
+        // var code = document.getElementById("password");
+        // code.addEventListener("keyup", function() {
+        //     checkpassword(code.value);
+        // });
 
         function checkpassword(password) {
             var strength = 0;

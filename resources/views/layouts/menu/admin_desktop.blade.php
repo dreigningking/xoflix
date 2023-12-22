@@ -111,7 +111,7 @@
             <!--end::Menu item-->
             <li class="menu-item mb-1">
                 <!--begin::Menu link-->
-                <a class="menu-link px-6 py-4 @if(Route::is('admin.plans')) active @endif" href="{{route('admin.plans')}}">
+                <a class="menu-link px-6 py-4 @if(Route::is('admin.plans.index')) active @endif" href="{{route('admin.plans.index')}}">
                     <span class="menu-bullet">
                         <span class="bullet"></span>
                     </span>

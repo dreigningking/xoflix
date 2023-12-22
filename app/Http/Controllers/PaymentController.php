@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Link;
+use App\Models\Plan;
 use App\Models\Panel;
 use App\Models\Payment;
 use App\Models\Setting;
 use App\Models\Webhook;
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use App\Exports\PaymentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,6 +25,8 @@ class PaymentController extends Controller
         $sortBy = null;
         $status = null;
         $name = null;
+        $from = null;
+        $to = null;
         $payments = Payment::whereNotNull('user_id')->orderBy('created_at','desc');
         if(request()->query() && request()->query('status')){
             $status = request()->query('status');
@@ -34,7 +39,14 @@ class PaymentController extends Controller
                     $query->where('firstname','LIKE',"%$name%")->orWhere('lastname','LIKE',"%$name%");
                 });
         }
-        
+        if(request()->query() && request()->query('from')){
+            $from = request()->from;
+            $payments = $payments->where('created_at','>=',$from);
+        }
+        if(request()->query() && request()->query('to')){
+            $to = request()->to;
+            $payments = $payments->where('created_at','<=',$to);
+        }
         if(request()->query() && request()->query('sortBy')){
             $sortBy = request()->query('sortBy');
             if(request()->query('sortBy') == 'date_asc'){
@@ -45,16 +57,20 @@ class PaymentController extends Controller
             }
             
         }
+        if(request()->query() && request()->query('download')){
+            return Excel::download(new PaymentsExport($payments->get()), 'payments.xlsx');
+        }
         $payments = $payments->paginate(50);
         $links = Link::all();
         $panels = Panel::all();
+        $plans = Plan::all();
         $thisToday = Payment::where('status','success')->whereDate('created_at',now()->format('Y-m-d'))->sum('amount');
         $thisWeek = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('amount');
         $thisMonth = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth()])->sum('amount');
         $lastWeek = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->subWeek()->startOfWeek(),Carbon::now()->subWeek()->endOfWeek()])->sum('amount');
         $lastMonth = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth()])->sum('amount');
         $thisYear = Payment::where('status','success')->whereBetween('created_at',[Carbon::now()->startOfYear(),Carbon::now()->endOfYear()])->sum('amount');
-        return view('admin.payments',compact('payments','status','name','sortBy','thisToday','thisWeek','thisMonth','thisYear','lastWeek','lastMonth','links','panels'));
+        return view('admin.payments',compact('payments','status','name','sortBy','thisToday','thisWeek','thisMonth','thisYear','lastWeek','lastMonth','links','panels','plans','to','from'));
     }
     
     public function resolve_account(Request $request)

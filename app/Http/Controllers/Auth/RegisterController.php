@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required','string','confirmed',Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
+            'password' => ['required','string','confirmed','min:8'],
             'terms' => ['required','accepted'],
             'referrer_id' => ['nullable']
         ]);

@@ -11,6 +11,7 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
 Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],function(){
+
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('notifications',[AdminController::class, 'notifications'])->name('notifications');
     Route::get('activities',[AdminController::class, 'activities'])->name('activities');
@@ -32,12 +34,24 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('settings',[AdminController::class, 'updateSettings'])->name('settings');
     Route::post('links',[AdminController::class, 'links'])->name('links');
     Route::post('panels',[AdminController::class, 'panels'])->name('panels');
-    Route::get('plans',[AdminController::class, 'plans'])->name('plans');
-    Route::post('plans',[AdminController::class, 'updatePlans'])->name('plans');
+    
+    Route::group(['prefix'=> 'plans' ,'as'=> 'plans.'],function(){
+        Route::get('/',[PlanController::class,'index'])->name('index');
+        Route::get('create',[PlanController::class,'create'])->name('create');
+        Route::post('store',[PlanController::class,'store'])->name('store');
+        Route::get('edit/{plan}',[PlanController::class,'edit'])->name('edit');
+        Route::post('update',[PlanController::class,'update'])->name('update');
+        Route::post('delete',[PlanController::class,'destroy'])->name('delete');
+    });
+    
+
     Route::get('payments',[PaymentController::class, 'index'])->name('payments');
     Route::post('payments/confirmation',[PaymentController::class, 'confirmation'])->name('payments.confirmation');
     Route::post('payments/delete',[PaymentController::class, 'destroy'])->name('payments.delete');
     Route::get('users',[UserController::class, 'index'])->name('users');
+    Route::get('loginAs/{id}', [UserController::class, 'loginAs'])->name('loginAs');
+    Route::post('user/manage', [UserController::class, 'manage'])->name('user.manage');
+
     // Route::get('users/paid',[UserController::class, 'paid_users'])->name('users.paid');
     Route::get('withdrawals',[WithdrawalController::class, 'index'])->name('withdrawals');
     Route::post('withdrawals/store',[WithdrawalController::class, 'pay'])->name('withdrawals.pay');
@@ -80,6 +94,7 @@ Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support');
 
 Route::get('check',function(){
-   $payments = App\Models\Payment::whereDoesntHave('subscription')->get();
-   dd($payments);
+    $plan = \App\Models\Plan::find(2);
+     dd($plan->getAttributes());
+    // dd($plan->features);
 });

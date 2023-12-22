@@ -23,7 +23,9 @@
             <!--end::Link-->
         </div>
         <!--begin::Heading-->
-
+        @if(Session::has('account_status'))
+            <h2 class="text-danger text-center">{{session('account_status')}}</h2>
+        @endif
         <!--begin::Input group-->
         <div class="fv-row mb-10 fv-plugins-icon-container">
             <!--begin::Label-->

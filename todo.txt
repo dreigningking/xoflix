@@ -10,3 +10,26 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzg3NzRiYWJiYmQzNGI
 
 customer renew & extend
 admin update new, renew, extend
+
+1. Adding of Plans Dynamic - DONE
+2. Remove Password Strength & Allow any password - DONE
+
+3. User toggle of renewal email from profile - DONE
+add email_notify (1) to user table
+add status (1) to user table
+
+6. Admin Login as User - DONE
+8. Admin disable account - DONE
+9. Filter user by account creation date - DONE
+10. Payment CSV or excel export - DONE
+5. Redesign user purchase subscription page - DONE
+
+4. Subscription Popup from button - DONE
+
+7. Renew button big well styled on the homepage - DONE
+
+
+
+
+
+

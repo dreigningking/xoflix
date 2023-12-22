@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Payment;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,23 +18,36 @@ class UserController extends Controller
     public function index()
     {
         $search = null;
+        $from = null;
+        $to = null;
         $users = User::where('role','user');
         if($search = request()->search)
         $users = $users->where('firstname','LIKE',"%$search%")->orWhere('lastname','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%");
+        if($from = request()->from)
+        $users = $users->where('created_at','>=',$from);
+        if($to = request()->to)
+        $users = $users->where('created_at','<=',$to);
         if(request()->expectsJson())
         return response()->json(['data'=> $users->get()],200);
         else $users = $users->orderBy('firstname','asc')->paginate(50);
-        return view('admin.users',compact('users','search'));
+        return view('admin.users',compact('users','search','from','to'));
     }
 
     
-    // public function paid_users()
-    // {
-    //     // $payments = Payment::where('status','success')->doesntHave('subscriptions')->with('user')->get();
-    //     $subscriptions = Subscription::whereHas('payment',function($query){
-    //         $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
-    //     return response()->json(['data'=> $subscriptions],200);
-    // }
+    public function loginAs($id){
+        
+        session(['admin'=> auth()->user()->role == "admin" ? auth()->id() : null]);
+        Auth::loginUsingId($id);
+        return redirect()->route('dashboard');
+    }
+
+    public function manage(Request $request){
+        //dd($request->user_id);
+        $user = User::find($request->user_id);
+        $user->status = !$user->status;
+        $user->save();
+        return redirect()->back();
+    }
 
     /**
      * Store a newly created resource in storage.

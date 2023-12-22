@@ -19,13 +19,24 @@
                         <div class="card-title">
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
-                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i> 
-                                <form action="#" id="searchForm">
-                                    <input id="usersearch" name="search" value="{{$search}}" type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search user">
+                                
+                                <form action="#" id="searschForm">
+                                    <div class="d-md-flex justify-content-between">
+                                        <input  name="search" value="{{$search}}" type="text" class="form-control form-control-solid w-250px m-3" placeholder="Search user">
+                                        <div class="m-3 d-flex align-items-center">
+                                            <span class="fs-5">From:</span> 
+                                            <input name="from" value="{{$from}}" type="date" class="form-control form-control-solid " >
+                                        </div>
+                                        <div class="m-3 d-flex align-items-center">
+                                            <span class="fs-5">To:</span> 
+                                            <input name="to" value="{{$to}}" type="date" class="form-control form-control-solid " >
+                                        </div>
+                                        <div class="m-3">
+                                            <button type="submit" class="btn btn-primary ">Filter</button>
+                                        </div>
+                                    </div>
                                 </form>
+                                    
                             </div>
                             <!--end::Search-->
                         </div>
@@ -47,8 +58,8 @@
                                             <th class="min-w-125px">User</th>
                                             <th class="min-w-125px">Joined Date</th>
                                             <th class="min-w-125px">Referrals</th>
-                                            <th class="min-w-125px">Subscriptions</th>
-                                            <th class="text-end min-w-100px">Balance</th>
+                                            <th class="min-w-125px">Balance</th>
+                                            <th class="text-center min-w-100px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-600 fw-semibold">
@@ -100,14 +111,39 @@
                                             <td>
                                                 {{$user->referrals->count()}}
                                             </td>
-                                            <td data-order="2023-08-25T12:49:21+01:00">
-                                                <div class="badge badge-light fw-bold">{{$user->activeSubscriptions->count()}}/{{$user->subscriptions->count()}}</div>
-                                            </td>
-
-
-                                            <td class="text-end">
+                                            <td>
                                                 ₦{{$user->balance}}
                                             </td>
+                                            <td data-order="2023-08-25T12:49:21+01:00">
+                                                <a href="#"
+                                                    class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
+                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                    Actions
+                                                    <i class="ki-duotone ki-down fs-5 ms-1"></i> 
+                                                </a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{route('admin.loginAs',$user->id)}}" class="menu-link px-3" >Login as User</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <form action="{{route('admin.user.manage')}}" method="POST">@csrf
+                                                            <input type="hidden" name="user_id" value="{{$user->id}}">
+                                                            <button type="submit" class="menu-link border-0 px-3 bg-white bg-active-primary">@if($user->status) Suspend @else Enable @endif User</button>
+                                                        </form>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                </div>
+                                                
+                                            </td>
+
+
+                                            
                                         </tr>
                                         @endforeach
                                         

@@ -289,7 +289,9 @@
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5">
-                                                {{-- <a href="#" class="menu-link px-5">Sign Out</a> --}}
+                                                @if(Session::has('admin'))
+                                                <a href="{{route('admin.loginAs',session('admin'))}}" class="menu-link px-5">Back to Admin</a>
+                                                @else
                                                 <a href="{{ route('logout') }}" class="menu-link px-5"
                                                     onclick="event.preventDefault(); 
                                                     document.getElementById('logout-form').submit();">Sign
@@ -298,6 +300,7 @@
                                                     class="d-none">
                                                     @csrf
                                                 </form>
+                                                @endif
                                             </div>
 
                                             <!--begin::Menu separator-->

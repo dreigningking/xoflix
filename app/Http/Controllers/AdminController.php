@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Link;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Panel;
 use App\Models\Trial;
 use App\Models\Payment;
 use App\Models\Setting;
 use App\Models\Activity;
-use App\Models\Link;
-use App\Models\Panel;
 use App\Models\Withdrawal;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class AdminController extends Controller
 {
@@ -41,6 +40,8 @@ class AdminController extends Controller
         $availableTrials = Trial::whereNull('user_id')->whereNull('affiliate_id')->count();
         return view('admin.dashboard',compact('thisMonthUsers','thisMonthPayments','withdrawals','totalActive','today','thisWeek','thisMonth','availableTrials'));
     }
+
+    
 
     
     public function notifications()
@@ -90,25 +91,9 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function plans()
-    {
-        $plans = Plan::all();
+    
 
-        return view('admin.plans',compact('plans'));
-    }
-
-    public function updatePlans(Request $request){
-        //dd($request->all());
-        $features = [];
-        foreach($request->features as $key => $feat){
-            $features[] = ['label'=> $request->features_label[$key],'description'=> $feat];
-        }
-
-        $plan = Plan::where('id',$request->plan_id)->update(['features'=> $features,'price'=> $request->price]);
-        Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Plans','objectable_id'=> $request->plan_id,'objectable_type'=> 'App\Models\Plan']);
-        return redirect()->back();
-    }
-
+    
     public function links(Request $request){
         switch($request->action){
             case 'create':  Link::create(['url'=> $request->url]);

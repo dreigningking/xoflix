@@ -101,40 +101,63 @@
                     <div class="card-header card-header-stretch">
                         <div class="card-title">
                             <h3>Payments </h3>
-                        </div>
-                        <div class="card-toolbar m-0">
                             
-                            <div class="">
-                                <span class="fw-bold">{{$payments->where('status','paid')->count()}} Pending Confirmation, {{$payments->where('sub_status',false)->count()}} Pending Subscription</span>
-                                <button type="button" class="btn btn-light-primary me-3 mt-4" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    Filter
-                                </button>
-                                <!--begin::Menu 1-->
-                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                                    <!--begin::Header-->
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                    </div>
-                                    <!--end::Header-->
-
-                                    <!--begin::Separator-->
-                                    <div class="separator border-gray-200"></div>
-                                    <!--end::Separator-->
-
-                                    <!--begin::Content-->
-                                    <div class="px-7 py-3" data-kt-user-table-filter="form">
-                                        <form action="#" method="get">
+                        </div>
+                        <div class="card-title">
+                            
+                            <span class="fs-6">{{$payments->where('status','paid')->count()}} Pending Confirmation, {{$payments->where('sub_status',false)->count()}} Pending Subscription</span>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center collapsible py-3 toggle collapsed mb-0" data-bs-toggle="collapse" data-bs-target="#kt_job_1">
+                            <!--begin::Icon-->
+                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen036.svg-->
+                                <span class="svg-icon toggle-on svg-icon-primary svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                        <rect x="6.0104" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                <span class="svg-icon toggle-off svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="black" />
+                                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="black" />
+                                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Icon-->
+                            <!--begin::Title-->
+                            <h4 class="text-gray-700 fw-bolder cursor-pointer mb-0">Manage</h4>
+                            <!--end::Title-->
+                        </div>
+                        <div class="m-0">
+                            <!--begin::Heading-->
+                            
+                            <!--end::Heading-->
+                            <!--begin::Body-->
+                            <div id="kt_job_1" class="collapse fs-6 ms-1">
+                                <!--begin::Text-->
+                                <div class="mb-4 text-gray-600 fw-bold fs-6">
+                                    <form action="#" class="my-1">
+                                        <div class="d-md-flex flex-wrap justify-content-between">
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold d-block">User: </label>
                                                 <div class="">
-                                                    <input class="form-control" value="{{$name}}" type="text" name="name">
+                                                    <input class="form-control w-md-250" value="{{$name}}" type="text" name="name">
                                                 </div>
                                             </div>
-
+                
                                             <!--begin::Input group-->
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold mr-4">Status: </label>
-                                                <select name="status" id="" class="form-select">
+                                                <select name="status" id="" class="form-select w-md-200px">
                                                     <option value="" @if(!$status) selected @endif>All</option>
                                                     <option value="paid" @if($status == 'paid') selected @endif>Paid</option>
                                                     <option value="pending" @if($status == 'pending') selected @endif>Pending</option>
@@ -143,26 +166,35 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
+                                                <label class="form-label fs-6 fw-semibold mr-4">From: </label>
+                                                <input name="from" value="{{$from}}" type="date" class="form-control  " >
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fs-6 fw-semibold mr-4">To: </label>
+                                                <input name="from" value="{{$to}}" type="date" class="form-control " >
+                                            </div>
+                                            <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold mr-4">Sort Date: </label>
-                                                <select name="sortBy" id="" class="form-select">
+                                                <select name="sortBy" id="" class="form-select w-md-200px">
                                                     <option value="date_desc" @if($sortBy == 'date_desc') selected @endif>Descending</option>
                                                     <option value="date_asc" @if($sortBy == 'date_asc') selected @endif>Ascending</option>
                                                 </select>
                                             </div>
-
+                
                                             <!--begin::Actions-->
-                                            <div class="d-flex justify-content-end">
-                                                <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                                <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                            <div class="mb-3 pt-8">
+                                                <button type="submit" class="btn btn-primary fw-semibold me-2 px-6" name="download" value="0">Filter</button>
+                                                <button type="submit" class="btn btn-info fw-semibold px-6" name="download" value="1">Download</button>
                                             </div>
-                                            <!--end::Actions-->
-                                        </form>
-                                    </div>
-                                    <!--end::Content-->
+                                        </div>
+                                    </form>
                                 </div>
-
+                                <!--end::Text-->
                             </div>
+                            <div class="separator separator-dashed"></div>
                         </div>
+                        
                     </div>
                     
                     <div class="table-responsive">
@@ -456,8 +488,11 @@
 
                                         <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
                                             <option value=""></option>
-                                            <option value="1">Regular Plan</option>
-                                            <option value="2">Special Plan</option>
+                                            @foreach ($plans as $plan)
+                                            <option value="{{$plan->id}}">{{$plan->name}} Plan</option>
+                                            @endforeach
+                                            
+                                            
                                         </select>
                                         
                                     </div>

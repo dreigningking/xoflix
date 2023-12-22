@@ -32,7 +32,9 @@ class User extends Authenticatable
         'state',
         'whatsapp',
         'image',
-        'referred_by'
+        'referred_by',
+        'balance',
+        'email_notify'
     ];
 
     /**
