@@ -175,22 +175,100 @@
                                 <tr>
                                     <td class="text-center p-2">
                                         <div class="d-flex flex-column">
-                                            <h1 class="">{{ $plan->name }} Details</h1>
+                                            <h1 class="">{{ $plan->name }} Plan Features</h1>
                                         </div>
                                     </td>
                                 </tr>
-                                @foreach ($plan->features as $feature)
-                                    <tr>
-                                        <td class="text-center p-2">
-                                            <div class="d-flex flex-column">
-                                                <div class="pe-2 fs-5 fw-bold">
-                                                    {{ $feature['label'] }}:</div>
-                                                <div>{{ $feature['description'] }}</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Channel:</div>
+                                            <div>{{ $plan->channels }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                HD Quality:</div>
+                                            <div>{{ $plan->hd_quality }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Video On Demand:</div>
+                                            <div>{{ $plan->video_on_demand }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Sports:</div>
+                                            <div>{{ $plan->sports }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                International Channels:</div>
+                                            <div>{{ $plan->intl_channels }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Customer Support:</div>
+                                            <div>{{ $plan->customer_support }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Device Compatibility:</div>
+                                            <div>{{ $plan->device_compatibility }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Servers:</div>
+                                            <div>{{ $plan->servers }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Movie Organization:</div>
+                                            <div>{{ $plan->movie_organization }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center p-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="pe-2 fs-5 fw-bold">
+                                                Adult Channels:</div>
+                                            <div>{{ $plan->adult_channels }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
 
                             </table>
 
