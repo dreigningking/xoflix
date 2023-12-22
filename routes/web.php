@@ -96,5 +96,5 @@ Route::post('support',[SupportController::class, 'send'])->name('support');
 Route::get('check',function(){
     $plan = \App\Models\Plan::find(2);
      dd($plan->getAttributes());
-    // dd($plan->features);
+
 });
