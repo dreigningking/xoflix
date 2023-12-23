@@ -43,10 +43,11 @@ class SubscriptionActiveNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Subscription details for '.$this->subscription->plan->name.' '.$this->subscription->duration.' Month'.' is as follows:')
-                    ->line('Xtream Username: '.$this->subscription->username)
-                    ->line('Xtream Password: '.$this->subscription->password)
-                    ->line('Xtream Link: '.$this->subscription->link->url)
-                    ->line('M3u Link: '.$this->subscription->m3u_link)
+                    ->line('NAME: XOFLIX')
+                    ->line('Username: '.$this->subscription->username)
+                    ->line('Password: '.$this->subscription->password)
+                    ->line('XTREAM URL: '.$this->subscription->link->url)
+                    ->line('SMART TV URL: '.$this->subscription->m3u_link)
                     ->action('View Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
     }

@@ -3,9 +3,11 @@
     <div class="card-header border-0 pt-5 pb-3">
         <!--begin::Card title-->
         <h3 class="card-title fw-bolder text-gray-800 fs-2">Current Subscription Summary</h3>
+        @if(Route::is('subscription'))
         <div class="card-toolbar">
             <a href="{{route('subscription.purchase')}}" class="btn btn-info">Purchase Subscription</a>
         </div>
+        @endif
     </div>
     <!--end::Header-->
     <!--begin::Body-->
@@ -16,7 +18,7 @@
                 <div class="py-5 d-flex flex-column justify-content-between">
                     @foreach ($user->activeSubscriptions as $subscription)
                         <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_{{$subscription->id}}">
-                            Subscription: {{$subscription->username}}
+                            View Subscription
                         </button>
                         <div class="modal fade" tabindex="-1" id="kt_modal_stacked_{{$subscription->id}}">
                             <div class="modal-dialog modal-dialog-centered modal-lg">

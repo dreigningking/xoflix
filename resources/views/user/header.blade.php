@@ -67,71 +67,59 @@
             <div class="d-flex flex-column flex-grow-1 pe-8">
                 <!--begin::Stats-->
                 <div class="d-flex flex-wrap">
-                <div class="d-flex">
-                    <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
-                        <span class="fs-4 fw-semibold text-info pb-1 px-2">Subscriptions</span>
-                        <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
-                            <span data-kt-countup="true" data-kt-countup-value="{{$user->activeSubscriptions->count()}}">0</span>
-                        </span>
-                    </div>
+                    <div class="d-flex">
+                        <!--begin::Stat-->
+                        <div class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">
+                            <span class="fs-4 fw-semibold text-info pb-1 px-2">Subscriptions</span>
+                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                <span data-kt-countup="true" data-kt-countup-value="{{$user->activeSubscriptions->count()}}">0</span>
+                            </span>
+                        </div>
 
-                    <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
-                        <span class="fs-4 fw-semibold text-primary pb-1 px-2">Referral </span>
-                        <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
-                            <span data-kt-countup="true" data-kt-countup-value="{{$user->referrals->count()}}">0</span>
-                        </span>
-                        <!--end::Label-->
+                        <!--begin::Stat-->
+                        <div class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">
+                            <span class="fs-4 fw-semibold text-primary pb-1 px-2">Referral </span>
+                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                <span data-kt-countup="true" data-kt-countup-value="{{$user->referrals->count()}}">0</span>
+                            </span>
+                            <!--end::Label-->
+                        </div>
+
+                        <div class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">
+                            <span class="fs-4 fw-semibold text-success pb-1 px-2">Balance</span>
+                            <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
+                                ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->balance}}">0</span>
+                            </span>
+                            <!--end::Label-->
+                        </div>
+                        
                     </div>
                     
                 </div>
-                <div class="d-flex">
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
-                        <span class="fs-4 fw-semibold text-info pb-1 px-2">Earnings</span>
-                        <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
-                            ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->earnings->sum('amount')}}">0</span>
-                        </span>
-                    </div>
-                    <!--end::Stat-->
-
-                    <!--begin::Stat-->
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 text-center">
-                        <span class="fs-4 fw-semibold text-success pb-1 px-2">Balance</span>
-                        <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
-                            ₦<span data-kt-countup="true" data-kt-countup-value="{{$user->balance}}">0</span>
-                        </span>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Stat-->
-
-                    <!--begin::Stat-->
-                    
-                    <!--end::Stat-->
-                </div></div>
                 <!--end::Stats-->
             </div>
-            <!--end::Wrapper-->
+            
 
-            <!--begin::Progress-->
-            <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
-                <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                    <span class="fw-semibold fs-6 text-gray-400">Profile
-                        Completion</span>
-                    <span class="fw-bold fs-6">
-                        @if($user->phone && $user->account_name) 100 @elseif($user->phone) 70 @else 50 @endif%</span>
-                </div>
+            <div class="d-flex justify-content-end">
+                <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                    <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                        <span class="fw-semibold fs-6 text-gray-400">Profile
+                            Completion</span>
+                        <span class="fw-bold fs-6">
+                            @if($user->phone && $user->account_name) 100 @elseif($user->phone) 70 @else 50 @endif%</span>
+                    </div>
 
-                <div class="h-5px mx-3 w-100 bg-light mb-3">
-                    <div class="bg-success rounded h-5px" role="progressbar"
-                        style="width: 20%;" aria-valuenow="{{$user->phone && $user->account_name ? 100 : ($user->phone ? 70 : 50)}}" aria-valuemin="0"
-                        aria-valuemax="100"></div>
+                    <div class="h-5px mx-3 w-100 bg-light mb-3">
+                        <div class="bg-success rounded h-5px" role="progressbar"
+                            style="width: 20%;" aria-valuenow="{{$user->phone && $user->account_name ? 100 : ($user->phone ? 70 : 50)}}" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    
                 </div>
-                
-            </div><a href="{{route('profile')}}" class="btn btn-primary me-8 d-md-none">Profile</a>
-            <!--end::Progress-->
+                <a href="{{route('profile')}}" class="btn btn-primary pb-1 ms-2 mt-3 d-md-none">Profile</a>
+            </div>
         </div>
-        <!--end::Stats-->
+        
     </div>
     <!--end::Info-->
 </div>

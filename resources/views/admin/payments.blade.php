@@ -172,7 +172,7 @@
                                             
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold mr-4">To: </label>
-                                                <input name="from" value="{{$to}}" type="date" class="form-control " >
+                                                <input name="to" value="{{$to}}" type="date" class="form-control " >
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold mr-4">Sort Date: </label>
@@ -206,6 +206,7 @@
                                     <th class="min-w-125px ps-0">Amount</th>
                                     <th class="min-w-125px px-0">Subscription Status</th>
                                     <th class="min-w-125px ps-0">Payment Status</th> 
+                                    <th class="min-w-125px ps-0 text-center">Action</th> 
                                 </tr>
                             </thead>
                             <tbody class="fs-6 fw-semibold text-gray-600">
@@ -241,25 +242,50 @@
                                                 Awaiting Confirmation
                                             @endif
                                         </td>
+                                        
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @if ($payment->status == 'success') 
                                                     <span class="text-success"> {{ ucwords($payment->status) }} </span>
                                                 @elseif($payment->status == 'paid') 
-                                                    <form action="{{route('admin.payments.confirmation')}}" method="POST" onsubmit="return confirm('Are you sure you want to confirm payment?')">@csrf
-                                                        <input type="hidden" name="payment_id" value="{{$payment->id}}">
-                                                        <button class="btn btn-sm btn-primary">Confirm</button>
-                                                    </form>
+                                                    <span class="text-info mx-2"> {{ ucwords($payment->status) }}  </span>
                                                 @elseif($payment->status == 'failed') 
                                                     <span class="text-danger mx-2"> {{ ucwords($payment->status) }}  </span>
                                                 @else 
                                                     <span class="text-warning mr-2"> {{ ucwords($payment->status) }}  </span>
                                                 @endif
-                                                <form action="{{route('admin.payments.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete payment?')">@csrf
-                                                    <input type="hidden" name="payment_id" value="{{$payment->id}}">
-                                                    <button class="btn btn-sm btn-danger ms-2 px-2 text-center"> <i class="fa fs-2 ps-1 fa-trash"></i> </button>
-                                                </form>
+
+                                                
                                             </div>
+                                        </td>
+                                        <td>
+                                            <a href="#"
+                                                class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                Actions
+                                                <i class="ki-duotone ki-down fs-5 ms-1"></i> 
+                                            </a>
+                                            <!--begin::Menu-->
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                                data-kt-menu="true">
+                                                <!--begin::Menu item-->
+                                                @if($payment->status == 'paid') 
+                                                <div class="menu-item px-3">
+                                                    <form action="{{route('admin.payments.confirmation')}}" method="POST" onsubmit="return confirm('Are you sure you want to confirm payment?')">@csrf
+                                                        <input type="hidden" name="payment_id" value="{{$payment->id}}">
+                                                        <button class="menu-link border-0 px-3 bg-white bg-active-primary">Confirm</button>
+                                                    </form>
+                                                </div>  
+                                                @endif 
+                                                <div class="menu-item px-3">
+                                                    <form action="{{route('admin.payments.delete')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete payment?')">@csrf
+                                                        <input type="hidden" name="payment_id" value="{{$payment->id}}">
+                                                        <button type="submit" class="menu-link border-0 px-3 bg-white bg-active-primary">Delete</button>
+                                                    </form>
+                                                </div>   
+                                                <!--end::Menu item-->
+                                            </div>
+                                            
                                         </td>
                                         <div class="modal fade" id="paiduser{{$payment->id}}" tabindex="-1" aria-hidden="true">
                                             <!--begin::Modal dialog-->
