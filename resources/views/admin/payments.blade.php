@@ -145,7 +145,7 @@
                             <div id="kt_job_1" class="collapse fs-6 ms-1">
                                 <!--begin::Text-->
                                 <div class="mb-4 text-gray-600 fw-bold fs-6">
-                                    <form action="#" class="my-1">
+                                    <form action="{{route('admin.payments')}}" class="my-1" method="GET">
                                         <div class="d-md-flex flex-wrap justify-content-between">
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-semibold d-block">User: </label>

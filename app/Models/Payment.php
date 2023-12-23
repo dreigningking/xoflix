@@ -14,7 +14,7 @@ class Payment extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = ['reference','user_id','amount','method','status','description','duration','sub_status','subscription_id'];
-
+    protected $dates = ['created_at','updated_at'];
     public static function boot(){
         parent::boot();
         parent::observe(new PaymentObserver);

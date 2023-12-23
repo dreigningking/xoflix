@@ -27,7 +27,7 @@ class PaymentController extends Controller
         $name = null;
         $from = null;
         $to = null;
-        $payments = Payment::whereNotNull('user_id')->orderBy('created_at','desc');
+        $payments = Payment::whereNotNull('user_id');
         if(request()->query() && request()->query('status')){
             $status = request()->query('status');
             $payments = $payments->where('status',strtolower($status));
@@ -39,6 +39,7 @@ class PaymentController extends Controller
                     $query->where('firstname','LIKE',"%$name%")->orWhere('lastname','LIKE',"%$name%");
                 });
         }
+        
         if(request()->query() && request()->query('from')){
             $from = request()->from;
             $payments = $payments->where('created_at','>=',$from);
@@ -47,16 +48,18 @@ class PaymentController extends Controller
             $to = request()->to;
             $payments = $payments->where('created_at','<=',$to);
         }
+
         if(request()->query() && request()->query('sortBy')){
             $sortBy = request()->query('sortBy');
-            if(request()->query('sortBy') == 'date_asc'){
-                $payments = $payments->orderBy('created_at','asc');
+            if($sortBy == 'date_asc'){
+                $payments = $payments->orderBy('created_at','ASC');
             }
-            if(request()->query('sortBy') == 'date_desc'){
-                $payments = $payments->orderBy('created_at','desc');
-            }
-            
+            if($sortBy == 'date_desc'){
+                $payments = $payments->orderBy('created_at','DESC');
+            } 
         }
+
+
         if(request()->query() && request()->query('download')){
             return Excel::download(new PaymentsExport($payments->get()), 'payments.xlsx');
         }
