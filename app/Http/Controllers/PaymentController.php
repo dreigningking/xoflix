@@ -57,6 +57,8 @@ class PaymentController extends Controller
             if($sortBy == 'date_desc'){
                 $payments = $payments->orderBy('created_at','DESC');
             } 
+        }else{
+            $payments = $payments->orderBy('created_at','DESC');
         }
 
 

@@ -69,12 +69,12 @@
                 <div class="d-flex flex-wrap">
                     <div class="d-flex">
                         <!--begin::Stat-->
-                        <div class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">
+                        <a href="{{route('subscription')}}" class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">
                             <span class="fs-4 fw-semibold text-info pb-1 px-2">Subscriptions</span>
                             <span class="fs-lg-2qx fw-bold d-flex justify-content-center">
                                 <span data-kt-countup="true" data-kt-countup-value="{{$user->activeSubscriptions->count()}}">0</span>
                             </span>
-                        </div>
+                        </a>
 
                         <!--begin::Stat-->
                         <div class="border border-gray-300 border-dashed rounded py-3 px-2  mb-3 text-center">

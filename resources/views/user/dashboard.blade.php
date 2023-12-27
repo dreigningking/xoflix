@@ -74,6 +74,17 @@
     <!--begin::Referral program-->
     <div class="tab-content">
         <div id="dashboard" class="tab-pane fade @if(Route::is('dashboard')) active show @endif" role="tabpanel" aria-labelledby="dashboard_tab">
+           <div class="card mb-5 mb-xl-10">
+                <div class="card-body">
+                    <div class="row gy-5 g-xl-8">
+                        <div class="col-xxl-12">
+                            <!--begin::Table Widget 1-->
+                            @include('layouts.current_subscription')
+                            <!--end::Table Widget 1-->
+                        </div>
+                    </div>  
+                </div>
+            </div> 
            @if(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7))->isNotEmpty())
             <div class="card mb-5 mb-xl-10">
                 <div class="card-body">
@@ -104,17 +115,7 @@
                 </div>
             </div>   
            @endif
-            <div class="card mb-5 mb-xl-10">
-                <div class="card-body">
-                    <div class="row gy-5 g-xl-8">
-                        <div class="col-xxl-12">
-                            <!--begin::Table Widget 1-->
-                            @include('layouts.current_subscription')
-                            <!--end::Table Widget 1-->
-                        </div>
-                    </div>  
-                </div>
-            </div>   
+              
         </div>
 
         <div id="transactions" class="tab-pane fade @if(Route::is('transactions')) active show @endif" role="tabpanel" aria-labelledby="transactions_tab">
