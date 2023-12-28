@@ -175,7 +175,6 @@ class SubscriptionController extends Controller
     }
 
     public function renew(Request $request){
-        dd($request->all());
         $subscription = Subscription::find($request->subscription_id);
         $plan = Plan::find($subscription->plan_id);
         $amount = $plan->price * $request->duration * $subscription->connections;
