@@ -117,10 +117,13 @@
                                 @if($subscription->end_at->diffInDays(now()) > 7 )
                                     <span>{{$subscription->end_at->format('d M Y h:i A')}}</span>
                                 @else 
-                                    <form action="{{route('subscription.renew')}}" method="post">@csrf
-                                        <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
-                                        <button type="submit" class="btn btn-sm btn-primary">Renew</button>
-                                    </form>
+                                <form action="{{route('subscription.renew')}}" method="post">@csrf
+                                    <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
+                                    <input type="hidden" name="description" value="renew">
+                                    <input type="hidden" name="duration" value="{{$subscription->duration}}">
+                                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> Renew</button>
+                                </form>
+                                    
                                 @endif
                                 
                             </td>
