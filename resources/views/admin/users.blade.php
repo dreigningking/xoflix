@@ -77,7 +77,7 @@
                                                     
                                                     <div class="d-flex justify-content-start flex-column">
                                                         <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
-                                                            <span class="clipboard_value">{{$user->name}}</span>
+                                                            <span class="clipboard_value">{{$user->name}} </span> @if($user->activeSubscriptions->isNotEmpty()) <i class="bi bi-star-fill"></i> @endif
                                                             <button class="copy_button px-2 py-1 btn btn-light border border-dark btn-sm">
                                                                 <span class="svg-icon svg-icon-2 copy_icon">
                                                                     Copy

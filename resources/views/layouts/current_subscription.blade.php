@@ -348,50 +348,50 @@
     </div>
 
     @if(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7))->isNotEmpty())
-<div class="card-body px-0 px-md-9">
-    <h3 class=" fw-bolder text-gray-800 fs-2">Subscription Expiry</h3>
-    <div class=" pe-md-10 mb-10 mb-md-0">
-        You have subscriptions that are expiring within 7 days or less. Renew your subscriptions or purchase new subscriptions to continue to have access to Xoflix TV
-    </div>
+    <div class="card-body px-0 px-md-9">    
+        <div class="alert alert-warning" role="alert">
+            <h3 class=" fw-bolder text-gray-800 fs-2">Subscription Expiry</h3>
+            You have subscriptions that are expiring within 7 days or less. Renew your subscriptions or purchase new subscriptions to continue to have access to Xoflix TV
+        </div>    
+    </div>    
+    @endif
     @if(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','<',now())->isNotEmpty())
-    <div class="pe-md-10 my-10">
-        <h4>Expired Subscriptions</h4>
-        <div class="table-responsive">
-        <table class="table borderless">
-            <tr>
-                <th>Start Date</th>
-                <th>Details</th>
-                <th>Renew</th>
-            </tr>
-            @foreach(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','<',now()) as $subscription)
-            <tr>
-                <td>
-                    {{$subscription->start_at->format('d M Y h:i A')}}
-                </td>
-                <td>
-                    <span class="">USERNAME:{{$subscription->username}}  | </span><span  class="d-m-block text-nowrap">PASSWORD: {{$subscription->password}}</span> <br>
-                    <span class="d-block text-nowrap"> XTREAM URL {{$subscription->panel->xtream_url}} |</span> <span class="d-m-block text-nowrap"> SMART URL {{$subscription->panel->smart_url}}</span>
-                </td>
-                <td>
+    <div class="card-body px-0 px-md-9">
+        <h3 class=" fw-bolder text-gray-800 fs-2">Expired Subscriptions</h3>
+        <div class="pe-md-10 my-10">
+            <div class="table-responsive">
+            <table class="table borderless">
+                <tr>
+                    <th>Start Date</th>
+                    <th>Details</th>
+                    <th>Renew</th>
+                </tr>
+                @foreach(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','<',now()) as $subscription)
+                <tr>
+                    <td>
+                        {{$subscription->start_at->format('d M Y h:i A')}}
+                    </td>
+                    <td>
+                        <span class="">USERNAME:{{$subscription->username}}  | </span><span  class="d-m-block text-nowrap">PASSWORD: {{$subscription->password}}</span> <br>
+                        <span class="d-block text-nowrap"> XTREAM URL {{$subscription->panel->xtream_url}} |</span> <span class="d-m-block text-nowrap"> SMART URL {{$subscription->panel->smart_url}}</span>
+                    </td>
+                    <td>
+                        
+                        <form action="{{route('subscription.renew')}}" method="post" onsubmit="return confirm('Are you sure you want to renew')">@csrf
+                            <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
+                            <input type="hidden" name="description" value="renew">
+                            <input type="hidden" name="duration" value="{{$subscription->duration}}">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> Renew</button>
+                        </form>
+                        
+                    </td>
                     
-                    <form action="{{route('subscription.renew')}}" method="post" onsubmit="return confirm('Are you sure you want to renew')">@csrf
-                        <input type="hidden" name="subscription_id" value="{{$subscription->id}}">
-                        <input type="hidden" name="description" value="renew">
-                        <input type="hidden" name="duration" value="{{$subscription->duration}}">
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> Renew</button>
-                    </form>
-                    
-                </td>
-                
-            </tr>
-            @endforeach
-        </table>
+                </tr>
+                @endforeach
+            </table>
+            </div>
         </div>
     </div>
     @endif
-</div>
-
-@endif
-    
     <!--end::Body-->
 </div>
