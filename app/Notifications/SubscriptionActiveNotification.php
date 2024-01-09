@@ -46,8 +46,8 @@ class SubscriptionActiveNotification extends Notification
                     ->line('NAME: XOFLIX')
                     ->line('Username: '.$this->subscription->username)
                     ->line('Password: '.$this->subscription->password)
-                    ->line('XTREAM URL: '.$this->subscription->link->url)
-                    ->line('SMART TV URL: '.$this->subscription->m3u_link)
+                    ->line('XTREAM URL: '.$this->subscription->panel->xtream_url)
+                    ->line('SMART TV URL: '.$this->subscription->panel->smart_url)
                     ->action('View Dashboard', route('dashboard'))
                     ->line('Thank you for using Xoflix!');
     }

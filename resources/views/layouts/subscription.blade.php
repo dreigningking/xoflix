@@ -3,7 +3,7 @@
     <div class="card-body px-5 px-lg-20 pt-17 pb-10">
         <div class="py-5 d-flex flex-column justify-content-between">
             @foreach ($plans as $plan)
-            <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_{{$plan->id}}">
+            <button type="button" class="btn btn-primary my-5" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_{{$plan->id}}">
                 {{$plan->name}} Plan
             </button>
 
@@ -284,12 +284,29 @@
             </div>
             @endforeach
             
-            {{-- <div class="card-footer d-flex justify-content-center py-6 px-9 ">
-                    <button type="submit" class="btn btn-primary total_area px-6" style="display:none;">
-                        Pay ₦ <span id="grandtotal"></span>
-                    </button>
+            <!--begin::Accordion-->
+            <div class="accordion accordion-icon-collapse" id="kt_accordion_3">
+                
+                <div class="mt-5">
+                    <!--begin::Header-->
+                    <div class="accordion-header py-3 d-flex collapsed" data-bs-toggle="collapse" data-bs-target="#kt_accordion_3_item_2">
+                        <span class="accordion-icon">
+                        <i class="ki-duotone ki-plus-square fs-3 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                        <i class="ki-duotone ki-minus-square fs-3 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
+                        </span>
+                        <h3 class="fs-4 fw-semibold mb-0 ms-4">Features</h3>
+                    </div>
+                    <!--end::Header-->
+
+                    <!--begin::Body-->
+                    <div id="kt_accordion_3_item_2" class="collapse fs-6 ps-10" data-bs-parent="#kt_accordion_3">
+                        <img src="{{asset('media/features.jpeg')}}" alt="" class="img-fluid">
+                    </div>
+                    <!--end::Body-->
                 </div>
-                --}}
+                
+            </div>
+            <!--end::Accordion-->
         </div>
 
     </div>

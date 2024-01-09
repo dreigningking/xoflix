@@ -196,8 +196,8 @@
                                         <td class="text-center">
                                             <button type="button" class="btn btn-light btn-sm btn-active-light-primary sub_details" 
                                                 data_subscription="{{$subscription->id}}" data_username="{{$subscription->username}}" 
-                                                data_password="{{$subscription->password}}" data_link_id="{{$subscription->link_id}}" 
-                                                data_m3u_link="{{$subscription->m3u_link}}" data_panel_id="{{$subscription->panel_id}}" 
+                                                data_password="{{$subscription->password}}" data_smart_url="{{$subscription->panel->smart_url}}" 
+                                                data_xtream_url="{{$subscription->panel->xtream_url}}" data_panel_id="{{$subscription->panel_id}}" 
                                                 data_user_id="{{$subscription->user_id}}" data_start="{{$subscription->start_at->format('m/d/Y h:i A')}}"
                                                 data_expiry="{{$subscription->end_at->format('m/d/Y h:i A')}}" data_plan="{{$subscription->plan->id}}">View</button>
                                         </td>
@@ -244,7 +244,7 @@
                                             <span class="required">Username</span>
                                         </label>
                                         <div class="input-group input-group-lg">
-                                            <input type="text" value="" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" placeholder="Username" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <input type="text" value="" id="edit_username" placeholder="username" name="username" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="paste_url"/>
                                             <span class="input-group-text paste_button">Paste</span>
                                         </div>
                 
@@ -266,43 +266,39 @@
                                     <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">URL</span>
-                                        </label>
-
-                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL" required>
-                                            <option value=""></option>
-                                            @foreach ($links as $link)
-                                                <option value="{{$link->id}}">{{$link->url}}</option>
-                                            @endforeach
-                                        </select>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
                                             <span class="required">Panel</span>
                                         </label>
 
                                         <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
                                             <option value=""></option>
                                             @foreach ($panels as $panel)
-                                                <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                            <option value="{{$panel->id}}" data-smart_url="{{$panel->smart_url}}" data-xtream_url="{{$panel->xtream_url}}">{{$panel->name}}</option>
                                             @endforeach
                                         </select>
                                         
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="d-flex flex-column mb-2 fv-row fv-plugins-icon-container">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Smart Url</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" value="" id="edit_smart_url" placeholder="Smart Url" name="smart_url" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="smart_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Smart TV Link</span>
+                                            <span class="required">Xtream URL</span>
                                         </label>
-                                        <!--end::Label-->
                                         <div class="input-group input-group-lg">
-                                            <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <input type="text" value="" id="edit_xtream_url" placeholder="Xtream Url" name="xtream_url" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="xtream_url"/>
                                             <span class="input-group-text paste_button">Paste</span>
                                         </div>
                                         
@@ -380,7 +376,7 @@
     </div>
 @endsection
 @push('scripts')
-    {{-- <script src="{{ asset('plugins/tempus-dominus.init.js') }}"></script> --}}
+    var subscription_panel;
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>
         
@@ -396,20 +392,18 @@
             $('#subscription_id').val($(this).attr('data_subscription'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
-            $('#edit_link_id').val($(this).attr('data_link_id')).trigger("change")
-            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
             $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
             $('#edit_user_id').val($(this).attr('data_user_id'))
-            
             $('#kt_td_picker_basic_input').val($(this).attr('data_start'))
             $('#kt_td_picker_basic_input2').val($(this).attr('data_expiry'))
             $('#edit_plan').val($(this).attr('data_plan')).trigger("change")
-            
-
             $('#sub_details').modal('show')
             
         })
-        
+        $(document).on('change','#edit_panel_id',function(e){
+            $('#edit_smart_url').val($('option:selected', this).attr('data-smart_url'))
+            $('#edit_xtream_url').val($(this).find(':selected').attr('data-xtream_url'))
+        });
     </script>
 
 @endpush    

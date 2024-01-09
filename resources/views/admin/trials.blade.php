@@ -127,21 +127,7 @@
                     
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">URL</span>
-                                            </label>
-            
-                                            <select name="link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
-                                                @foreach ($links as $link)
-                                                    <option value="{{$link->id}}">{{$link->url}}</option>
-                                                @endforeach
-                                            </select>
-                                            
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-4">
                                         <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                             <!--begin::Label-->
@@ -157,23 +143,7 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Smart TV Link</span>
-                                            </label>
-                                            <!--end::Label-->
-                    
-                                            {{-- <input type="url" class="form-control form-control-solid" placeholder="https://" name="link" required> --}}
-                    
-                                            <div class="input-group input-group-lg">
-                                                <input type="url" name="m3u_link" id="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                                <span class="input-group-text paste_button">Paste</span>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
+                                    
                                    
 
                                 </div>
@@ -296,9 +266,7 @@
 
                                     </tr>
                                 </thead>
-                                <!--end::Thead-->
-
-                                <!--begin::Tbody-->
+                                
                                 <tbody class="fs-6 fw-semibold text-gray-600">
                                     @foreach ($trials as $trial)
                                     <tr data-trial="{{$trial->id}}">
@@ -315,24 +283,11 @@
                                                 
                                         </td>
                                         
-                                        {{-- <td class="text-nowrap">
-                                            <div class="flex-grow-1">
-                                                <span class="text-gray-400 text-hover-primary fs-5">
-                                                    {{$trial->link->url}}
-                                                </span>
-                                                
-                                                <span class="text-gray-400 d-block fs-7">User: {{$trial->username}} | Password:
-                                                    {{$trial->password}}</span>
-                                                
-                                            </div>
-                                        </td> --}}
-
                                         <td class="text-center px-0">
                                             
                                             @if($trial->created_at->addHours(6) < now() || (!$trial->user_id && !$trial->affiliate_id))
                                             <button type="button" class="btn btn-light btn-sm btn-active-light-primary selectuser" 
                                                 data_trial="{{$trial->id}}" data_username="{{$trial->username}}" data_password="{{$trial->password}}"
-                                                data_link_id="{{$trial->link_id}}" data_m3u_link="{{$trial->m3u_link}}"
                                                 data_panel_id="{{$trial->panel_id}}" data_user_id="{{$trial->user_id}}">View</button>
                                             @elseif($trial->affiliate_id)
                                             Shared
@@ -490,21 +445,7 @@
             
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">URL</span>
-                                    </label>
-    
-                                    <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL">
-                                        @foreach ($links as $link)
-                                            <option value="{{$link->id}}">{{$link->url}}</option>
-                                        @endforeach
-                                    </select>
-                                    
-                                </div>
-                            </div>
+                            
                             <div class="col-12">
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
@@ -520,23 +461,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                        <span class="required">Smart TV Link</span>
-                                    </label>
-                                    <!--end::Label-->
-            
-                                    
-            
-                                    <div class="input-group input-group-lg">
-                                        <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
-                                        <span class="input-group-text paste_button">Paste</span>
-                                    </div>
-                                    
-                                </div>
-                            </div>
+                            
                             
                             <div class="col-12">
                                 <label class="form-label">User</label>
@@ -579,8 +504,6 @@
             $('.trial_id').val($(this).attr('data_trial'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
-            $('#edit_link_id').val($(this).attr('data_link_id'))
-            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
             $('#edit_panel_id').val($(this).attr('data_panel_id'))
             $('#edit_user_id').val($(this).attr('data_user_id'))
             $('#selectuser').modal('show')

@@ -85,36 +85,7 @@
                     </div>  
                 </div>
             </div> 
-           @if(auth()->user()->subscriptions->whereNotNull('end_at')->where('end_at','>',now())->where('end_at','>',now()->addDays(7))->isNotEmpty())
-            <div class="card mb-5 mb-xl-10">
-                <div class="card-body">
-                    <div class="row gy-5 g-xl-8">
-                        <div class="col-xxl-12">
-                            <!--begin::Table Widget 1-->
-                            <div class="card card-xxl-stretch">
-                                <!--begin::Header-->
-                                <div class="card-header border-0 pt-5 pb-3">
-                                    <!--begin::Card title-->
-                                    <h3 class="card-title fw-bolder text-gray-800 fs-2">Subscription Expiry</h3>
-                                    
-                                </div>
-                                <!--end::Header-->
-                                <!--begin::Body-->
-                                <div class="card-body px-0 px-md-9">
-                                    <!--begin::Table-->
-                                    <div class=" pe-md-10 mb-10 mb-md-0">
-                                        You have subscriptions that are expiring within 7 days or less. Renew your subscriptions or purchase new subscriptions to continue to have access to Xoflix TV
-                                    </div>
-                                </div>
-                                
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Table Widget 1-->
-                        </div>
-                    </div>  
-                </div>
-            </div>   
-           @endif
+           
               
         </div>
 
@@ -586,12 +557,12 @@
                                                 
                                                 <p class="ps-3 mb-0">
                                                     <span class="text-primary fw-bold fs-5  mb-1">Xtream Url: </span> 
-                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->link->url}}</span>
+                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->panel->xtream_url}}</span>
                                                 </p>
 
                                                 <p class="ps-3 mb-0">
                                                     <span class="text-primary fw-bold fs-5  mb-1">Smart Tv Url: </span> 
-                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->m3u_link}}</span>
+                                                    <span class="text-gray-400 fw-bold  d-inline">{{$trial->panel->smart_url}}</span>
                                                 </p>
                                             </div>
                                         </td>

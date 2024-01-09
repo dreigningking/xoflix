@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Payment;
 use App\Models\Subscription;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +29,10 @@ class UserController extends Controller
         $users = $users->where('created_at','>=',$from);
         if($to = request()->to)
         $users = $users->where('created_at','<=',$to);
-        if(request()->expectsJson())
-        return response()->json(['data'=> $users->get()],200);
-        else $users = $users->orderBy('firstname','asc')->paginate(50);
+        if(request()->query() && request()->query('download')){
+            return Excel::download(new UsersExport($users->get()), 'users.xlsx');
+        }
+        $users = $users->orderBy('firstname','asc')->paginate(50);
         return view('admin.users',compact('users','search','from','to'));
     }
 

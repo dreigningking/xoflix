@@ -32,7 +32,6 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('activities',[AdminController::class, 'activities'])->name('activities');
     Route::get('settings',[AdminController::class, 'settings'])->name('settings');
     Route::post('settings',[AdminController::class, 'updateSettings'])->name('settings');
-    Route::post('links',[AdminController::class, 'links'])->name('links');
     Route::post('panels',[AdminController::class, 'panels'])->name('panels');
     
     Route::group(['prefix'=> 'plans' ,'as'=> 'plans.'],function(){

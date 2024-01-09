@@ -11,15 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Trial extends Model
 {
     use HasFactory;
-    protected $fillable = ['username','password','link_id','panel_id','m3u_link'];
+    protected $fillable = ['username','password','panel_id'];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function link(){
-        return $this->belongsTo(Link::class);
-    }
     public function panel(){
         return $this->belongsTo(Panel::class);
     }

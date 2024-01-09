@@ -14,7 +14,7 @@ class Subscription extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','plan_id','m3u_link','username','password','link_id','panel_id','connections','start_at','end_at'];
+    protected $fillable = ['user_id','plan_id','username','password','panel_id','connections','start_at','end_at'];
     protected $casts = ['start_at'=> 'datetime','end_at'=> 'datetime'];
 
     public function getDurationAttribute(){

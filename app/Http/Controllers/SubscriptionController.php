@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Link;
 use App\Models\Plan;
 use App\Models\Panel;
 use App\Models\Trial;
@@ -40,11 +39,10 @@ class SubscriptionController extends Controller
             });
         }
         $subscriptions = $subscriptions->paginate(50);
-        $links = Link::all();
         $panels = Panel::all();
         $pendings = Subscription::whereHas('payment',function($query){
             $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
-        return view('admin.subscriptions', compact('subscriptions','links','panels','hide_expired', 'name', 'total', 'expired','pendings'));
+        return view('admin.subscriptions', compact('subscriptions','panels','hide_expired', 'name', 'total', 'expired','pendings'));
     }
 
     public function trials()
@@ -53,7 +51,7 @@ class SubscriptionController extends Controller
         $expiry = false;
         $shared = false;
         $assigned = false;
-        $trials = Trial::where('link_id', '!=', null);
+        $trials = Trial::where('panel_id', '!=', null);
         if ($expiry = request()->expiry) {
             $trials = $trials->where('created_at','>', now()->subHours(6));
         } 
@@ -68,9 +66,8 @@ class SubscriptionController extends Controller
         $expired = Trial::where('created_at', '<', now()->subHours(6))->count();
         $ongoing = Trial::where('created_at', '>', now()->subHours(6))->count();
         $available = Trial::whereNull('user_id')->whereNull('affiliate_id')->count();
-        $links = Link::all();
         $panels = Panel::all();
-        return view('admin.trials', compact('trials','links','panels', 'total','expired', 'ongoing', 'available', 'expiry','shared', 'assigned'));
+        return view('admin.trials', compact('trials','panels', 'total','expired', 'ongoing', 'available', 'expiry','shared', 'assigned'));
     }
 
     public function store(Request $request)
@@ -78,8 +75,6 @@ class SubscriptionController extends Controller
         $subscription = Subscription::find($request->subscription_id);
         $subscription->username = $request->username;
         $subscription->password = $request->password;
-        $subscription->m3u_link = $request->m3u_link;
-        $subscription->link_id = $request->link_id;
         $subscription->panel_id = $request->panel_id;
         if(!$subscription->start_at) $subscription->start_at =  now();
         $subscription->end_at = $subscription->end_at ? $subscription->end_at->addDays($request->days) : now()->addDays($request->days);
@@ -97,7 +92,7 @@ class SubscriptionController extends Controller
     public function trials_store(Request $request)
     {
         // dd($req
-        Trial::create(['username' => $request->username, 'password' => $request->password,'m3u_link'=> $request->m3u_link , 'link_id' => $request->link_id, 'panel_id' => $request->panel_id]);
+        Trial::create(['username' => $request->username, 'password' => $request->password,'panel_id' => $request->panel_id]);
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin created Trial']);
         return redirect()->back();
     }
@@ -114,9 +109,7 @@ class SubscriptionController extends Controller
                 }
                 if($request->username) $trial->user_id = $request->user_id;
                 if($request->password) $trial->password = $request->password;
-                if($request->link_id) $trial->link_id = $request->link_id;
                 if($request->panel_id) $trial->panel_id = $request->panel_id;
-                if($request->m3u_link) $trial->m3u_link = $request->m3u_link;
                 $trial->save();
                 Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin updated trial']);
                 return $request->expectsJson() ? response()->json(200) : redirect()->back();
@@ -165,8 +158,16 @@ class SubscriptionController extends Controller
         $plan = Plan::find($request->plan_id);
         $amount = $plan->price * $request->duration * $request->connections;
         $discountedAmount = $this->getDiscountedAmount($request->duration,$amount);
-        $subscription = Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id, 'connections'=> $request->connections]);
-        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $discountedAmount,'duration'=> $request->duration,'description'=> 'new','subscription_id'=> $subscription->id]);
+        $description = 'renew';
+        $subscription = $user->subscriptions->whereNotNull('end_at')->where('end_at','<',now())->where('plan_id',$plan->id)->first();
+        if(!$subscription) {
+            $subscription = Subscription::create(['plan_id'=> $request->plan_id,'user_id'=> $user->id, 'connections'=> $request->connections]);
+            $description = 'new';
+        }else{
+            $subscription->connections = $request->connections;
+            $subscription->save();
+        }
+        $payment = Payment::create(['reference' => uniqid(), 'user_id' => $user->id, 'amount' => $discountedAmount,'duration'=> $request->duration,'description'=> $description,'subscription_id'=> $subscription->id]);
         return redirect()->route('subscription.payment',$payment);
         // $response = $this->initiateFlutterWave($payment);
         // if (!$response)

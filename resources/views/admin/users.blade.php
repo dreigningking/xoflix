@@ -22,18 +22,20 @@
                                 
                                 <form action="#" id="searschForm">
                                     <div class="d-md-flex justify-content-between">
-                                        <input  name="search" value="{{$search}}" type="text" class="form-control form-control-solid w-250px m-3" placeholder="Search user">
+                                        <input  name="search" value="{{$search}}" type="text" class="form-control form-control-solid w-200px m-3" placeholder="Search user">
                                         <div class="m-3 d-flex align-items-center">
                                             <span class="fs-5">From:</span> 
-                                            <input name="from" value="{{$from}}" type="date" class="form-control form-control-solid " >
+                                            <input name="from" value="{{$from}}" type="date" class="form-control form-control-solid" >
                                         </div>
                                         <div class="m-3 d-flex align-items-center">
                                             <span class="fs-5">To:</span> 
-                                            <input name="to" value="{{$to}}" type="date" class="form-control form-control-solid " >
+                                            <input name="to" value="{{$to}}" type="date" class="form-control form-control-solid" >
                                         </div>
                                         <div class="m-3">
-                                            <button type="submit" class="btn btn-primary ">Filter</button>
+                                            <button type="submit" name="download" value="0" class="btn btn-primary ">Filter</button>
+                                            <button type="submit" name="download" value="1" class="btn btn-dark ms-1">Download</button>
                                         </div>
+                                        
                                     </div>
                                 </form>
                                     

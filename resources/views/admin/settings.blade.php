@@ -28,10 +28,7 @@
                                 </li>
                                 <!--end::Nav item-->
                                             <!--begin::Nav item-->
-                                <li class="nav-item mt-2">
-                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " data-bs-toggle="tab" role="tab" href="#urls">
-                                        URLS                    </a>
-                                </li>
+                                
                                 
                                 <li class="nav-item mt-2">
                                     <a class="nav-link text-active-primary ms-0 me-10 py-5 " data-bs-toggle="tab" role="tab" href="#panels">
@@ -350,81 +347,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tab-pane fade" id="urls" role="tabpanel">
-                                    <div class="card">
-                                        <div class="card-header border-0">
-                                            <div class="card-title m-0">
-                                                <h3 class="fw-bold m-0">Add Urls</h3>
-                                            </div>
-                                        </div>
-                                        <form class="form" action="{{route('admin.links')}}" method="POST">@csrf
-                                            <div class="card-body py-0 px-9">    
-                                                <div class="row mb-6">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">URL </label>
-                                                    <!--end::Label-->
-                
-                                                    <!--begin::Col-->
-                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <input type="url" value="" name="url" class="form-control form-control-lg  mb-3 mb-lg-0"
-                                                                    placeholder="Enter URL" >
-                                                        <div
-                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                                <div class="d-flex justify-content-start py-6 px-9">
-                                                    <button type="submit" name="action" value="create" class="btn btn-primary  px-6">Save</button>
-                                                </div>
-                                            </div>
-                                            
-                                        </form>
-                                        
-                                        <!--begin::Card body-->
-                                        <div class="card-body border-top px-9 mt-5 pb-4">
-                                            <h2 class="mb-9 d-flex flex-column flex-md-row justify-content-between">
-                                                <span>Links</span>
-                                                <div class="d-flex align-items-center position-relative my-1">
-                                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                                          </svg>
-                                                    </i>                
-                                                    <input type="text" id="searchlinks" class="form-control form-control-solid w-250px ps-12" placeholder="Search">
-                                                </div>
-                                            </h2>
-                                            <div class="table-responsive">
-                                                <table id="urlTable" class="table table-row-dashed border-gray-300 align-middle gy-6">
-                                                    <thead>
-                                                        <th>#</th>
-                                                        <th>Link</th>
-                                                        <th>Action</th>
-                                                    </thead>
-                                                    <tbody class="fs-6 fw-semibold">
-                                                        @foreach ($links as $link)
-                                                            <tr>
-                                                                <td>{{$loop->iteration}}</td>
-                                                                <td> 
-                                                                    <span class="text-display">{{$link->url}}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="d-flex">
-                                                                        <a href="javascript:void(0)" href="javascript:void(0)" data_url="{{$link->url}}" data_url_id="{{$link->id}}" class="btn btn-info btn-sm edit_url me-2">Edit</a> 
-                                                                        <a href="javascript:void(0)" class="btn btn-danger btn-sm delete_url" data_url="{{$link->url}}" data_url_id="{{$link->id}}">Delete</a> 
-                                                                    </span>
-                                                                    
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!--end::Table-->
-                                        </div>
-
-                                    </div>
-                                </div>
+                                
                                 <div class="tab-pane fade" id="panels" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header border-0">
@@ -443,6 +366,36 @@
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                                         <input type="text" value="" name="panel" class="form-control form-control-lg  mb-3 mb-lg-0"
                                                                     placeholder="Enter Panel name" >
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">SMART URL </label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="url" value="" name="smart_url" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="Smart TV URL" >
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">XTREAM URL </label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="url" value="" name="xtream_url" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                                                    placeholder="Xtream URL" >
                                                         <div
                                                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                         </div>
@@ -475,6 +428,8 @@
                                                     <thead>
                                                         <th>#</th>
                                                         <th>Panel</th>
+                                                        <th>Smart Url</th>
+                                                        <th>Xtream Url</th>
                                                         <th>Actions</th>
                                                     </thead>
                                                     <tbody class="fs-6 fw-semibold">
@@ -482,10 +437,14 @@
                                                             <tr>
                                                                 <td>{{$loop->iteration}}</td>
                                                                 <td>{{$panel->name}}</td>
+                                                                <td>{{$panel->smart_url}}</td>
+                                                                <td>{{$panel->xtream_url}}</td>
                                                                 <td>
                                                                     <span class="d-flex">
-                                                                        <a href="javascript:void(0)" href="javascript:void(0)" data_panel="{{$panel->name}}" data_panel_id="{{$panel->id}}" class="btn btn-info btn-sm edit_panel me-2">Edit</a> 
+                                                                        <a href="javascript:void(0)" href="javascript:void(0)" data_panel="{{$panel->name}}" data_panel_id="{{$panel->id}}" data_smart_url="{{$panel->smart_url}}" data_xtream_url="{{$panel->xtream_url}}" class="btn btn-info btn-sm edit_panel me-2">Edit</a> 
+                                                                        @if($panel->subscriptions->isEmpty())
                                                                         <a href="javascript:void(0)" class="btn btn-danger btn-sm delete_panel" data_panel="{{$panel->name}}" data_panel_id="{{$panel->id}}">Delete</a> 
+                                                                        @endif
                                                                     </span>
                                                                     
                                                                 </td>
@@ -518,59 +477,6 @@
     </div>
 @endsection
 @section('modals')
-<div class="modal fade custom-modal" id="edit_url">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Edit URL</h5>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="{{route('admin.links')}}" method="post">@csrf
-					<input type="hidden" name="url_id" id="edit_url_id">
-					<div class="awards-info">
-						<div class="row form-row awards-cont">
-							<div class="col-12">
-								<div class="form-group">
-									<label>URL</label>
-									<input type="url" name="url" id="edit_url_name" class="form-control">
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<button type="submit" name="action" value="update" class="btn btn-info mt-4">
-						Update
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade custom-modal" id="delete_url">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Delete URL</h5>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="{{route('admin.links')}}" method="post">@csrf
-					<input type="hidden" name="url_id" id="delete_url_id">
-					<p class="text-center font-weight-bold">Are you sure you want to delete this URL? </p>
-					<code class="d-block mb-3" id="delete_url_name"></code>
-					<button type="submit" name="action" value="delete" class="btn btn-danger">
-						Delete
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
 <div class="modal fade custom-modal" id="edit_panel">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -584,11 +490,27 @@
 				<form action="{{route('admin.panels')}}" method="post">@csrf
 					<input type="hidden" name="panel_id" id="edit_panel_id">
 					<div class="awards-info">
-						<div class="row form-row awards-cont">
+						<div class="row form-row mb-3">
 							<div class="col-12">
 								<div class="form-group">
 									<label>Panel</label>
 									<input type="text" name="panel" id="edit_panel_name" class="form-control">
+								</div>
+							</div>
+						</div>
+                        <div class="row form-row mb-3">
+							<div class="col-12">
+								<div class="form-group">
+									<label>URL</label>
+									<input type="url" name="smart_url" id="edit_smart_url" class="form-control">
+								</div>
+							</div>
+						</div>
+                        <div class="row form-row awards-cont">
+							<div class="col-12">
+								<div class="form-group">
+									<label>URL</label>
+									<input type="url" name="xtream_url" id="edit_xtream_url" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -636,29 +558,17 @@
     $('#searchpanel').on('keyup',function(){
         panelTable.search($(this).val()).draw();
     });
-    $('.edit_url').click(function(){
-		let url_id = $(this).attr('data_url_id');
-		let url = $(this).attr('data_url');
-		$('#edit_url_id').val(url_id)
-		$('#edit_url_name').val(url)
-		
-		$('#edit_url').modal('show');
-	})
-
-	$('.delete_url').click(function(){
-		let url_id = $(this).attr('data_url_id');
-		let url = $(this).attr('data_url');
-		
-		$('#delete_url_id').val(url_id)
-		$('#delete_url_name').text(url)
-		$('#delete_url').modal('show');
-	})
+    
 
     $('.edit_panel').click(function(){
 		let panel_id = $(this).attr('data_panel_id');
 		let panel = $(this).attr('data_panel');
+        let smart_url = $(this).attr('data_smart_url');
+        let xtream_url = $(this).attr('data_xtream_url');
 		$('#edit_panel_id').val(panel_id)
 		$('#edit_panel_name').val(panel)
+		$('#edit_smart_url').val(smart_url)
+		$('#edit_xtream_url').val(xtream_url)
 		
 		$('#edit_panel').modal('show');
 	})

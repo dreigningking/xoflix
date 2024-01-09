@@ -220,8 +220,7 @@
                                         <td>
                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#paiduser{{$payment->id}}">{{ $payment->user->name }}</a>
                                             
-                                        </td>
-                                        
+                                        </td>                                 
                                         <td> ₦{{ $payment->amount }}</td>
                                         <td class="ps-0">
                                             
@@ -230,8 +229,8 @@
                                                      
                                                     <button type="button" class="btn btn-info btn-sm sub_details"
                                                         data_subscription="{{$payment->subscription_id}}" data_username="{{$payment->subscription->username}}" 
-                                                        data_password="{{$payment->subscription->password}}" data_link_id="{{$payment->subscription->link_id}}" 
-                                                        data_m3u_link="{{$payment->subscription->m3u_link}}" data_panel_id="{{$payment->subscription->panel_id}}" 
+                                                        data_password="{{$payment->subscription->password}}" data_smart_url="{{$payment->subscription->panel ? $payment->subscription->panel->smart_url : ''}}" 
+                                                        data_xtream_url="{{$payment->subscription->panel ? $payment->subscription->panel->xtream_url : ''}}" data_panel_id="{{$payment->subscription->panel_id}}" 
                                                         data_user_id="{{$payment->subscription->user_id}}" data_start="{{$payment->subscription->start_at}}"
                                                         data_expiry="{{$payment->subscription->end_at}}" data_plan="{{$payment->subscription->plan->id}}">{{ucwords($payment->description)}} <i class="fa fa-arrow-right"></i> Pending
                                                     </button>
@@ -445,22 +444,7 @@
                 
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">URL</span>
-                                        </label>
-
-                                        <select name="link_id" id="edit_link_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select URL" required>
-                                            <option value=""></option>
-                                            @foreach ($links as $link)
-                                                <option value="{{$link->id}}">{{$link->url}}</option>
-                                            @endforeach
-                                        </select>
-                                        
-                                    </div>
-                                </div>
+                                
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
@@ -471,27 +455,40 @@
                                         <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
                                             <option value=""></option>
                                             @foreach ($panels as $panel)
-                                                <option value="{{$panel->id}}">{{$panel->name}}</option>
+                                                <option value="{{$panel->id}}" data-smart_url="{{$panel->smart_url}}" data-xtream_url="{{$panel->xtream_url}}">{{$panel->name}}</option>
                                             @endforeach
                                         </select>
                                         
                                     </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <div class="d-flex flex-column mb-2 fv-row fv-plugins-icon-container">
+                                    <div class="d-flex flex-column mb-3 fv-row fv-plugins-icon-container">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">Smart Url</span>
+                                        </label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="text" value="" id="edit_smart_url" placeholder="Smart Url" name="smart_url" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="smart_url"/>
+                                            <span class="input-group-text paste_button">Paste</span>
+                                        </div>
+                
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">Smart TV Link</span>
+                                            <span class="required">Xtream URL</span>
                                         </label>
-                                        <!--end::Label-->
                                         <div class="input-group input-group-lg">
-                                            <input type="url" id="edit_m3u_link" name="m3u_link" class="form-control form-control-solid" aria-label="Sizing example input" aria-describedby="paste_url"/>
+                                            <input type="text" value="" id="edit_xtream_url" placeholder="Xtream Url" name="xtream_url" class="form-control form-control-solid clipboard_value" aria-label="Sizing example input" aria-describedby="xtream_url"/>
                                             <span class="input-group-text paste_button">Paste</span>
                                         </div>
                                         
                                     </div>
                                 </div>
-                            
+                                
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                         <label class="required fs-6 fw-semibold form-label mb-2">Days</label>
@@ -555,19 +552,22 @@
             $('#subscription_id').val($(this).attr('data_subscription'))
             $('#edit_username').val($(this).attr('data_username'))
             $('#edit_password').val($(this).attr('data_password'))
-            $('#edit_link_id').val($(this).attr('data_link_id')).trigger("change")
-            $('#edit_m3u_link').val($(this).attr('data_m3u_link'))
             $('#edit_panel_id').val($(this).attr('data_panel_id')).trigger("change")
+            // $('#edit_smart_url').val($(this).attr('data_smart_url'))
+            // $('#edit_xtream_url').val($(this).attr('data_xtream_url'))
             $('#edit_user_id').val($(this).attr('data_user_id'))
             
             $('#kt_td_picker_basic_input').val($(this).attr('data_start'))
             $('#kt_td_picker_basic_input2').val($(this).attr('data_expiry'))
-            $('#edit_plan').val($(this).attr('data_plan')).trigger("change")
-            
-
+            $('#edit_plan').val($(this).attr('data_plan')).trigger("change") 
             $('#sub_details').modal('show')
-            
         })
+        
+        $(document).on('change','#edit_panel_id',function(e){
+            $('#edit_smart_url').val($('option:selected', this).attr('data-smart_url'))
+            $('#edit_xtream_url').val($(this).find(':selected').attr('data-xtream_url'))
+        });
+
     </script>
     {{-- <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script>

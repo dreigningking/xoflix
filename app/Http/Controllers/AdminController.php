@@ -73,9 +73,8 @@ class AdminController extends Controller
     public function settings()
     {
         $settings = Setting::all();
-        $links = Link::all();
         $panels = Panel::all();
-        return view('admin.settings',compact('settings','links','panels'));
+        return view('admin.settings',compact('settings','panels'));
     }
 
     
@@ -91,33 +90,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    
-
-    
-    public function links(Request $request){
-        switch($request->action){
-            case 'create':  Link::create(['url'=> $request->url]);
-                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Created Link']);
-                            return redirect()->back();
-                break;
-            case 'update':  Link::where('id',$request->url_id)->update(['url'=> $request->url]);
-                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Link','objectable_id'=> $request->url_id,'objectable_type'=> 'App\Models\Link']);
-                            return redirect()->back();
-                break;
-            case 'delete':  Link::where('id',$request->url_id)->delete();
-                            Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Deleted Link']);
-                            return redirect()->back();
-                break;
-        }
-    }
 
     public function panels(Request $request){
         switch($request->action){
-            case 'create':  Panel::create(['name'=> $request->panel]);
+            case 'create':  Panel::create(['name'=> $request->panel,'smart_url'=> $request->smart_url,'xtream_url'=> $request->xtream_url]);
                             Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Created Panel']);
                             return redirect()->back();
                 break;
-            case 'update':  Panel::where('id',$request->panel_id)->update(['name'=> $request->panel]);
+            case 'update':  Panel::where('id',$request->panel_id)->update(['name'=> $request->panel,'smart_url'=> $request->smart_url,'xtream_url'=> $request->xtream_url]);
                             Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Panel','objectable_id'=> $request->panel_id,'objectable_type'=> 'App\Models\Panel']);
                             return redirect()->back();
                 break;
