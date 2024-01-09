@@ -210,7 +210,7 @@
                 $.ajax({
                     type:'POST',
                     dataType: 'json',
-                    url: "{{route('support')}}",
+                    url: "{{route('support_send')}}",
                     data: {
                         '_token' : $('meta[name="csrf-token"]').attr('content'),
                         'message': message

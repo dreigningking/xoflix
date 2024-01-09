@@ -38,7 +38,7 @@
                                 <!--begin::Table-->
                                 <div class="card-body">
                                     <div class="min-w-200px card-rounded bg-info py-12 mb-5">
-                                        <form action="{{ route('subscription') }}" method="post">@csrf
+                                        <form action="{{ route('subscription_buy') }}" method="post">@csrf
                                             <input type="hidden" name="plan_id" value="{{ $plan->id }}">
 
                                             <div class="action d-flex flex-column">
@@ -284,7 +284,7 @@
             </div>
             @endforeach
             
-            <!--begin::Accordion-->
+            @if($feature_image)
             <div class="accordion accordion-icon-collapse" id="kt_accordion_3">
                 
                 <div class="mt-5">
@@ -300,12 +300,13 @@
 
                     <!--begin::Body-->
                     <div id="kt_accordion_3_item_2" class="collapse fs-6 ps-10" data-bs-parent="#kt_accordion_3">
-                        <img src="{{asset('media/features.jpeg')}}" alt="" class="img-fluid">
+                        <img src="{{Storage::url($feature_image)}}" alt="" class="img-fluid">
                     </div>
                     <!--end::Body-->
                 </div>
                 
             </div>
+            @endif
             <!--end::Accordion-->
         </div>
 

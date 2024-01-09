@@ -39,7 +39,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade active show" id="global" role="tabpanel">
-                                    <form action="{{route('admin.settings')}}" method="post">@csrf
+                                    <form action="{{route('admin.updateSettings')}}" method="post" enctype="multipart/form-data">@csrf
                                         <div class="card">
                                             
                                             <div class="card-header border-0">
@@ -234,6 +234,20 @@
                                                     <!--begin::Col-->
                                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                                         <input type="url" name="payment_redirection" class="form-control form-control-lg  mb-3 mb-lg-0" placeholder="https://" value="{{$settings->firstWhere('name','payment_redirection')->value}}">
+                                                        <div
+                                                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Features Image</label>
+                                                    <!--end::Label-->
+                
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <input type="file" name="feature_image" class="form-control form-control-lg  mb-3 mb-lg-0">
                                                         <div
                                                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                         </div>

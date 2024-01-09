@@ -137,7 +137,8 @@ class SubscriptionController extends Controller
     {
         $plans = Plan::all();
         $discounts = Setting::whereIn('name',['discount3','discount6','discount12'])->select('name','value')->get();
-        return view('pricing', compact('plans','discounts'));
+        $feature_image = Setting::where('name','feature_image')->first()->value;
+        return view('pricing', compact('plans','discounts','feature_image'));
     }
 
     public function subscriptions(){

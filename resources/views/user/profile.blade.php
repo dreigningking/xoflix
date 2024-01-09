@@ -37,7 +37,7 @@
                             <!--begin::Content-->
                             <div id="kt_account_settings_profile_details">
                                 <!--begin::Form-->
-                                <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="{{route('profile')}}" method="POST" enctype="multipart/form-data">@csrf
+                                <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="{{route('profile_update')}}" method="POST" enctype="multipart/form-data">@csrf
                                     <!--begin::Card body-->
                                     <div class="card-body border-top p-9">
                                         <!--begin::Input group-->

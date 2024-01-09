@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials') }}"
+                        <form id="kt_modal_new_card_form" method="POST" action="{{ route('admin.trials_store') }}"
                             class="form fv-plugins-bootstrap5 fv-plugins-framework">@csrf
 
                             <div id="trial_wrapper">

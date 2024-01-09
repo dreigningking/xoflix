@@ -14,6 +14,7 @@ use App\Models\Activity;
 use App\Models\Withdrawal;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -84,7 +85,18 @@ class AdminController extends Controller
     {
         
         foreach($request->except('_token') as $key => $value){
-            Setting::where('name',$key)->update(['value'=> $value]);
+            if($key == 'feature_image'){
+                if($request->hasFile('feature_image')){
+                    $featured_image = Setting::where('name','feature_image')->first()->value;
+                    if($featured_image) Storage::delete('public/',$featured_image);
+                    $image = time().'.'.$request->file('feature_image')->getClientOriginalExtension();
+                    $request->file('feature_image')->storeAs('public/',$image);
+                    Setting::where('name',$key)->update(['value'=> $image]);
+                }
+            }else{
+                Setting::where('name',$key)->update(['value'=> $value]);
+            }
+            
         }
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Settings']);
         return redirect()->back();

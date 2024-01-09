@@ -31,7 +31,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('notifications',[AdminController::class, 'notifications'])->name('notifications');
     Route::get('activities',[AdminController::class, 'activities'])->name('activities');
     Route::get('settings',[AdminController::class, 'settings'])->name('settings');
-    Route::post('settings',[AdminController::class, 'updateSettings'])->name('settings');
+    Route::post('settings',[AdminController::class, 'updateSettings'])->name('updateSettings');
     Route::post('panels',[AdminController::class, 'panels'])->name('panels');
     
     Route::group(['prefix'=> 'plans' ,'as'=> 'plans.'],function(){
@@ -61,7 +61,7 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::post('subscription',[SubscriptionController::class, 'store'])->name('subscription');
     // Route::post('update_subscription',[SubscriptionController::class, 'update_subscription'])->name('update_subscription');
     Route::get('trials',[SubscriptionController::class, 'trials'])->name('trials');
-    Route::post('trials',[SubscriptionController::class, 'trials_store'])->name('trials');
+    Route::post('trials',[SubscriptionController::class, 'trials_store'])->name('trials_store');
     Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->name('update_trial');
     Route::post('share_to_affilate',[SubscriptionController::class, 'share_to_affilate'])->name('share_to_affilate');
 });
@@ -76,7 +76,7 @@ Route::get('freetrials', [HomeController::class, 'index'])->name('freetrials');
 Route::get('transactions', [HomeController::class, 'index'])->name('transactions');
 Route::get('referrals', [HomeController::class, 'index'])->name('referrals');
 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
-Route::post('profile', [HomeController::class, 'profile_update'])->name('profile');
+Route::post('profile', [HomeController::class, 'profile_update'])->name('profile_update');
 Route::post('password', [HomeController::class, 'password_update'])->name('password_update');
 Route::get('referredby/{user}', [RegisterController::class, 'referrer'])->name('referrer');
 Route::post('resolve/account', [PaymentController::class, 'resolve_account'])->name('resolve_account');
@@ -84,13 +84,13 @@ Route::post('update_trial',[SubscriptionController::class, 'update_trial'])->nam
 Route::get('subscription/purchase',[SubscriptionController::class, 'pricing'])->name('subscription.purchase');
 
 Route::get('subscription',[SubscriptionController::class, 'subscriptions'])->name('subscription');
-Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription');
+Route::post('subscription',[SubscriptionController::class, 'buy'])->name('subscription_buy');
 Route::get('subscription/payment/{payment}',[SubscriptionController::class, 'payment'])->name('subscription.payment');
 Route::post('subscription/renew',[SubscriptionController::class, 'renew'])->name('subscription.renew');
 Route::post('payment/upload',[PaymentController::class, 'upload'])->name('payment.upload');
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
-Route::post('support',[SupportController::class, 'send'])->name('support');
+Route::post('support',[SupportController::class, 'send'])->name('support_send');
 
 Route::get('check',function(){
     $plan = \App\Models\Plan::find(2);
