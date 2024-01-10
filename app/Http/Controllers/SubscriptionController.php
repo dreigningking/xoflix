@@ -40,9 +40,10 @@ class SubscriptionController extends Controller
         }
         $subscriptions = $subscriptions->paginate(50);
         $panels = Panel::all();
+        $plans = Plan::all();
         $pendings = Subscription::whereHas('payment',function($query){
             $query->where('status','success'); })->whereNull('start_at')->with(['user','plan'])->get();
-        return view('admin.subscriptions', compact('subscriptions','panels','hide_expired', 'name', 'total', 'expired','pendings'));
+        return view('admin.subscriptions', compact('subscriptions','panels','plans','hide_expired', 'name', 'total', 'expired','pendings'));
     }
 
     public function trials()
