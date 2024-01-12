@@ -130,6 +130,17 @@
                 </a>
                 <!--end::Menu link-->
             </li>
+
+            <li class="menu-item mb-1">
+                <!--begin::Menu link-->
+                <a class="menu-link px-6 py-4 @if(Route::is('admin.sports')) active @endif" href="{{route('admin.sports')}}">
+                    <span class="menu-bullet">
+                        <span class="bullet"></span>
+                    </span>
+                    <span class="menu-title">Sports</span>
+                </a>
+                <!--end::Menu link-->
+            </li>
             
             <li class="menu-item mb-1">
                 <!--begin::Menu link-->
@@ -141,6 +152,8 @@
                 </a>
                 <!--end::Menu link-->
             </li>
+
+            
             
             <!--end::Menu item-->
         </ul>

@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Jobs\CheckExpiredSubscriptionsJob;
+use App\Http\Controllers\SportsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +33,11 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
     Route::get('settings',[AdminController::class, 'settings'])->name('settings');
     Route::post('settings',[AdminController::class, 'updateSettings'])->name('updateSettings');
     Route::post('panels',[AdminController::class, 'panels'])->name('panels');
+    Route::get('sports',[SportsController::class, 'index'])->name('sports');
+    Route::post('sports/categories',[SportsController::class, 'categories'])->name('sports.categories');
+    Route::post('sports/store',[SportsController::class, 'store'])->name('sports.store');
+    Route::post('sports/update',[SportsController::class, 'update'])->name('sports.update');
+    Route::post('sports/delete',[SportsController::class, 'destroy'])->name('sports.delete');
     
     Route::group(['prefix'=> 'plans' ,'as'=> 'plans.'],function(){
         Route::get('/',[PlanController::class,'index'])->name('index');
@@ -42,7 +47,6 @@ Route::group(['prefix'=> 'admin' ,'as'=> 'admin.','middleware'=> 'auth'],functio
         Route::post('update',[PlanController::class,'update'])->name('update');
         Route::post('delete',[PlanController::class,'destroy'])->name('delete');
     });
-    
 
     Route::get('payments',[PaymentController::class, 'index'])->name('payments');
     Route::post('payments/confirmation',[PaymentController::class, 'confirmation'])->name('payments.confirmation');
@@ -91,7 +95,7 @@ Route::post('payment/upload',[PaymentController::class, 'upload'])->name('paymen
 Route::get('payment/callback',[PaymentController::class, 'paymentcallback'])->name('payment.callback');
 Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support_send');
-
+Route::get('sports',[SportsController::class, 'show'])->name('sports');
 Route::get('check',function(){
     $plan = \App\Models\Plan::find(2);
      dd($plan->getAttributes());

@@ -35,3 +35,8 @@
         <span class="menu-title">Subscription</span>
     </a>
 </div>
+<div class="menu-item">
+    <a class="menu-link  py-3" href="{{route('sports')}}">
+        <span class="menu-title">Sport Guide</span>
+    </a>
+</div>

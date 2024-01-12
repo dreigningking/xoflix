@@ -83,7 +83,7 @@ class HomeController extends Controller
         $user = auth()->user();
         $validator = Validator::make($request->all(), [
             'oldpassword' => 'required|string',
-            'password' => 'required','string','confirmed'
+            'password' => 'required|string|confirmed'
         ]);
         if ($validator->fails()) {
             return redirect()->back()
