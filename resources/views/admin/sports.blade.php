@@ -399,7 +399,7 @@
                                                                     <td>
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="symbol symbol-45px symbol-circle">
-                                                                                <img alt="Pic" src="{{$sport->playera_avatar}}">
+                                                                                <img alt="Pic" src="{{$sport->first_avatar}}">
                                                                             </div>
 
                                                                             <div class="ms-5">
@@ -410,7 +410,7 @@
                                                                     <td>
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="symbol symbol-45px symbol-circle">
-                                                                                <img alt="Pic" src="{{$sport->playerb_avatar}}">
+                                                                                <img alt="Pic" src="{{$sport->second_avatar}}">
                                                                             </div>
 
                                                                             <div class="ms-5">

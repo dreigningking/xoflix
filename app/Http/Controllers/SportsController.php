@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class SportsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function __constructor(){
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $categories = Category::all();

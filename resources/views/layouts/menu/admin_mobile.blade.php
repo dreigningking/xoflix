@@ -49,6 +49,12 @@
     </a>
 </div>
 <div class="menu-item">
+    <a class="menu-link  py-3 @if(Route::is('admin.sports')) active @endif" href="{{route('admin.sports')}}">
+        <span class="menu-title">Sports</span>
+    </a>
+</div>
+
+<div class="menu-item">
     <a class="menu-link  py-3 @if(Route::is('admin.support')) active @endif" href="{{route('admin.support')}}">
         <span class="menu-title">Support</span>
     </a>

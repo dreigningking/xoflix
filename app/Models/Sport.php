@@ -13,11 +13,11 @@ class Sport extends Model
     protected $fillable = ['player_a','player_a_image','player_b', 'player_b_image', 'league', 'category_id','plans', 'channels', 'start_at'];
     protected $casts = ['channels'=> 'array','plans'=> 'array','start_at'=> 'datetime'];
 
-    public function getPlayeraAvatarAttribute(){
+    public function getFirstAvatarAttribute(){
         return $this->player_a_image ? config('app.url')."/storage/sports/$this->player_a_image" : null;  
     }
 
-    public function getPlayerbAvatarAttribute(){
+    public function getSecondAvatarAttribute(){
         return $this->player_b_image ? config('app.url')."/storage/sports/$this->player_b_image" : null;  
     }
 
