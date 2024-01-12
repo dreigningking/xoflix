@@ -155,7 +155,10 @@ class SportsController extends Controller
     
     public function destroy(Request $request)
     {
-        Sport::where('id',$request->sport_id)->delete();
+        $sport = Sport::find($request->sport_id);
+        Storage::delete('public/sports/',$sport->player_a_image);
+        Storage::delete('public/sports/',$sport->player_b_image);
+        $sport->delete();
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Deleted Sport']);
         return redirect()->back();
     }
@@ -166,7 +169,7 @@ class SportsController extends Controller
         $plans = $user->activeSubscriptions->isNotEmpty() ? $user->activeSubscriptions->pluck('plan_id')->transform(function ($item) {
             return strval($item);
         }) : 0;
-        $sports = Sport::where('start_at','>',now())->whereJsonContains('plans',$plans)->get();
+        $sports = Sport::where('start_at','>',now())->whereJsonContains('plans',$plans)->orderBy('start_at','desc')->get();
         return view('user.sports',compact('sports'));
     }
 
