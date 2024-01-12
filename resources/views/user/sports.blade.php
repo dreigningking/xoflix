@@ -107,7 +107,7 @@
                                                 <div class="d-flex"> {{$sport->league}} </div>
                                                 <div class="d-flex align-items-center">
                                                     <div class="symbol symbol-45px symbol-circle">
-                                                        <img alt="Pic" src="{{$sport->first_avatar}}">
+                                                        <img alt="first" src="{{$sport->first_avatar}}">
                                                     </div>
 
                                                     <div class="ms-5">
@@ -117,7 +117,7 @@
                                                 <div class="d-flex ms-12"> VS </div>
                                                 <div class="d-flex align-items-center">
                                                     <div class="symbol symbol-45px symbol-circle">
-                                                        <img alt="Pic" src="{{$sport->second_avatar}}">
+                                                        <img alt="second" src="{{$sport->second_avatar}}">
                                                     </div>
 
                                                     <div class="ms-5">

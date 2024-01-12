@@ -17,7 +17,7 @@ class SportsController extends Controller
     public function __constructor(){
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $categories = Category::all();
@@ -129,11 +129,13 @@ class SportsController extends Controller
             Storage::delete('public/sports/',$sport->player_a_image);
             $player_a = time().'.'.$request->file('player_a_image')->getClientOriginalExtension();
             $request->file('player_a_image')->storeAs('public/sports/',$player_a);
+            $sport->player_a_image = $player_a;
         }
         if($request->hasFile('player_b_image')){
             Storage::delete('public/sports/',$sport->player_b_image);
             $player_b = time().'.'.$request->file('player_b_image')->getClientOriginalExtension();
             $request->file('player_b_image')->storeAs('public/sports/',$player_b);
+            $sport->player_b_image = $player_b;
         }
         $channels = [];
         foreach (explode(PHP_EOL,$request->channels) as $channel) {
