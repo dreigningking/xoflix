@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 class SportsController extends Controller
 {
     
-    public function __constructor(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -40,7 +41,7 @@ class SportsController extends Controller
                     $image = time().'.'.$request->file('image')->getClientOriginalExtension();
                     $request->file('image')->storeAs('public/',$image);
                 }
-                Category::create(['name'=> $request->name,'image'=> $image]);
+                Category::create(['name'=> $request->name,'image'=> $image,'plan_id'=> $request->plan_id]);
                 Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin created category']);
                 return redirect()->back();
             break;
@@ -53,6 +54,7 @@ class SportsController extends Controller
                     $category->image = $image;
                 }
                 if($request->name) $category->name = $request->name;
+                if($request->plan_id) $category->plan_id = $request->plan_id;
                 $category->save();
                 Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Category','objectable_id'=> $request->category_id,'objectable_type'=> 'App\Models\Category']);
                 return redirect()->back();
@@ -75,7 +77,6 @@ class SportsController extends Controller
             'player_b_image' => 'required|image',
             'league' => 'required|string',
             'category_id' => 'required',
-            'plans' => 'required|array',
             'channels' => 'required|string',
             'start_at' => 'required',
         ]);
@@ -85,11 +86,11 @@ class SportsController extends Controller
                         ->withInput();
         }
         if($request->hasFile('player_a_image')){
-            $player_a = time().'.'.$request->file('player_a_image')->getClientOriginalExtension();
+            $player_a = 'player1'.time().'.'.$request->file('player_a_image')->getClientOriginalExtension();
             $request->file('player_a_image')->storeAs('public/sports/',$player_a);
         }
         if($request->hasFile('player_b_image')){
-            $player_b = time().'.'.$request->file('player_b_image')->getClientOriginalExtension();
+            $player_b = 'player2'.time().'.'.$request->file('player_b_image')->getClientOriginalExtension();
             $request->file('player_b_image')->storeAs('public/sports/',$player_b);
         }
         $channels = [];
@@ -98,8 +99,8 @@ class SportsController extends Controller
         }
         $sport = Sport::create(['player_a'=> $request->player_a,'player_a_image' => $player_a,
         'player_b' => $request->player_b, 'player_b_image' => $player_b, 'league' => $request->league, 
-        'category_id' => $request->category_id,'plans' => $request->plans, 
-        'channels' => $channels, 'start_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->start_at)]);
+        'category_id' => $request->category_id, 'channels' => $channels, 
+        'start_at' => Carbon::createFromFormat('m/d/Y h:i A',$request->start_at)]);
         Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin created Sport']);
         return redirect()->back();
     }
@@ -115,7 +116,6 @@ class SportsController extends Controller
             'player_b_image' => 'nullable|image',
             'league' => 'required|string',
             'category_id' => 'required',
-            'plans' => 'required|array',
             'channels' => 'required|string',
             'start_at' => 'required',
         ]);
@@ -127,13 +127,13 @@ class SportsController extends Controller
         $sport = Sport::find($request->sport_id);
         if($request->hasFile('player_a_image')){
             Storage::delete('public/sports/',$sport->player_a_image);
-            $player_a = time().'.'.$request->file('player_a_image')->getClientOriginalExtension();
+            $player_a = 'player1'.time().'.'.$request->file('player_a_image')->getClientOriginalExtension();
             $request->file('player_a_image')->storeAs('public/sports/',$player_a);
             $sport->player_a_image = $player_a;
         }
         if($request->hasFile('player_b_image')){
             Storage::delete('public/sports/',$sport->player_b_image);
-            $player_b = time().'.'.$request->file('player_b_image')->getClientOriginalExtension();
+            $player_b = 'player2'.time().'.'.$request->file('player_b_image')->getClientOriginalExtension();
             $request->file('player_b_image')->storeAs('public/sports/',$player_b);
             $sport->player_b_image = $player_b;
         }
@@ -145,7 +145,6 @@ class SportsController extends Controller
         $sport->player_b = $request->player_b; 
         $sport->league = $request->league;
         $sport->category_id = $request->category_id;
-        $sport->plans = $request->plans; 
         $sport->channels = $channels;
         $sport->start_at = Carbon::createFromFormat('m/d/Y h:i A',$request->start_at);
         $sport->save();
@@ -166,10 +165,9 @@ class SportsController extends Controller
     public function show()
     {
         $user = auth()->user();
-        $plans = $user->activeSubscriptions->isNotEmpty() ? $user->activeSubscriptions->pluck('plan_id')->transform(function ($item) {
-            return strval($item);
-        }) : 0;
-        $sports = Sport::where('start_at','>',now())->whereJsonContains('plans',$plans)->orderBy('start_at','desc')->get();
+        $plan = $user->activeSubscriptions->isNotEmpty() ? $user->activeSubscriptions->first()->plan_id : 0;
+        // $sports = Sport::where('start_at','>',now())->whereHas('category',function( $query) use($plan){ $query->where('plan_id',$plan);})->orderBy('start_at','asc')->get();
+        $sports = Sport::where('start_at','>',now())->whereHas('category',function($query) use($plan){ $query->where('plan_id',$plan);})->orderBy('start_at','asc')->get();
         return view('user.sports',compact('sports'));
     }
 

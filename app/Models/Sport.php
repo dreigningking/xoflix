@@ -10,9 +10,10 @@ class Sport extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['player_a','player_a_image','player_b', 'player_b_image', 'league', 'category_id','plans', 'channels', 'start_at'];
-    protected $casts = ['channels'=> 'array','plans'=> 'array','start_at'=> 'datetime'];
-
+    protected $fillable = ['player_a','player_a_image','player_b', 'player_b_image', 'league', 'category_id', 'channels', 'start_at'];
+    protected $casts = ['channels'=> 'array','start_at'=> 'datetime'];
+    protected $appends = ['game_day'];
+    
     public function getFirstAvatarAttribute(){
         return $this->player_a_image ? config('app.url')."/storage/sports/$this->player_a_image" : null;  
     }
@@ -23,5 +24,9 @@ class Sport extends Model
 
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public function getGameDayAttribute(){
+        return $this->start_at->format('d');
     }
 }
