@@ -166,7 +166,6 @@ class SportsController extends Controller
     {
         $user = auth()->user();
         $plan = $user->activeSubscriptions->isNotEmpty() ? $user->activeSubscriptions->first()->plan_id : 0;
-        // $sports = Sport::where('start_at','>',now())->whereHas('category',function( $query) use($plan){ $query->where('plan_id',$plan);})->orderBy('start_at','asc')->get();
         $sports = Sport::where('start_at','>',now())->whereHas('category',function($query) use($plan){ $query->where('plan_id',$plan);})->orderBy('start_at','asc')->get();
         return view('user.sports',compact('sports'));
     }
