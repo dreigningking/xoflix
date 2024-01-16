@@ -76,24 +76,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
-                                                <div class="row mb-6">
-                                                    <!--begin::Label-->
-                                                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">Plan </label>
-                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                        <select name="plan_id" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select Plan" data-allow-clear="true" required>
-                                                            <option></option>
-                                                            @foreach ($plans as $plan)
-                                                            <option value="{{$plan->id}}">{{$plan->name}} Plan</option>
-                                                            @endforeach
-                                                        </select>
-                                                        
-                                                        @error('plan_id')
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                            {{$message}}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="d-flex justify-content-start py-6">
                                                     <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
                                                     <button type="submit" class="btn btn-primary px-6" name="action" value="create">Save</button>
@@ -170,19 +153,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="row mb-3">
-                                                                                        <div class="col-12">
-                                                                                            <div class="form-group">
-                                                                                                <label class="">Plan </label>
-                                                                                                <select name="plan_id" required class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select Plan" data-allow-clear="true" >
-                                                                                                    <option></option>
-                                                                                                    @foreach ($plans as $plan)
-                                                                                                    <option value="{{$plan->id}}" @if($plan->id == $category->plan_id) selected @endif>{{$plan->name}} Plan</option>
-                                                                                                    @endforeach
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    
                                     
                                                                                 </div>
                                                                                 

@@ -23,8 +23,7 @@ class SportsController extends Controller
     {
         $categories = Category::all();
         $sports = Sport::all();
-        $plans = Plan::all();
-        return view('admin.sports',compact('categories','sports','plans'));
+        return view('admin.sports',compact('categories','sports'));
     }
 
     /**
@@ -41,7 +40,7 @@ class SportsController extends Controller
                     $image = time().'.'.$request->file('image')->getClientOriginalExtension();
                     $request->file('image')->storeAs('public/',$image);
                 }
-                Category::create(['name'=> $request->name,'image'=> $image,'plan_id'=> $request->plan_id]);
+                Category::create(['name'=> $request->name,'image'=> $image]);
                 Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin created category']);
                 return redirect()->back();
             break;
@@ -54,7 +53,6 @@ class SportsController extends Controller
                     $category->image = $image;
                 }
                 if($request->name) $category->name = $request->name;
-                if($request->plan_id) $category->plan_id = $request->plan_id;
                 $category->save();
                 Activity::create(['user_id'=> auth()->id(),'description'=> 'Admin Updated Category','objectable_id'=> $request->category_id,'objectable_type'=> 'App\Models\Category']);
                 return redirect()->back();
@@ -164,9 +162,7 @@ class SportsController extends Controller
 
     public function show()
     {
-        $user = auth()->user();
-        $plan = $user->activeSubscriptions->isNotEmpty() ? $user->activeSubscriptions->first()->plan_id : 0;
-        $sports = Sport::where('start_at','>',now())->whereHas('category',function($query) use($plan){ $query->where('plan_id',$plan);})->orderBy('start_at','asc')->get();
+        $sports = Sport::where('start_at','>',now())->orderBy('start_at','asc')->get();
         return view('user.sports',compact('sports'));
     }
 

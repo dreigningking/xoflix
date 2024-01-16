@@ -75,7 +75,8 @@ class AdminController extends Controller
     {
         $settings = Setting::all();
         $panels = Panel::all();
-        return view('admin.settings',compact('settings','panels'));
+        $plans = Plan::all();
+        return view('admin.settings',compact('settings','panels','plans'));
     }
 
     
@@ -93,7 +94,10 @@ class AdminController extends Controller
                     $request->file('feature_image')->storeAs('public/',$image);
                     Setting::where('name',$key)->update(['value'=> $image]);
                 }
-            }else{
+            }elseif($key == 'sport_plans'){
+                Setting::where('name',$key)->update(['value'=> implode(',',$value)]);
+            }
+            else{
                 Setting::where('name',$key)->update(['value'=> $value]);
             }
             

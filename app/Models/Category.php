@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-    protected $fillable  = ['name','image','plan_id'];
+    protected $fillable  = ['name','image'];
 
     public function getAvatarAttribute(){
         return $this->image ? config('app.url')."/storage/$this->image" : null;  

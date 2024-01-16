@@ -67,7 +67,7 @@
                                 <ul class="nav nav-tabs flex-nowrap text-nowrap">
                                     @for ($i = 0; $i < 7; $i++)
                                         <li class="nav-item">
-                                            <a class="nav-link btn btn-active-light btn-color-gray-600 btn-active-color-primary rounded-bottom-0"
+                                            <a class="nav-link btn btn-primary btn-color-white btn-active-color-dark rounded-bottom-0 mx-1"
                                                 data-bs-toggle="tab"
                                                 href="#kt_tab_pane{{ $i }}">{{ today()->addDay($i)->isoformat('ddd, D MMM') }}</a>
                                         </li>

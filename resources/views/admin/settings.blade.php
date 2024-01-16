@@ -240,6 +240,7 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+
                                                 <div class="row mb-6">
                                                     <!--begin::Label-->
                                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Features Image</label>
@@ -253,6 +254,23 @@
                                                         </div>
                                                     </div>
                                                     <!--end::Col-->
+                                                </div>
+
+                                                <div class="row mb-6">
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Sports Plan </label>
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        <select name="sport_plans[]" required class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select Plans" data-allow-clear="true" multiple >
+                                                            <option></option>
+                                                            @foreach ($plans as $plan)
+                                                            <option value="{{$plan->id}}" @if(in_array($plan->id,explode(',',$settings->firstWhere('name','sport_plans')->value))) selected @endif>{{$plan->name}} Plan</option>
+                                                            @endforeach
+                                                        </select>  
+                                                        @error('sport_plans')
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                            {{$message}}
+                                                        </div>
+                                                        @enderror 
+                                                    </div>
                                                 </div>
 
                                             </div>
