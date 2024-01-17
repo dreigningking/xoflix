@@ -79,7 +79,7 @@
 
                         <div class="tab-content" id="myTabContent">
                             @for ($i = 0; $i < 7; $i++)
-                                <div class="tab-pane fade @if (!$i) active @endif" id="kt_tab_pane{{ $i }}" role="tabpanel">
+                                <div class="tab-pane fade @if (!$i) active show @endif" id="kt_tab_pane{{ $i }}" role="tabpanel">
                                     @forelse ($sports->where('gameDay',today()->addDay($i)->format('d')) as $sport)
                                         <div class="d-flex align-content-start py-5 border-bottom">
                                             <div class="d-flex flex-column">
