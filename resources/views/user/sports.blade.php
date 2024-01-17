@@ -67,7 +67,7 @@
                                 <ul class="nav nav-tabs flex-nowrap text-nowrap">
                                     @for ($i = 0; $i < 7; $i++)
                                         <li class="nav-item">
-                                            <a class="nav-link btn btn-primary btn-color-white btn-active-color-dark rounded-bottom-0 mx-1"
+                                            <a class="nav-link btn btn-primary btn-color-white btn-active-color-dark rounded-bottom-0 mx-1 @if (!$i) active @endif"
                                                 data-bs-toggle="tab"
                                                 href="#kt_tab_pane{{ $i }}">{{ today()->addDay($i)->isoformat('ddd, D MMM') }}</a>
                                         </li>
@@ -79,7 +79,7 @@
 
                         <div class="tab-content" id="myTabContent">
                             @for ($i = 0; $i < 7; $i++)
-                                <div class="tab-pane fade @if (!$i) show @endif" id="kt_tab_pane{{ $i }}" role="tabpanel">
+                                <div class="tab-pane fade @if (!$i) active @endif" id="kt_tab_pane{{ $i }}" role="tabpanel">
                                     @forelse ($sports->where('gameDay',today()->addDay($i)->format('d')) as $sport)
                                         <div class="d-flex align-content-start py-5 border-bottom">
                                             <div class="d-flex flex-column">
