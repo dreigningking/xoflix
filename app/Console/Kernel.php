@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new CheckFailedPaymentsJob())->everyMinute();
         $schedule->job(new CheckExpiredSubscriptionsJob())->daily();
         $schedule->job(new DeleteOldNotificationsJob())->daily();
-        $schedule->job(new DeleteOldSportsJob())->hourly();
+        $schedule->job(new DeleteOldSportsJob())->everyMinute();
     }
 
     /**

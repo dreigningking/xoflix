@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Sport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,6 +32,12 @@ class DeleteOldSportsJob implements ShouldQueue
      */
     public function handle()
     {
-        Sport::where('start_at','<',now())->delete();
+        $sports = Sport::where('start_at','<',now())->get();
+        foreach($sports as $sport){
+            Storage::delete('public/sports/',$sport->player_a_image);
+            Storage::delete('public/sports/',$sport->player_b_image);
+            $sport->delete();
+        }
+        
     }
 }
