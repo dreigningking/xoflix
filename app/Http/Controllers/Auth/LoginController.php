@@ -47,6 +47,7 @@ class LoginController extends Controller
             Auth::logout();
             session(['account_status'=> 'Account Disabled']);
         }
+        
     }
 
     public function logout(Request $request)

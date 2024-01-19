@@ -2,10 +2,11 @@
 
 namespace App\Console;
 
+use App\Jobs\DeleteOldSportsJob;
 use App\Jobs\WebhookExecutionJob;
 use App\Jobs\CheckFailedPaymentsJob;
-use App\Jobs\CheckExpiredSubscriptionsJob;
 use App\Jobs\DeleteOldNotificationsJob;
+use App\Jobs\CheckExpiredSubscriptionsJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new CheckFailedPaymentsJob())->everyMinute();
         $schedule->job(new CheckExpiredSubscriptionsJob())->daily();
         $schedule->job(new DeleteOldNotificationsJob())->daily();
+        $schedule->job(new DeleteOldSportsJob())->hourly();
     }
 
     /**

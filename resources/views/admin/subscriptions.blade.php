@@ -269,7 +269,7 @@
                                             <span class="required">Panel</span>
                                         </label>
 
-                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Panel" required>
+                                        <select name="panel_id" id="edit_panel_id" class="form-control form-control-solid" required>
                                             <option value=""></option>
                                             @foreach ($panels as $panel)
                                             <option value="{{$panel->id}}" data-smart_url="{{$panel->smart_url}}" data-xtream_url="{{$panel->xtream_url}}">{{$panel->name}}</option>
@@ -340,7 +340,7 @@
                                             <span class="required">Plan</span>
                                         </label>
 
-                                        <select name="plan_id" id="edit_plan" class="form-control form-control-solid" data-control="select2" data-placeholder="Select Plan" required>
+                                        <select name="plan_id" id="edit_plan" class="form-control form-control-solid" required>
                                             <option value=""></option>
                                             @foreach ($plans as $plan)
                                             <option value="{{$plan->id}}">{{$plan->name}} Plan</option>
