@@ -32,7 +32,7 @@ class DeleteOldSportsJob implements ShouldQueue
      */
     public function handle()
     {
-        $sports = Sport::where('start_at','<',now())->get();
+        $sports = Sport::where('start_at','<',now()->subDays(1))->get();
         foreach($sports as $sport){
             Storage::delete('public/sports/',$sport->player_a_image);
             Storage::delete('public/sports/',$sport->player_b_image);
