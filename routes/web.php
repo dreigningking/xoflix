@@ -97,7 +97,6 @@ Route::get('support',[SupportController::class, 'user'])->name('support');
 Route::post('support',[SupportController::class, 'send'])->name('support_send');
 Route::get('sports',[SportsController::class, 'show'])->name('sports');
 Route::get('check',function(){
-    $plan = \App\Models\Plan::find(2);
-     dd($plan->getAttributes());
-
+    $payments = \App\Models\Payment::whereDoesntHave('subscription')->get();
+     dd($payments);
 });

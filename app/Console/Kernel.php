@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new WebhookExecutionJob())->everyMinute();
-        $schedule->job(new CheckFailedPaymentsJob())->everyMinute();
+        $schedule->job(new CheckFailedPaymentsJob())->daily();
         $schedule->job(new CheckExpiredSubscriptionsJob())->daily();
         $schedule->job(new DeleteOldNotificationsJob())->daily();
         $schedule->job(new DeleteOldSportsJob())->daily();
