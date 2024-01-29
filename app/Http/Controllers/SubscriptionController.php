@@ -27,7 +27,7 @@ class SubscriptionController extends Controller
 
         $total = Subscription::whereNotNull('start_at')->count();
         $expired = Subscription::expired()->count();
-        $subscriptions = Subscription::whereNotNull('start_at')->whereNotNull('user_id');
+        $subscriptions = Subscription::has('payment')->whereNotNull('start_at')->whereNotNull('user_id');
         if ($hide_expired = request()->expired) {
             $subscriptions = $subscriptions->where('end_at', '>', now());
         }

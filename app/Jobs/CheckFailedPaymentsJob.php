@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Payment;
+use App\Models\Subscription;
 use Illuminate\Bus\Queueable;
 use App\Http\Traits\FlutterwaveTrait;
 use Illuminate\Queue\SerializesModels;
@@ -37,5 +38,7 @@ class CheckFailedPaymentsJob implements ShouldQueue
             $payment->subscription()->delete();
             $payment->delete();            
         }
+        Subscription::whereDoesntHave('payment')->delete();
+        
     }
 }
