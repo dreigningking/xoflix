@@ -162,7 +162,7 @@ class SportsController extends Controller
 
     public function show()
     {
-        $sports = Sport::where('start_at','>',now())->orderBy('start_at','asc')->get();
+        $sports = Sport::where('start_at','>',now()->subHours(2))->orderBy('start_at','asc')->get();
         return view('user.sports',compact('sports'));
     }
 
