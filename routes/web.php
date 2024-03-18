@@ -98,5 +98,6 @@ Route::post('support',[SupportController::class, 'send'])->name('support_send');
 Route::get('sports',[SportsController::class, 'show'])->name('sports');
 Route::get('check',function(){
     $payments = \App\Models\Payment::whereDoesntHave('subscription')->get();
-     dd($payments);
+    \App\Models\Subscription::withTrashed()->whereHas('payment')->restore();
+    dd($payments);
 });
